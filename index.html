@@ -1,311 +1,547 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Точки КМЗ</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#14332a">
-<style>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self'; object-src 'none'; base-uri 'self'">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <title>КМЗ №1 — Заявки на продукцию</title>
+  <meta name="description" content="Выберите молочную продукцию КМЗ №1, оформите заказ и обмен и передайте заявку своему представителю.">
+  <meta name="theme-color" content="#F3F5F8" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A0F17" media="(prefers-color-scheme: dark)">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@700&display=swap">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="manifest" href="manifest.json">
+  <style>
 :root{
-  --paper:#eceee9; --card:#fff; --ink:#14171a; --mute:#6b7280; --line:#dcded8;
-  --ok:#16794a; --no:#5f6670; --wait:#a86408; --warn:#8e1f14; --warnbg:#fbe4e0;
-  --brand:#14332a;
+  color-scheme:light;
+  --bg:#F3F5F8;--card:#FFFFFF;--soft:#EEF1F6;--line:#E1E6EE;--line2:#D3DAE5;
+  --ink:#0C1726;--ink2:#4A5669;--mute:#8993A3;
+  --acc:#2350E6;--acc-h:#1C43C7;--acc-ink:#FFFFFF;--acc-soft:#E6ECFD;
+  --ex:#C2610C;--ex-ink:#FFFFFF;--ex-soft:#FCEEDD;
+  --ok:#17875B;--ok-soft:#E2F4EC;
+  --bad:#C2412B;--bad-soft:#FCE9E4;
+  --wbg:#FFF5E0;--wink:#94570F;--wline:#F1DDB5;
+  --glass:rgba(243,245,248,.86);
+  --shadow:0 1px 2px rgba(12,23,38,.04),0 8px 24px -14px rgba(12,23,38,.22);
+  --shadow-l:0 24px 70px -20px rgba(12,23,38,.45);
+  --t-milk:#E7EEFE;--t-milk-i:#2350E6;
+  --t-kef:#E3F4EC;--t-kef-i:#17875B;
+  --t-ryaz:#FBEADB;--t-ryaz-i:#B5581A;
+  --t-smet:#FFF4D1;--t-smet-i:#946600;
+  --t-tvor:#F1ECFA;--t-tvor-i:#6F45B8;
+  --t-yog:#FCE7EE;--t-yog-i:#C0336A;
+  --t-fant:#F7E6F4;--t-fant-i:#A0307E;
+  --t-cheese:#FFEFD6;--t-cheese-i:#A5610A;
+  --t-butter:#FFF7C9;--t-butter-i:#846D00;
+  --t-um:#F4EDDD;--t-um-i:#8E6B22;
+  --f:"Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;
+  --d:"Unbounded","Onest",-apple-system,"Segoe UI",Arial,sans-serif;
+  --safe:env(safe-area-inset-bottom,0px);
+  /* старые имена — на случай, если где-то используются */
+  --blue:var(--acc);--navy:var(--ink);--muted:var(--mute);--green:var(--ok);--orange:var(--ex);
 }
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{background:var(--paper);color:var(--ink);
-  font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-  padding-bottom:84px;overscroll-behavior-y:contain}
-header{position:sticky;top:0;z-index:10;background:var(--brand);color:#fff;
-  padding:calc(env(safe-area-inset-top) + 10px) 12px 0}
-.top{display:flex;align-items:baseline;gap:8px;padding-bottom:8px}
-.top b{font-size:17px;font-weight:600;letter-spacing:.2px}
-.top span{font-size:13px;color:#9fc0b2;margin-left:auto}
-.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none}
-.tabs::-webkit-scrollbar{display:none}
-.tab{flex:0 0 auto;border:0;background:#20463a;color:#cfe3da;font:600 15px/1 system-ui;
-  padding:11px 14px;border-radius:9px}
-.tab[aria-selected=true]{background:#fff;color:var(--brand)}
-.tab i{font-style:normal;font-weight:400;opacity:.75;margin-left:6px}
-.bar{display:flex;gap:8px;padding:0 0 10px}
-.bar input{flex:1;min-width:0;border:0;border-radius:9px;padding:12px 13px;
-  font-size:16px;background:#20463a;color:#fff}
-.bar input::placeholder{color:#8fb2a3}
-.bar input:focus{outline:2px solid #fff;outline-offset:1px}
-.prog{height:3px;background:#20463a;margin:0 -12px}
-.prog i{display:block;height:100%;background:#5bd39b;width:0;transition:width .2s}
-main{padding:10px 12px}
-.rowwrap{background:var(--card);border-radius:12px;margin-bottom:8px;overflow:hidden;
-  border-left:5px solid transparent}
-.rowwrap.s-ok{border-left-color:var(--ok)}
-.rowwrap.s-no{border-left-color:var(--no)}
-.rowwrap.s-wait{border-left-color:var(--wait)}
-.row{display:flex;align-items:center;gap:10px;width:100%;background:none;border:0;
-  padding:15px 14px;text-align:left;font:inherit;color:inherit}
-.row b{font-weight:600;font-size:17px;flex:1;display:block}
-.row .cnt{font-size:13px;color:var(--mute);font-weight:400;display:block;margin-top:2px}
-.quick{display:flex;gap:6px;padding:9px 10px 9px 0}
-.quick button{width:52px;height:52px;border-radius:10px;border:1.5px solid var(--line);
-  background:#fff;font-size:23px;line-height:1;color:#aeb3ac}
-.quick button[aria-pressed=true]{border-color:transparent;color:#fff}
-.quick .q-ok[aria-pressed=true]{background:var(--ok)}
-.quick .q-no[aria-pressed=true]{background:var(--no)}
-.rowline{display:flex;align-items:center}
-.rowline .row{flex:1;padding-right:4px}
-.link{background:#e9f0ec;color:#14332a;border-radius:9px;padding:11px 12px;margin:12px 0;font-size:15px}
-.link b{font-weight:600}
-.link button{border:0;background:none;color:#14332a;font:inherit;text-decoration:underline;
-  padding:3px 0;margin-right:10px}
-.more{width:100%;margin-top:14px;border:1.5px solid var(--line);background:#fff;border-radius:10px;
-  padding:14px;font:600 16px/1 system-ui;color:var(--ink);text-align:left}
-.more span{float:right;color:var(--mute);font-weight:400}
-.body{padding:0 14px 14px;border-top:1px solid var(--line)}
-.warn{background:var(--warnbg);color:var(--warn);font-size:15px;font-weight:500;
-  padding:11px 12px;border-radius:9px;margin:12px 0}
-.calls{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.calls a{text-decoration:none;background:var(--brand);color:#fff;font-weight:600;
-  padding:12px 16px;border-radius:9px;font-size:16px}
-.calls em{font-style:normal;color:var(--mute);padding:12px 0;font-size:15px}
-.cat{margin-top:14px}
-.cat h4{margin:0 0 6px;font-size:13px;font-weight:600;color:var(--mute)}
-.chip{display:inline-block;background:#f1f2ee;border:1px solid var(--line);
-  border-radius:8px;padding:7px 10px;margin:0 6px 6px 0;font-size:15px}
-.chip u{text-decoration:none;color:var(--warn);font-size:13px;margin-left:5px}
-.chip s{text-decoration:none;color:var(--mute);font-size:13px}
-.empty{color:var(--mute);font-size:15px;margin:14px 0}
-.acts{display:flex;gap:8px;margin-top:14px}
-.acts button{flex:1;border:1.5px solid var(--line);background:#fff;color:var(--ink);
-  border-radius:10px;padding:13px 4px;font:600 15px/1.25 system-ui}
-.acts button[aria-pressed=true]{color:#fff;border-color:transparent}
-.acts .b-ok[aria-pressed=true]{background:var(--ok)}
-.acts .b-no[aria-pressed=true]{background:var(--no)}
-.acts .b-wait[aria-pressed=true]{background:var(--wait)}
-textarea{width:100%;margin-top:10px;border:1.5px solid var(--line);border-radius:10px;
-  padding:11px;font:16px/1.35 system-ui;resize:vertical;min-height:46px;background:#fff}
-footer{position:fixed;left:0;right:0;bottom:0;display:flex;gap:8px;padding:10px 12px;
-  padding-bottom:calc(env(safe-area-inset-bottom) + 10px);
-  background:rgba(236,238,233,.95);border-top:1px solid var(--line);backdrop-filter:blur(6px)}
-footer button{border:0;border-radius:11px;font:600 16px/1 system-ui;padding:16px}
-#rep{flex:1;background:var(--brand);color:#fff}
-#clr{background:#dfe1dc;color:#3d4247;padding-left:18px;padding-right:18px}
-.toast{position:fixed;left:12px;right:12px;bottom:86px;background:#14171a;color:#fff;
-  padding:14px;border-radius:11px;font-size:15px;text-align:center;opacity:0;
-  transition:opacity .2s;pointer-events:none}
-.toast.on{opacity:1}
-:focus-visible{outline:2px solid #14332a;outline-offset:2px}
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (prefers-color-scheme:dark){:root{
+  color-scheme:dark;
+  --bg:#0A0F17;--card:#111823;--soft:#18212E;--line:#222D3C;--line2:#2C3949;
+  --ink:#E9EEF6;--ink2:#A5B0C2;--mute:#6D788A;
+  --acc:#6E8DFF;--acc-h:#8AA3FF;--acc-ink:#0A0F17;--acc-soft:#1A2547;
+  --ex:#F0A15A;--ex-ink:#1A1004;--ex-soft:#34240F;
+  --ok:#4CC794;--ok-soft:#10301F;
+  --bad:#F0766B;--bad-soft:#3A1D1A;
+  --wbg:#2E2210;--wink:#F0C27A;--wline:#4A3718;
+  --glass:rgba(10,15,23,.86);
+  --shadow:0 1px 0 rgba(255,255,255,.03),0 12px 30px -14px rgba(0,0,0,.7);
+  --shadow-l:0 24px 70px -20px rgba(0,0,0,.8);
+  --t-milk:#17244A;--t-milk-i:#8FA8FF;
+  --t-kef:#10301F;--t-kef-i:#5ED3A2;
+  --t-ryaz:#35220F;--t-ryaz-i:#F0A36A;
+  --t-smet:#332A0C;--t-smet-i:#E8C45A;
+  --t-tvor:#251B3A;--t-tvor-i:#BF9BF0;
+  --t-yog:#3A1726;--t-yog-i:#F08BB2;
+  --t-fant:#351634;--t-fant-i:#EA8BD0;
+  --t-cheese:#37260C;--t-cheese-i:#F2B45C;
+  --t-butter:#33300B;--t-butter-i:#E6D55A;
+  --t-um:#2F2716;--t-um-i:#DDBB72;
+}}
+
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.45 var(--f);-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums}
+button,input,textarea{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer;touch-action:manipulation}
+button:disabled{cursor:default;opacity:.4}
+a{color:var(--acc);text-decoration:none}
+h1,h2,h3,p{margin:0}
+button,a,input,textarea{-webkit-tap-highlight-color:transparent}
+button:focus-visible,a:focus-visible,input:focus-visible,textarea:focus-visible,[tabindex]:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+[hidden]{display:none!important}
+svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;vertical-align:middle}
+img{display:block;max-width:100%}
+.skip{position:fixed;top:-90px;left:20px;background:var(--card);padding:12px;z-index:100;border-radius:10px}
+.skip:focus{top:10px}
+
+/* ---------- каркас ---------- */
+.app-shell{display:grid;grid-template-columns:252px minmax(0,1fr);min-height:100vh;max-width:1520px;margin:0 auto}
+.rail{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;background:transparent;color:var(--ink2);padding:24px 14px 20px 20px;border-right:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:12px;color:var(--ink);padding:0 8px 24px}
+.brand img{border-radius:13px;background:#fff;flex-shrink:0;width:42px;height:42px;box-shadow:var(--shadow)}
+.brand strong{font:700 17px/1.15 var(--d);letter-spacing:-.02em}
+.brand small{display:block;font-size:12px;margin-top:3px;color:var(--mute)}
+.rail-heading{padding:0 10px 8px;display:flex;justify-content:space-between;font-size:11px;letter-spacing:.1em;font-weight:600;color:var(--mute)}
+.rail-heading span{letter-spacing:0}
+#categories{overflow:auto;scrollbar-width:thin;scrollbar-color:var(--line2) transparent;flex:1;min-height:100px;margin-right:-6px;padding-right:6px}
+.category{display:flex;align-items:center;gap:11px;min-height:42px;width:100%;padding:8px 10px;border-radius:12px;text-align:left;color:var(--ink2);line-height:1.25;font-size:14px;margin:1px 0;transition:background .15s,color .15s}
+.category svg{width:18px;height:18px;flex-shrink:0}
+.category>span:nth-child(2){flex:1}
+.category .cat-count{font-size:12px;color:var(--mute);font-weight:500}
+.category:hover{background:var(--card);color:var(--ink)}
+.category.active{background:var(--card);color:var(--ink);font-weight:600;box-shadow:var(--shadow)}
+.category>svg{width:26px;height:26px;padding:4px;border-radius:8px;background:var(--soft);color:var(--ink2)}
+.rail-divider{height:1px;background:var(--line);margin:10px 10px}
+.sw{display:inline-block;flex:none;width:26px;height:26px;border-radius:8px;background:var(--t-milk);position:relative}
+.sw::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--t-milk-i);opacity:.9}
+.rail-contact{margin-top:16px;padding:14px;border-radius:16px;background:var(--card);box-shadow:var(--shadow);font-size:12px}
+.rail-contact strong{color:var(--mute);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase}
+.contact-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-right:7px}
+.rail-contact p{font-size:16px;font-weight:600;color:var(--ink);margin:6px 0 2px}
+.rail-contact a{color:var(--ink2);font-size:14px;display:block}
+.rail-contact small{display:block;color:var(--mute);font-size:11px;margin-top:10px}
+.app-content{min-width:0}
+
+/* ---------- верхняя панель ---------- */
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;background:transparent;padding:18px 32px 0;min-height:0}
+.point-switch{display:flex;align-items:center;gap:12px;padding:8px 14px 8px 8px;min-width:0;max-width:460px;text-align:left;background:var(--card);border:1px solid var(--line);border-radius:14px}
+.point-switch:hover{border-color:var(--line2)}
+.point-switch>span:first-child{display:grid;place-items:center;width:36px;height:36px;border-radius:10px;background:var(--acc-soft);color:var(--acc);flex-shrink:0}
+.point-switch>span:first-child svg{width:18px;height:18px}
+.point-switch>span:nth-child(2){min-width:0}
+.point-switch small{display:block;font-size:10px;letter-spacing:.1em;color:var(--mute);margin-bottom:1px}
+.point-switch strong{display:block;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.point-switch>span:last-child{color:var(--mute);flex-shrink:0}
+.point-switch>span:last-child svg{width:16px;height:16px}
+.top-actions{display:flex;align-items:center;gap:4px;flex-shrink:0}
+.nav-button,.icon-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-width:44px;min-height:44px;border-radius:12px;color:var(--ink2);font-size:14px;font-weight:500}
+.nav-button{padding:0 14px}
+.nav-button:hover,.icon-button:hover{background:var(--card);color:var(--ink)}
+.call-button{display:flex;align-items:center;gap:8px;padding:0 16px;min-height:44px;background:var(--ok-soft);border-radius:12px;color:var(--ok);font-size:14px;font-weight:600;margin-left:6px}
+.mobile-brand{display:none}
+
+.content-wrap{max-width:1470px;margin:auto;padding:26px 32px 40px}
+.page-intro{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:26px}
+.eyebrow{font-size:11px;letter-spacing:.12em;font-weight:600;color:var(--mute);margin-bottom:8px}
+h1{font:700 40px/1.05 var(--d);letter-spacing:-.035em}
+h1>span{color:var(--acc)}
+.page-intro p{font-size:14px;color:var(--mute);margin-top:10px}
+.delivery{display:flex;align-items:center;gap:14px;background:var(--card);padding:12px 18px 12px 12px;border-radius:18px;box-shadow:var(--shadow);min-width:0;border:0}
+.dday{flex:none;width:52px;height:56px;border-radius:13px;background:var(--ink);color:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1}
+.dday b{font:700 21px var(--d);letter-spacing:-.03em}
+.dday small{font-size:10px!important;text-transform:uppercase;letter-spacing:.08em;margin-top:5px;opacity:.7;color:inherit!important}
+.dday svg{width:24px;height:24px}
+.delivery small{display:block;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.delivery strong{display:block;font-size:15px;font-weight:600;color:var(--ink);margin:2px 0}
+.delivery strong::first-letter{text-transform:uppercase}
+.delivery #delivery-deadline{display:block;font-size:13px;color:var(--ok);font-weight:500}
+
+.workspace{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:28px;align-items:start}
+.catalog{min-width:0}
+.catalog-tools{position:sticky;top:0;background:var(--glass);-webkit-backdrop-filter:saturate(1.4) blur(14px);backdrop-filter:saturate(1.4) blur(14px);padding:10px 0 14px;margin-top:-10px;z-index:10}
+.mode-tabs{display:flex;gap:4px;padding:4px;background:var(--card);border:1px solid var(--line);border-radius:15px;margin-bottom:10px}
+.mode-tabs>button{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;min-height:44px;border-radius:11px;font-size:15px;font-weight:600;color:var(--ink2);transition:background .15s,color .15s}
+.mode-tabs>button svg{width:18px;height:18px}
+.mode-tabs>button.active{background:var(--acc);color:var(--acc-ink);box-shadow:0 8px 18px -10px var(--acc)}
+.mode-tabs>.return-tab.active{background:var(--ex);color:var(--ex-ink);box-shadow:0 8px 18px -10px var(--ex)}
+.counter{display:inline-flex;align-items:center;justify-content:center;min-width:22px;height:22px;padding:0 7px;border-radius:99px;background:var(--soft);color:var(--ink2);font-size:12px;font-weight:600}
+.mode-tabs>.active .counter,.mode-tabs>.return-tab.active .counter{background:rgba(255,255,255,.24);color:inherit}
+.search-row{display:flex;gap:10px}
+.search{display:flex;align-items:center;gap:10px;flex:1;min-width:0;background:var(--card);border:1px solid var(--line);height:50px;border-radius:14px;padding-left:15px}
+.search>span{color:var(--mute);display:flex}
+.search>span svg{width:18px;height:18px}
+.search input{height:100%;width:100%;min-width:0;border:0;outline:0;background:transparent;font-size:16px;padding:0 6px 0 0;color:var(--ink)}
+.search input::placeholder{color:var(--mute)}
+.search input::-webkit-search-cancel-button{-webkit-appearance:none}
+.search:focus-within{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.search input:focus-visible{outline:none}
+.search button{min-width:44px;height:44px;color:var(--mute);display:grid;place-items:center}
+.favorite-filter{width:50px;height:50px;flex-shrink:0;border:1px solid var(--line);background:var(--card);color:var(--mute);border-radius:14px}
+.favorite-filter.active{border-color:#E0445B;color:#E0445B}
+.favorite-filter.active svg{fill:currentColor}
+.mobile-categories{display:none}
+
+.list-heading{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:10px 2px 6px}
+.list-heading h2{font:700 22px var(--d);letter-spacing:-.03em}
+.list-heading>span{font-size:13px;color:var(--mute);white-space:nowrap}
+.product-group{margin-bottom:10px}
+.group-label{display:flex;align-items:baseline;gap:10px;font:700 17px var(--d);letter-spacing:-.02em;color:var(--ink);margin:22px 2px 12px;flex-wrap:wrap}
+.group-label small{font:500 12px var(--f);letter-spacing:0;color:var(--mute);background:var(--soft);padding:3px 9px;border-radius:99px}
+
+/* ---------- карточка товара ---------- */
+.product-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(208px,1fr));gap:12px}
+.product{position:relative;display:flex;flex-direction:column;gap:10px;padding:10px;background:var(--card);border:1.5px solid transparent;border-radius:20px;box-shadow:var(--shadow);transition:border-color .15s}
+.product.selected{border-color:var(--acc)}
+.exchange-mode .product.selected{border-color:var(--ex)}
+.product-symbol{position:relative;display:flex;flex-direction:column;justify-content:space-between;min-height:100px;padding:13px 14px 12px;border-radius:14px;background:var(--t-milk);color:var(--t-milk-i)}
+.ps-big{font:700 30px/1 var(--d);letter-spacing:-.045em;padding-right:34px}
+.ps-big sup{font-size:.5em;vertical-align:top;position:relative;top:.1em;margin-left:1px;letter-spacing:0}
+.ps-big.w{font-size:19px;letter-spacing:-.02em;line-height:1.12;overflow-wrap:anywhere}
+.ps-sub{display:flex;gap:6px;align-items:center;font-size:13px;font-weight:600;opacity:.88;margin-top:10px}
+.ps-sub i{font-style:normal;font-weight:500;opacity:.8}
+.favorite{position:absolute;top:6px;right:6px;display:grid;place-items:center;width:38px;height:38px;border-radius:11px;color:currentColor;opacity:.5}
+.favorite:hover{opacity:1}
+.favorite svg{width:19px;height:19px}
+.favorite.active{opacity:1;color:#E0445B}
+.favorite.active svg{fill:currentColor}
+.product-info{flex:1;padding:0 3px;min-width:0}
+.product-name{font-size:15px;font-weight:600;line-height:1.3;letter-spacing:-.005em;overflow-wrap:anywhere}
+.product-meta{display:flex;gap:5px;flex-wrap:wrap;font-size:12px;color:var(--ink2);margin-top:8px}
+.product-meta>span{background:var(--soft);padding:3px 8px;border-radius:99px;font-weight:500}
+.product-meta .unit{color:var(--ink2)}
+.product-hint,.product-warn{font-size:12.5px;color:var(--mute);margin-top:7px;line-height:1.35}
+.product-warn{color:var(--wink);background:var(--wbg);padding:4px 8px;border-radius:8px;display:inline-block;font-weight:500}
+.product-controls{display:flex;align-items:center}
+.qty{flex:1;display:flex;align-items:center;justify-content:space-between;background:var(--soft);border-radius:13px;padding:3px;height:46px;transition:background .15s}
+.qty button{width:40px;height:40px;display:grid;place-items:center;background:transparent;color:var(--ink2);border-radius:10px;flex:none}
+.qty button svg{width:17px;height:17px;stroke-width:2.2}
+.qty button[data-action="plus"]{background:var(--acc);color:var(--acc-ink)}
+.qty button[data-action="plus"]:hover{background:var(--acc-h)}
+.qty input{flex:1;width:0;text-align:center;font-weight:700;font-size:17px;background:none;border:0;padding:0;min-width:0;border-radius:6px;color:var(--ink)}
+.product.selected .qty{background:var(--acc)}
+.product.selected .qty button,.product.selected .qty button[data-action="plus"]{background:transparent;color:var(--acc-ink)}
+.product.selected .qty button:hover{background:rgba(255,255,255,.18)}
+.product.selected .qty input{color:var(--acc-ink)}
+.exchange-mode .qty button[data-action="plus"]{background:var(--ex);color:var(--ex-ink)}
+.exchange-mode .product.selected .qty{background:var(--ex)}
+.exchange-mode .product.selected .qty button,.exchange-mode .product.selected .qty input{color:var(--ex-ink);background:transparent}
+.quantity-note{display:none;font-size:12.5px;color:var(--acc);font-weight:500;padding:0 3px;margin-top:-2px}
+.product.selected .quantity-note{display:block}
+.exchange-mode .quantity-note{color:var(--ex)}
+
+.product[data-tone=kef] .product-symbol{background:var(--t-kef);color:var(--t-kef-i)}
+.product[data-tone=ryaz] .product-symbol{background:var(--t-ryaz);color:var(--t-ryaz-i)}
+.product[data-tone=smet] .product-symbol{background:var(--t-smet);color:var(--t-smet-i)}
+.product[data-tone=tvor] .product-symbol{background:var(--t-tvor);color:var(--t-tvor-i)}
+.product[data-tone=yog] .product-symbol{background:var(--t-yog);color:var(--t-yog-i)}
+.product[data-tone=fant] .product-symbol{background:var(--t-fant);color:var(--t-fant-i)}
+.product[data-tone=cheese] .product-symbol{background:var(--t-cheese);color:var(--t-cheese-i)}
+.product[data-tone=butter] .product-symbol{background:var(--t-butter);color:var(--t-butter-i)}
+.product[data-tone=um] .product-symbol{background:var(--t-um);color:var(--t-um-i)}
+.sw[data-tone=kef]{background:var(--t-kef)}.sw[data-tone=kef]::after{background:var(--t-kef-i)}
+.sw[data-tone=ryaz]{background:var(--t-ryaz)}.sw[data-tone=ryaz]::after{background:var(--t-ryaz-i)}
+.sw[data-tone=smet]{background:var(--t-smet)}.sw[data-tone=smet]::after{background:var(--t-smet-i)}
+.sw[data-tone=tvor]{background:var(--t-tvor)}.sw[data-tone=tvor]::after{background:var(--t-tvor-i)}
+.sw[data-tone=yog]{background:var(--t-yog)}.sw[data-tone=yog]::after{background:var(--t-yog-i)}
+.sw[data-tone=fant]{background:var(--t-fant)}.sw[data-tone=fant]::after{background:var(--t-fant-i)}
+.sw[data-tone=cheese]{background:var(--t-cheese)}.sw[data-tone=cheese]::after{background:var(--t-cheese-i)}
+.sw[data-tone=butter]{background:var(--t-butter)}.sw[data-tone=butter]::after{background:var(--t-butter-i)}
+.sw[data-tone=um]{background:var(--t-um)}.sw[data-tone=um]::after{background:var(--t-um-i)}
+
+.empty-state{text-align:center;background:var(--card);border:1px dashed var(--line2);border-radius:20px;padding:40px 24px;color:var(--mute)}
+.empty-state .empty-symbol{display:grid;place-items:center;width:64px;height:64px;border-radius:50%;background:var(--soft);margin:0 auto 16px;color:var(--mute)}
+.empty-state .empty-symbol svg{width:28px;height:28px}
+.empty-state h3{font-size:18px;color:var(--ink);margin-bottom:8px}
+.empty-state p{font-size:14px;margin-bottom:18px}
+.catalog-footer{display:flex;justify-content:center;align-items:flex-start;gap:8px;font-size:12px;color:var(--mute);margin:34px 0 10px;text-align:center}
+.catalog-footer svg{width:16px;height:16px;margin-top:2px;flex-shrink:0}
+
+/* ---------- корзина ---------- */
+.basket{position:sticky;top:18px;background:var(--card);border:0;border-radius:22px;box-shadow:var(--shadow);overflow:hidden}
+.basket-heading{display:flex;align-items:center;justify-content:space-between;padding:20px 20px 12px}
+.basket-heading h2{font:700 18px var(--d);letter-spacing:-.02em}
+.basket-empty{padding:12px 24px 30px;text-align:center}
+.basket-empty .empty-symbol{height:76px;width:76px;background:var(--soft);color:var(--mute);display:grid;place-items:center;border-radius:50%;margin:0 auto 16px}
+.basket-empty .empty-symbol svg{width:34px;height:34px;stroke-width:1.5}
+.basket-empty h3{font-size:16px;margin-bottom:6px}
+.basket-empty p{font-size:13px;line-height:1.6;color:var(--mute)}
+.basket-items{max-height:calc(100vh - 360px);overflow:auto;padding:0 20px;scrollbar-width:thin;min-height:100px}
+.basket-section{font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--acc);padding:12px 0 4px}
+.basket-section.orange{color:var(--ex)}
+.basket-item{border-bottom:1px solid var(--line);padding:11px 0}
+.basket-item:last-child{border:0}
+.basket-item-name{display:flex;align-items:flex-start;gap:8px;font-size:14px;font-weight:500;line-height:1.35}
+.basket-item-name>span{flex:1;min-width:0;overflow-wrap:anywhere}
+.remove{width:32px;height:32px;flex-shrink:0;display:grid;place-items:center;color:var(--mute);border-radius:9px;margin-top:-6px}
+.remove svg{width:16px;height:16px}
+.remove:hover{background:var(--bad-soft);color:var(--bad)}
+.basket-item-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:6px}
+.basket-item-bottom strong{font-size:13px;color:var(--ink2);font-weight:600}
+.mini-qty{display:flex;align-items:center;gap:2px;font-size:14px;font-weight:600;background:var(--soft);border-radius:11px;padding:2px}
+.mini-qty button{width:32px;height:32px;border-radius:9px;background:transparent;color:var(--ink2);display:grid;place-items:center}
+.mini-qty button:hover{background:var(--card);color:var(--ink)}
+.mini-qty button svg{width:15px;height:15px}
+.mini-qty span{min-width:24px;text-align:center}
+.basket-footer{padding:16px 20px 18px;border-top:1px solid var(--line);background:var(--card)}
+.totals{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px;font-size:12.5px;color:var(--ink2)}
+.totals span{padding:4px 10px;background:var(--soft);border-radius:99px}
+.primary,.secondary,.danger{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:50px;padding:12px 18px;border-radius:14px;font-size:15px;line-height:1.3;font-weight:600;text-align:center}
+.primary{background:var(--acc);color:var(--acc-ink);box-shadow:0 12px 24px -16px var(--acc)}
+.primary:hover{background:var(--acc-h)}
+.primary:disabled{box-shadow:none}
+.secondary{background:var(--card);border:1px solid var(--line2);color:var(--ink)}
+.secondary:hover{background:var(--soft)}
+.danger{background:var(--bad);color:#fff}
+.full{width:100%}
+.basket-caption{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;font-size:12px;color:var(--mute);margin-top:12px}
+.basket-caption svg{width:14px;height:14px}
+.link-button{font-size:14px;color:var(--acc);padding:8px;border-radius:9px;min-height:36px}
+.link-button:hover{background:var(--acc-soft)}
+.clear-basket{display:block;font-size:12px;color:var(--mute);margin:4px auto -6px;padding:8px;text-decoration:underline;text-underline-offset:3px}
+
+/* ---------- уведомления ---------- */
+.notice{border:1px solid var(--line);background:var(--acc-soft);border-radius:14px;padding:13px 16px;margin-bottom:16px;color:var(--ink);font-size:14px;line-height:1.5}
+.notice button{text-decoration:underline;color:inherit;font-weight:600}
+.notice.warning{background:var(--wbg);border-color:var(--wline);color:var(--wink)}
+.exchange-note{display:flex;gap:11px;background:var(--ex-soft);border-color:transparent;color:var(--ex);margin:2px 0 8px}
+.exchange-note>span:first-child{flex-shrink:0}
+.mobile-bottom{display:none}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);max-width:calc(100% - 32px);width:max-content;padding:13px 20px;background:var(--ink);color:var(--bg);border-radius:14px;box-shadow:var(--shadow-l);font-size:14px;text-align:center;z-index:100}
+
+/* ---------- окна ---------- */
+.modal-overlay{position:fixed;inset:0;z-index:60;background:rgba(6,10,18,.5);-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:24px}
+.modal{display:flex;flex-direction:column;width:640px;max-width:100%;max-height:calc(100vh - 48px);max-height:calc(100dvh - 48px);background:var(--bg);box-shadow:var(--shadow-l);border-radius:24px;overflow:hidden;outline:0}
+.modal-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 22px 16px;background:var(--card);border-bottom:1px solid var(--line);flex-shrink:0}
+.modal-head small{display:block;font-size:11px;letter-spacing:.1em;color:var(--mute);margin-bottom:4px;text-transform:uppercase}
+.modal-head h2{font:700 20px/1.25 var(--d);letter-spacing:-.025em;overflow-wrap:anywhere}
+.modal-head>button{flex-shrink:0}
+.modal-body{padding:20px 22px;overflow:auto;overscroll-behavior:contain;min-height:0}
+.modal-foot{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:10px;padding:14px 22px;background:var(--card);border-top:1px solid var(--line);flex-shrink:0}
+.modal-foot:empty{display:none}
+.modal-foot>.primary{flex:1}
+.modal p{color:var(--ink2);font-size:14px;line-height:1.6}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:12px}
+.card:last-child{margin-bottom:0}
+.card h3{font-size:15px;margin-bottom:10px}
+.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.card-title h3{margin:0}
+.field{display:block;margin-bottom:16px}
+.field:last-child{margin-bottom:0}
+.field>span{display:block;font-size:14px;font-weight:600;margin-bottom:7px}
+.field input,.field textarea{display:block;width:100%;border:1px solid var(--line2);border-radius:12px;background:var(--card);color:var(--ink);padding:12px 14px;line-height:1.5;font-size:16px}
+.field input:focus,.field textarea:focus{outline:0;border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-soft)}
+.field textarea{min-height:100px;resize:vertical}
+.field input[aria-invalid=true]{border-color:var(--bad)}
+.field small{font-size:12px;color:var(--mute);display:block;margin-top:6px}
+.error-text{color:var(--bad)!important;font-size:13px!important;margin-bottom:14px}
+.point-card{display:flex;align-items:center;gap:10px;background:var(--card);border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;margin-bottom:10px}
+.point-card.active{background:var(--acc-soft);border-color:var(--acc)}
+.point-card .point-pick{flex:1;min-width:0;text-align:left;padding:0}
+.point-pick strong{display:block;font-size:15px;overflow-wrap:anywhere}
+.point-pick small{display:block;font-size:13px;color:var(--mute);margin-top:3px;overflow-wrap:anywhere}
+.point-pick .active-label{color:var(--acc);font-size:11px;margin-top:6px;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+.point-card>.icon-button{flex-shrink:0}
+.intro-copy{margin-bottom:16px!important}
+.review-point strong{display:block;font-size:17px;overflow-wrap:anywhere}
+.review-point p{font-size:13px;margin-top:3px;overflow-wrap:anywhere}
+.delivery-note{font-size:13px;color:var(--ok);background:var(--ok-soft);border-radius:12px;padding:12px 14px;margin-top:14px}
+.review-row{display:flex;align-items:flex-start;gap:12px;border-bottom:1px solid var(--line);padding:13px 0}
+.review-row:last-child{border:0}
+.review-row>div{flex:1;min-width:0}
+.review-row strong{display:block;font-size:15px;font-weight:600;overflow-wrap:anywhere}
+.review-row .qty-label{color:var(--acc);font-size:13px;margin-top:4px;font-weight:600}
+.review-row .remove{margin-top:0}
+.reason-options{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.reason{padding:9px 13px;min-height:42px;border:1px solid var(--line2);border-radius:11px;background:var(--card);color:var(--ink2);font-size:13px;font-weight:500}
+.reason.active{background:var(--ex-soft);border-color:var(--ex);color:var(--ex)}
+.reason.defect.active{background:var(--bad-soft);border-color:var(--bad);color:var(--bad)}
+.reason-hint{font-size:12px;color:var(--ex);margin-top:8px}
+.review-row .mini-qty{margin-top:8px;display:inline-flex}
+.preview{display:block;width:100%;min-height:230px;max-height:420px;border:1px solid var(--line2);border-radius:14px;background:var(--card);color:var(--ink);padding:15px;font:13px/1.6 ui-monospace,Consolas,monospace;resize:vertical;overflow-wrap:anywhere}
+.send-recipient{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.avatar{display:grid;place-items:center;background:var(--acc-soft);color:var(--acc);width:44px;height:44px;border-radius:50%;font-size:18px;font-weight:700;flex-shrink:0}
+.send-recipient strong{font-size:15px;display:block}
+.send-recipient small{font-size:12px;color:var(--mute);display:block;margin-top:2px}
+.send-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:11px}
+.send-grid button{font-size:14px;padding:11px 8px}
+.send-note{font-size:12px!important;margin:15px 0}
+.feedback{font-size:13px;border-radius:12px;background:var(--ok-soft);color:var(--ok);padding:13px 15px;margin-top:15px}
+.feedback.error{background:var(--bad-soft);color:var(--bad)}
+.confirm-icon{height:64px;width:64px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:grid;place-items:center;margin:3px auto 18px}
+.confirm-icon svg{width:30px;height:30px}
+.confirm-copy{text-align:center;margin-bottom:16px}
+.confirm-copy strong{display:block;font:700 18px var(--d);letter-spacing:-.02em;margin-bottom:8px}
+.confirm-check{display:flex;align-items:flex-start;gap:10px;font-size:14px;padding:14px 0}
+.confirm-check input{width:20px;height:20px;margin:1px 0 0;flex-shrink:0;accent-color:var(--acc)}
+.history-card{background:var(--card);border:1px solid var(--line);padding:16px;border-radius:16px;margin-bottom:12px}
+.history-top{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.history-top strong{font-size:15px}
+.history-top small{font-size:11px;color:var(--ok);background:var(--ok-soft);padding:3px 8px;border-radius:99px;font-weight:600}
+.history-card p{font-size:13px;margin-bottom:12px;overflow-wrap:anywhere}
+.history-actions{display:flex;gap:8px}
+.history-actions button{font-size:13px;min-height:42px;padding:9px 12px}
+.font-options{display:flex;gap:8px}
+.font-options button{flex:1;padding:12px;min-height:48px;border:1px solid var(--line2);border-radius:12px;font-size:14px;background:var(--card)}
+.font-options button.active{background:var(--acc-soft);border-color:var(--acc);color:var(--acc);font-weight:600}
+.settings-foot{font-size:12px!important;margin-top:18px;text-align:center}
+.setting-action{margin-top:12px}
+.muted{font-size:12px!important;color:var(--mute)!important}
+.spaced{margin-top:15px}
+
+html[data-font=large] .product-name,html[data-font=large] .review-row strong{font-size:18px}
+html[data-font=large] .product-meta,html[data-font=large] .quantity-note,html[data-font=large] .basket-item-name{font-size:15px}
+html[data-font=large] .category{font-size:16px}
+html[data-font=large] .qty{height:52px}
+html[data-font=large] .qty button{width:44px;height:44px}
+html[data-font=large] .qty input{font-size:19px}
+html[data-font=large] .modal p{font-size:16px}
+
+/* ---------- адаптив ---------- */
+@media(max-width:1280px){
+  .app-shell{grid-template-columns:224px minmax(0,1fr)}
+  .rail{padding-left:14px;padding-right:10px}
+  .content-wrap{padding:24px 24px 40px}
+  .topbar{padding:16px 24px 0}
+  .workspace{grid-template-columns:minmax(0,1fr) 300px;gap:20px}
+  .product-list{grid-template-columns:repeat(auto-fill,minmax(190px,1fr))}
+  h1{font-size:34px}
+}
+@media(max-width:1100px){
+  .call-button>span:last-child{display:none}
+  .call-button{padding:0 12px}
+  .nav-button>span:last-child{display:none}
+  .nav-button{padding:0}
+}
+@media(max-width:950px){
+  .app-shell{display:block}
+  .rail{display:none}
+  .mobile-brand{display:flex;align-items:center;gap:10px;color:var(--ink)}
+  .mobile-brand img{border-radius:11px;background:#fff;width:36px;height:36px}
+  .mobile-brand strong{font:700 16px var(--d);letter-spacing:-.02em}
+  .topbar{flex-wrap:wrap;gap:10px 8px;padding:14px 20px 0}
+  .point-switch{order:3;width:100%;max-width:none}
+  .top-actions{margin-left:auto}
+  .mobile-categories{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:12px -20px 0;padding:2px 20px}
+  .mobile-categories::-webkit-scrollbar{display:none}
+  .mobile-category{flex:none;display:inline-flex;align-items:center;gap:8px;white-space:nowrap;border:1px solid var(--line);background:var(--card);color:var(--ink2);border-radius:99px;padding:0 14px 0 5px;height:40px;font-size:14px;font-weight:500}
+  .mobile-category.plain{padding-left:14px}
+  .mobile-category .sw{width:28px;height:28px;border-radius:99px}
+  .mobile-category .sw::after{inset:9px}
+  .mobile-category.active{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+  .content-wrap{padding:20px 20px 40px}
+}
+@media(max-width:760px){
+  .topbar{padding:12px 16px 0}
+  .content-wrap{padding:16px 16px 120px}
+  .page-intro{display:block;margin-bottom:16px}
+  .page-intro .eyebrow,.page-intro>div>p{display:none}
+  h1{font-size:28px}
+  .delivery{margin-top:14px;padding:10px 14px 10px 10px;border-radius:16px}
+  .dday{width:48px;height:52px}
+  .delivery strong{font-size:15px}
+  .workspace{display:block}
+  .basket{display:none}
+  .catalog-tools{position:static;background:none;-webkit-backdrop-filter:none;backdrop-filter:none;padding:4px 0 8px;margin:0}
+  .mode-tabs>button{min-height:42px;font-size:14px}
+  .search{height:48px}
+  .search input::placeholder{font-size:14px}
+  .favorite-filter{height:48px;width:48px}
+  .mobile-categories{margin:10px -16px 0;padding:2px 16px}
+  .list-heading{margin-top:6px}
+  .list-heading h2{font-size:20px}
+  .group-label{font-size:16px;margin:18px 2px 10px}
+  .product-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .product{padding:8px;border-radius:18px;gap:9px}
+  .product-symbol{min-height:88px;padding:11px 12px 10px;border-radius:13px}
+  .ps-big{font-size:26px;padding-right:30px}
+  .ps-big.w{font-size:16px}
+  .ps-sub{font-size:12px;margin-top:8px}
+  .favorite{top:3px;right:3px;width:36px;height:36px}
+  .favorite svg{width:18px;height:18px}
+  .product-info{padding:0 2px}
+  .product-name{font-size:14px;line-height:1.28}
+  .product-meta{font-size:11.5px;margin-top:6px;gap:4px}
+  .product-meta>span{padding:2px 7px}
+  .product-hint,.product-warn{font-size:12px}
+  .qty{height:44px;border-radius:12px}
+  .qty button{width:38px;height:38px}
+  .qty input{font-size:16px}
+  .quantity-note{font-size:12px}
+  .catalog-footer{font-size:11px;margin:26px 0}
+  .mobile-bottom{display:block;position:fixed;bottom:0;left:0;right:0;padding:12px 16px calc(12px + var(--safe));background:linear-gradient(to top,var(--bg) 62%,transparent);z-index:30;pointer-events:none}
+  .mobile-bottom>button{pointer-events:auto;display:flex;align-items:center;gap:12px;width:100%;min-height:58px;padding:10px 10px 10px 16px;background:var(--acc);color:var(--acc-ink);border-radius:17px;text-align:left;box-shadow:0 14px 30px -14px var(--acc)}
+  .mobile-bottom>button:disabled{opacity:1;background:var(--card);color:var(--mute);box-shadow:var(--shadow);border:1px solid var(--line)}
+  .mobile-bottom strong{font-size:15px;display:block;line-height:1.3;font-weight:600}
+  .mobile-bottom small{font-size:12px;display:block;opacity:.8;margin-top:1px}
+  .mobile-next{margin-left:auto;font-size:14px;display:flex;align-items:center;gap:5px;font-weight:600;background:rgba(255,255,255,.2);padding:10px 12px;border-radius:12px}
+  .mobile-bottom>button:disabled .mobile-next{background:var(--soft)}
+  .mobile-next svg{width:17px;height:17px}
+  .toast{bottom:calc(94px + var(--safe));font-size:14px}
+  .modal-overlay{padding:0;align-items:flex-end}
+  .modal{width:100%;border-radius:24px 24px 0 0;max-height:calc(100vh - 12px);max-height:calc(100dvh - 12px)}
+  .modal-head{padding:16px 16px 14px;position:relative}
+  .modal-head::before{content:"";position:absolute;top:7px;left:50%;width:38px;height:4px;margin-left:-19px;border-radius:9px;background:var(--line2)}
+  .modal-head h2{font-size:19px}
+  .modal-body{padding:16px}
+  .modal-foot{padding:12px 16px calc(12px + var(--safe));gap:8px}
+  .modal-foot .primary,.modal-foot .secondary{font-size:14px;padding-left:14px;padding-right:14px}
+  .card{padding:14px}
+  .preview{font-size:12.5px}
+  .send-grid button{font-size:13px}
+  .notice{font-size:13px;padding:12px 14px}
+  .history-top{flex-wrap:wrap}
+  .history-actions button{flex:1}
+  .review-row strong{font-size:14px}
+}
+@media(max-width:374px){
+  .content-wrap{padding-left:12px;padding-right:12px}
+  .topbar{padding-left:12px;padding-right:12px}
+  .mobile-categories{margin-left:-12px;margin-right:-12px;padding-left:12px;padding-right:12px}
+  .product-list{gap:8px}
+  .ps-big{font-size:23px}
+  .qty button{width:34px}
+  .mode-tabs>button{font-size:13px;gap:6px}
+  .mode-tabs svg{display:none}
+}
+@media(max-width:330px){.product-list{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
 </style>
 </head>
 <body>
-<header>
-  <div class="top"><b>Точки КМЗ</b><span id="today"></span></div>
-  <div class="tabs" id="tabs"></div>
-  <div class="bar"><input id="q" type="search" placeholder="Поиск по названию" autocomplete="off"></div>
-  <div class="prog"><i id="prog"></i></div>
-</header>
-<main id="list"></main>
-<footer>
-  <button id="rep">Собрать отчёт</button>
-  <button id="clr">Новый день</button>
-</footer>
-<div class="toast" id="toast"></div>
-<script>
-const DATA = {"cats": ["Творог", "Сметана", "Молоко", "Кефир", "Сыр", "Масло", "Крем с творогом", "Крем со сметаной", "Крем с йогуртом", "Крем с сухофруктами", "Ряженка", "Снежок", "Сельский", "Спред"], "routes": [{"id": "m1", "name": "Маршрут 1", "sub": "", "cl": [{"n": "Афанасьев Железнодорожная", "p": "8 989 025 16 61", "pos": {"Творог": ["5% (3кг)"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Афанасьев Обрывная", "p": "8 989 025 16 61", "pos": {"Творог": ["5% (3кг)"]}, "note": ""}, {"n": "Кутков Ставропольская", "p": "в группу", "pos": {"Творог": ["9% (3кг)", "5% (3кг)"], "Сметана": ["20% 300г Молодея", "20% 400г пакет", "20% 200г Молодея", "15% 300г Молодея"], "Молоко": ["3,2% 900 плёнка", "2,5% 900 плёнка", "2,5% 950 бутылка", "3,2% 950 бутылка"], "Кефир": ["2,5% 900 плёнка", "2,5% 950 бутылка", "1% 950 бутылка"], "Сыр": ["Крестьянский вес"], "Крем с сухофруктами": ["вкус любой 500г"]}, "note": ""}, {"n": "Кутков Старокорсунская", "p": "в группу", "pos": {"Творог": ["9% (3кг)", "5% (3кг) ГОСТ"], "Сметана": ["20% 300г Молодея", "20% 200г Молодея", "15% 300г Молодея", "20% 400г пакет"], "Молоко": ["3,2% 900 плёнка", "2,5% 950 бутылка", "2,5% 900 плёнка", "3,2% 950 бутылка"], "Кефир": ["2,5% 950 бутылка", "2,5% 900 плёнка", "1% 950 бутылка"], "Сыр": ["Крестьянский вес"], "Ряженка": ["2,5% 450г плёнка"]}, "note": ""}, {"n": "Кутков Ставского", "p": "в группу", "pos": {"Творог": ["9% (3кг)"], "Сметана": ["20% 300г Молодея", "20% 200г Молодея", "20% 400г пакет"], "Молоко": ["3,2% 900 плёнка", "2,5% 900 плёнка", "3,2% 950 бутылка"], "Кефир": ["2,5% 900 плёнка", "2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": ""}, {"n": "Курпитко Старокорсунская", "p": "8 961 584 48 70", "pos": {"Творог": ["5% (5кг)"], "Сметана": ["20% (3кг) ведро"], "Молоко": ["2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Шанталий", "p": "8 961 500 59 24", "pos": {}, "note": "Точки нет в 1С. Перед заездом спроси Женю."}]}, {"id": "m2", "name": "Маршрут 2", "sub": "", "cl": [{"n": "Арустумян", "p": "8 918 232 30 88\n8 918 324 11 11", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% 300г Молодея", "20% (3кг) ведро", "15% 300г Молодея", "20% 200г Молодея"], "Молоко": ["2,5% 900 плёнка", "3,2% 900 плёнка", "2,5% 950 бутылка"], "Кефир": ["2,5% 900 плёнка", "1% 950 бутылка"]}, "note": ""}, {"n": "Гриднев", "p": "8 928 275 33 40", "pos": {"Молоко": ["2,5% 900 плёнка", "3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Фермерский (5кг)", "Успенский №9 (5кг)"], "Сельский": ["вес"]}, "note": ""}, {"n": "Джалавян Московская", "p": "8 961 850 65 13", "pos": {"Молоко": ["2,5% 900 плёнка"], "Сыр": ["Крестьянский вес"]}, "note": ""}, {"n": "Дубинина", "p": "8 928 255 54 95\n8 928 617 77 22", "pos": {"Сметана": ["20% 200г Молодея", "15% 300г Молодея"], "Кефир": ["1% 950 бутылка"], "Крем с творогом": ["Фермерский (4кг)"]}, "note": ""}, {"n": "Дуюнова Тепличная", "p": "8 960 487 21 01\n8 952 851 89 72", "pos": {"Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Успенский №18 (4кг)"], "Сельский": ["вес"]}, "note": ""}, {"n": "Дуюнова Тихая", "p": "8 962 880 66 62", "pos": {"Молоко": ["3,2% 950 бутылка"], "Кефир": ["2,5% 950 бутылка"], "Сельский": ["вес"]}, "note": ""}, {"n": "Есаян Виталий", "p": "8 989 836 42 27", "pos": {"Крем с творогом": ["Фермерский (3кг)"], "Сельский": ["вес"]}, "note": ""}, {"n": "Есаян Регина", "p": "8 989 836 54 35", "pos": {"Крем с творогом": ["Фермерский (3кг)"], "Крем со сметаной": ["Успенская Новая 5кг"], "Сельский": ["вес"]}, "note": ""}, {"n": "Зигора", "p": "8 988 386 71 81\n8 995 225 59 02", "pos": {"Творог": ["9% (3кг)"], "Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Каграманова Арбатская", "p": "8 918 343 97 64", "pos": {"Молоко": ["3,2% 900 плёнка", "2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Фермерский (3кг)"]}, "note": ""}, {"n": "Карсаева", "p": "8 918 481 63 57", "pos": {"Крем с творогом": ["Фермерский (4кг)"], "Крем со сметаной": ["Кубаночка 5кг"]}, "note": ""}, {"n": "Клочун", "p": "8 978 598 14 57\n8 999 480 83 81", "pos": {"Творог": ["5% (3кг)"], "Крем с творогом": ["Успенский №9 (4кг)"]}, "note": ""}, {"n": "Кутявина Краеведа Соловьева", "p": "8 996 410 61 17", "pos": {"Молоко": ["2,5% 900 плёнка", "3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Фермерский (3кг)"]}, "note": ""}, {"n": "Кутявина Тепличная", "p": "8 996 410 61 17", "pos": {"Молоко": ["2,5% 950 бутылка", "3,2% 950 бутылка", "2,5% 900 плёнка"], "Кефир": ["2,5% 950 бутылка", "1% 950 бутылка", "2,5% 900 плёнка"], "Крем с творогом": ["Фермерский (3кг)"]}, "note": ""}, {"n": "Курпитко Кореновск Мира", "p": "8 961 584 48 70", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Кореновская", "p": "8 961 584 48 70", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"], "Молоко": ["3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Южный", "p": "8 961 584 48 70", "pos": {"Творог": ["5% (5кг)"], "Сметана": ["20% (3кг) ведро"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Логвина", "p": "8 918 092 53 64", "pos": {"Творог": ["9% (5кг)"], "Сыр": ["Крестьянский вес"], "Крем с творогом": ["Успенский №18 (4кг)", "Успенский №9 (4кг)"]}, "note": ""}, {"n": "Мамбетов", "p": "8 918 331 33 34", "pos": {"Сметана": ["20% (3кг) ведро"], "Крем с творогом": ["Успенский №9 (4кг)", "Успенский №18 (4кг)", "Фермерский (4кг)"]}, "note": ""}, {"n": "Молов Покрышкина", "p": "8 918 481 65 57", "pos": {"Крем с творогом": ["Успенский №9 (5кг)"]}, "note": ""}, {"n": "Саркисян Сережа", "p": "8 918 945 30 06", "pos": {"Молоко": ["3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Фермерский (3кг)"], "Крем со сметаной": ["Успенская Новая 5кг"]}, "note": ""}, {"n": "Стельмухова", "p": "8 964 891 48 98", "pos": {"Крем с творогом": ["Успенский №9 (5кг)", "Фермерский (5кг)"]}, "note": ""}, {"n": "Щеглов", "p": "8 918 432 10 96", "pos": {"Молоко": ["3,2% 950 бутылка", "2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Масло": ["72,5% в/с (5кг)"], "Крем с творогом": ["Успенский №9 (5кг)", "Фермерский (5кг)"]}, "note": "Молоко 3,2% — только бутылка 950. Плёнка = ошибка."}]}, {"id": "m3", "name": "Маршрут 3", "sub": "", "cl": [{"n": "Акопян", "p": "8 918 180 35 17", "pos": {"Сметана": ["20% 400г пакет"], "Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Афанасьев 1 мая", "p": "8 989 025 16 61", "pos": {"Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Афанасьев Героев Разведчиков", "p": "8 989 025 16 61", "pos": {"Творог": ["5% (3кг)"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Бондаренко", "p": "8 918 276 35 86", "pos": {"Крем с творогом": ["Фермерский (4кг)"], "Крем со сметаной": ["Кубаночка 5кг"]}, "note": ""}, {"n": "Векуа", "p": "8 977 024 95 88\n8 905 389 91 36", "pos": {"Творог": ["9% (5кг)"], "Сметана": ["20% (3кг) ведро"]}, "note": ""}, {"n": "Денисенко", "p": "8 961 591 56 38", "pos": {"Сметана": ["20% 300г Успенская", "20% (3кг) ведро", "15% 300г Успенская"], "Сыр": ["Крестьянский вес"], "Крем с творогом": ["Успенский №9 (5кг)", "Успенский №18 (4кг)"], "Крем с йогуртом": ["вкус любой 2,5кг"]}, "note": ""}, {"n": "Джалавян Зиповская", "p": "8 961 850 65 13", "pos": {"Молоко": ["3,2% 950 бутылка", "2,5% 950 бутылка", "2,5% 900 плёнка"], "Сыр": ["Крестьянский вес"], "Крем с творогом": ["Успенский №9 (5кг)"]}, "note": ""}, {"n": "Карапетян Давид", "p": "8 908 683 42 48", "pos": {"Творог": ["9% (3кг)", "5% (3кг)"], "Молоко": ["2,5% 900 плёнка", "3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Кунгуров Достоевского", "p": "8 918 542 68 07", "pos": {"Сметана": ["20% (3кг) ведро"], "Кефир": ["2,5% 900 плёнка"], "Сыр": ["Крестьянский вес"], "Крем с творогом": ["Успенский №18 (4кг)"]}, "note": ""}, {"n": "Кунгуров Репина", "p": "8 900 272 11 19", "pos": {"Сметана": ["20% (3кг) ведро"], "Крем с творогом": ["Успенский №18 (4кг)"], "Крем со сметаной": ["Успенская Новая 5кг"], "Сельский": ["вес"]}, "note": ""}, {"n": "Курпитко Героев Разведчиков", "p": "8 918 990 59 59", "pos": {"Творог": ["5% (5кг)"], "Сметана": ["20% (3кг) ведро"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Домбайская", "p": "8 918 990 59 59", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Зиповская", "p": "8 961 584 48 70", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Микушин Алексей Владимирович", "p": "8 989 813 10 98", "pos": {"Сыр": ["Крестьянский вес"]}, "note": ""}, {"n": "Оводова Черкасская", "p": "8 961 500 75 82", "pos": {"Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Успенский №9 (5кг)", "Фермерский (5кг)"], "Сельский": ["вес"]}, "note": ""}, {"n": "Очерет Героев Разведчиков", "p": "8 918 656 50 81", "pos": {"Сметана": ["20% (3кг) ведро"], "Молоко": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Соколов Александр Викторович 40 лет Победы", "p": "8 929 842 99 68", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"], "Молоко": ["3,2% 900 плёнка"], "Кефир": ["1% 950 бутылка"]}, "note": ""}, {"n": "Соколов Александр Викторович Героев Разведчиков", "p": "8 993 325 41 92", "pos": {"Сметана": ["20% 300г Успенская", "15% 300г Успенская"], "Крем с творогом": ["Фермерский (4кг)"], "Крем со сметаной": ["Успенская Новая 5кг"]}, "note": ""}, {"n": "Соколова Светлана Викторовна", "p": "8 938 507 80 58", "pos": {"Крем с творогом": ["Фермерский (5кг)"], "Крем со сметаной": ["Кубаночка 750г"], "Сельский": ["вес"]}, "note": ""}, {"n": "Фабрика / Безе / Сельдерей", "p": "8 928 259 40 40", "pos": {"Крем с творогом": ["Фермерский (3кг)  · Фабрика", "Фермерский (3кг)  · Безе", "Фермерский (4кг)  · Сельдерей"], "Крем со сметаной": ["Успенская Новая 5кг  · Фабрика", "Успенская Новая 5кг  · Безе", "Успенская Новая 5кг  · Сельдерей"]}, "note": "Сельский — всегда вакуум, даже если просят «вес». Три юрлица, заказ на каждое отдельно."}, {"n": "Харцызов Промышленная", "p": "8 991 417 73 12", "pos": {"Крем с творогом": ["Фермерский (5кг)"]}, "note": ""}, {"n": "Храпенкова", "p": "8 918 434 48 96", "pos": {"Творог": ["5% (5кг)"], "Сметана": ["20% 400г пакет", "15% 300г Успенская", "20% 300г Успенская", "20% 180г Успенская"], "Молоко": ["2,5% 950 бутылка", "3,2% 950 бутылка", "2,5% 900 плёнка"], "Кефир": ["2,5% 950 бутылка", "2,5% 900 плёнка", "1% 950 бутылка"], "Сыр": ["Крестьянский вес"], "Масло": ["Сладко-слив. 82,5% 5кг", "82,5% 180г Успенская"], "Крем с творогом": ["Успенский №9 (4кг)", "Успенский №18 (4кг)"], "Крем со сметаной": ["Успенская Новая 5кг"], "Снежок": ["2,5% 500г пакет"], "Спред": ["72,5% (5кг)"]}, "note": ""}, {"n": "Шунеева", "p": "8 918 323 95 93", "pos": {"Молоко": ["2,5% 900 плёнка"], "Крем с творогом": ["Успенский №18 (4кг)"]}, "note": ""}, {"n": "Элитколбасы Восточно-Кругликовская", "p": "8 918 351 88", "pos": {}, "note": ""}, {"n": "Элитколбасы Генерала Трошева", "p": "8 918 351 88", "pos": {}, "note": ""}]}, {"id": "m4", "name": "Маршрут 4", "sub": "", "cl": [{"n": "Акимов", "p": "8 918 398 90 02", "pos": {"Творог": ["5% (3кг) ГОСТ"], "Сметана": ["20% (3кг) ведро"], "Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": "Творог только 5% (3 кг) ГОСТ пакет. Коробка 5 кг — ошибка."}, {"n": "Афанасьев Валерия Гассия", "p": "8 989 025 16 61", "pos": {"Творог": ["5% (3кг)"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Буна", "p": "8 989 293 38 86", "pos": {"Крем с творогом": ["Успенский №18 (4кг)"]}, "note": ""}, {"n": "Курпитко Знаменский", "p": "8 961 584 48 70", "pos": {"Творог": ["5% (3кг)"], "Молоко": ["3,2% 950 бутылка"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Карасунский ВО", "p": "ВЫБИТЬ ЗАКАЗ НА 16.09- 600 КГ КРЕСТЬЯНСКИЙ ВЕС", "pos": {"Сыр": ["Крестьянский вес"]}, "note": "Напоминать менять цену. Заказ на 16.09 — 600 кг Крестьянский вес. Кефир 1% 950 не берёт."}, {"n": "Курпитко Уральская", "p": "8 989 836 55 41\n8 918 172 65 36", "pos": {"Сметана": ["20% 400г пакет", "15% 300г Молодея", "20% 200г Молодея"], "Кефир": ["2,5% 900 плёнка"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Кутков Агроном", "p": "в группу", "pos": {"Сметана": ["20% 400г пакет"], "Молоко": ["2,5% 900 плёнка", "2,5% 950 бутылка", "3,2% 950 бутылка", "3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Сыр": ["Крестьянский вес"]}, "note": ""}, {"n": "Чепуркова", "p": "8 938 493 46 35", "pos": {"Сметана": ["20% (3кг) ведро"], "Крем с йогуртом": ["вкус любой 2,5кг"]}, "note": "Крем с йогуртом только 2,5 кг. Полкило — ошибка."}]}, {"id": "m5", "name": "Маршрут 5", "sub": "", "cl": [{"n": "Афанасьев Казбекская", "p": "8 989 025 16 61", "pos": {"Творог": ["5% (3кг)"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Еньшина Чекистов", "p": "8 918 016 21 21", "pos": {"Сыр": ["Крестьянский вес"], "Крем с творогом": ["Фермерский (5кг)"], "Крем со сметаной": ["Кубаночка 5кг"]}, "note": "Крем со сметаной — только Кубаночка."}, {"n": "Курпитко Карасунская", "p": "8 918 990 59 59", "pos": {"Творог": ["5% (3кг)", "9% (3кг)"], "Сметана": ["20% (3кг) ведро"], "Сыр": ["Крестьянский вес"], "Крем с йогуртом": ["вкус любой 2,5кг"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Кутков Тургенева", "p": "в группу", "pos": {"Творог": ["9% (3кг)"], "Сметана": ["20% 400г пакет", "20% 200г Молодея"], "Молоко": ["3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": "Сыр только вакуум КРУГ, 356 ₽/кг. Обычный вакуум и вес не брать."}, {"n": "Лопатина", "p": "8 918 293 07 88", "pos": {"Молоко": ["3,2% 950 бутылка", "2,5% 950 бутылка"], "Кефир": ["2,5% 950 бутылка", "1% 950 бутылка"], "Крем с сухофруктами": ["вкус любой 500г"]}, "note": ""}, {"n": "Людэ Жанна", "p": "8 953 088 94 39\n8 962 879 03 05", "pos": {"Сметана": ["20% 300г Успенская"], "Молоко": ["3,2% 950 бутылка", "3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Успенский №18 (4кг)"], "Крем со сметаной": ["Успенская Новая 5кг"], "Сельский": ["вес"]}, "note": ""}, {"n": "Молов Минская", "p": "8 918 981 77 91", "pos": {"Крем с творогом": ["Фермерский (5кг)"]}, "note": ""}, {"n": "Титаренко Диалог", "p": "8 961 500 12 44", "pos": {"Творог": ["9% (5кг)"]}, "note": ""}, {"n": "Титаренко Лерой", "p": "8 964 906 11 89", "pos": {"Творог": ["9% (5кг)"], "Масло": ["Сладко-слив. 82,5% 5кг"]}, "note": ""}, {"n": "Шевчук Лузана", "p": "8 918 033 54 11\n8 928 664 59 83", "pos": {"Молоко": ["2,5% 900 плёнка", "2,5% 950 бутылка", "3,2% 950 бутылка", "3,2% 900 плёнка"]}, "note": ""}, {"n": "Шевчук Чекистов", "p": "8 918 129 18 97\n8 918 420 32 55", "pos": {"Молоко": ["2,5% 900 плёнка", "3,2% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"], "Крем с творогом": ["Успенский №9 (5кг)"], "Крем со сметаной": ["Успенская Новая 5кг"], "Ряженка": ["2,5% 450г плёнка"]}, "note": ""}]}, {"id": "sea", "name": "Побережье", "sub": "только пятница", "cl": [{"n": "Курпитко Афипский", "p": "8 918 376 83 76", "pos": {"Творог": ["5% (5кг)"], "Сметана": ["20% (3кг) ведро"], "Крем с йогуртом": ["вкус любой 2,5кг"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Северская", "p": "8 918 376 83 76", "pos": {"Творог": ["5% (5кг)"], "Сметана": ["20% 400г пакет", "20% 300г Успенская"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Абинск", "p": "8 918 376 83 76", "pos": {}, "note": "Точки нет в 1С. Перед заездом спроси Женю. Кефир 1% 950 не берёт."}, {"n": "Курпитко Варениковская", "p": "8 918 376 83 76", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% 180г Успенская", "20% 300г Успенская"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Крымск", "p": "8 918 376 83 76", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Новороссийск Сипягина", "p": "8 918 376 83 76", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро"], "Кефир": ["2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Новороссийск Пионерская", "p": "8 918 376 83 76", "pos": {"Творог": ["5% (3кг)"], "Сметана": ["20% (3кг) ведро", "20% 180г Успенская", "20% 300г Успенская"], "Молоко": ["2,5% 950 бутылка", "3,2% 950 бутылка"], "Сыр": ["Крестьянский вес", "Брынза вес", "Тильзитер Курск"], "Масло": ["Сладко-слив. 82,5% 5кг"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Темрюк Ленина", "p": "8 938 403 20 91", "pos": {"Творог": ["5% (5кг)"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Темрюк 27 Сентября", "p": "8 938 403 20 91", "pos": {"Сметана": ["20% 300г Успенская", "15% 300г Успенская", "20% 180г Успенская"], "Молоко": ["2,5% 900 плёнка"], "Кефир": ["2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Анапа Красноармейская", "p": "8 938 403 20 91", "pos": {"Творог": ["5% (5кг)"], "Молоко": ["3,2% 950 бутылка", "2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Анапа Парковая", "p": "8 938 403 20 91", "pos": {"Молоко": ["2,5% 950 бутылка", "3,2% 950 бутылка"], "Кефир": ["2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Анапская Мира", "p": "8 938 403 20 91", "pos": {"Творог": ["5% (5кг)"], "Молоко": ["3,2% 950 бутылка"], "Кефир": ["2,5% 950 бутылка"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}, {"n": "Курпитко Супсех", "p": "8 938 403 20 91", "pos": {"Творог": ["5% (5кг)"], "Сыр": ["Крестьянский вес"]}, "note": "Кефир 1% 950 не берёт."}]}, {"id": "etc", "name": "Прочие", "sub": "нет в маршрутах", "cl": [{"n": "Галай Е.В.", "p": "", "pos": {"Сельский": ["вакуум"]}, "note": ""}, {"n": "Кондрахина О.Ю.", "p": "", "pos": {"Ряженка": ["2,5% 450г плёнка"], "Сельский": ["вес"], "Спред": ["72,5% (5кг)"]}, "note": ""}, {"n": "Кута Новотитаровская", "p": "", "pos": {"Крем с творогом": ["Успенский №9 (5кг)"]}, "note": ""}, {"n": "Марукян", "p": "", "pos": {"Молоко": ["3,2% 900 плёнка", "2,5% 900 плёнка"], "Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Махов К.В.", "p": "", "pos": {"Крем с творогом": ["Фермерский (5кг)"], "Крем со сметаной": ["Успенская Новая 5кг"]}, "note": ""}, {"n": "Молов Яркая", "p": "", "pos": {"Крем с творогом": ["Успенский №18 (4кг)", "Фермерский (5кг)"]}, "note": ""}, {"n": "Петроченко В.Н.", "p": "", "pos": {"Кефир": ["2,5% 900 плёнка"]}, "note": ""}, {"n": "Приход Свято-Вознесенского храма", "p": "", "pos": {"Молоко": ["3,2% 900 плёнка"]}, "note": ""}, {"n": "Садоян", "p": "", "pos": {"Крем с творогом": ["Фермерский (5кг)"], "Крем со сметаной": ["Кубаночка 5кг"]}, "note": ""}, {"n": "Саркисян Индустриальный", "p": "", "pos": {"Крем с творогом": ["Фермерский (3кг)"]}, "note": ""}, {"n": "Ступников Корякина", "p": "", "pos": {"Крем с творогом": ["Фермерский (4кг)"], "Крем со сметаной": ["Кубаночка 5кг"]}, "note": ""}]}]};
-const $ = s => document.querySelector(s);
-const KEY = 'kmz_misha_v1';
-const ST = {ok:'принял', no:'не берёт', wait:'не дозвонился'};
-const ICON = {ok:'✅', no:'⛔', wait:'⏳'};
-
-function todayStr(){
-  const d = new Date();
-  return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();
-}
-let state = {date: todayStr(), marks:{}};
-try{
-  const raw = JSON.parse(localStorage.getItem(KEY)||'null');
-  if(raw && raw.date === todayStr()) state = raw;
-}catch(e){}
-const save = () => { try{ localStorage.setItem(KEY, JSON.stringify(state)); }catch(e){} };
-
-let tab = DATA.routes[0].id, openName = null, openPos = null, query = '';
-
-const ALL = DATA.routes.flatMap(r => r.cl.map(c => ({...c, rid:r.id, rn:r.name})));
-const GROUPS = {};
-for(const c of ALL){
-  if(!c.p) continue;
-  const k = c.p.includes('групп') ? 'группа' : (c.p.match(/\d/g)||[]).join('');
-  if(k.length < 5 && k !== 'группа') continue;
-  (GROUPS[k] = GROUPS[k] || []).push(c);
-}
-function siblings(c){
-  if(!c.p) return [];
-  const k = c.p.includes('групп') ? 'группа' : (c.p.match(/\d/g)||[]).join('');
-  return (GROUPS[k]||[]).filter(x => x.n !== c.n);
-}
-$('#today').textContent = todayStr();
-
-function mark(name){ return state.marks[name] || {}; }
-function clients(){
-  if(query.trim()){
-    const q = query.trim().toLowerCase();
-    return DATA.routes.flatMap(r => r.cl.map(c => ({...c, r:r.name})))
-      .filter(c => c.n.toLowerCase().includes(q));
-  }
-  const r = DATA.routes.find(x => x.id === tab);
-  return r.cl.map(c => ({...c, r:r.name}));
-}
-function cid(s){ return s.replace(/[^a-zа-я0-9]/gi,''); }
-function esc(s){ return s.replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m])); }
-
-function multiple(v){
-  const m = v.match(/\((\d)\s*кг\)/);
-  return m ? 'кратно '+m[1]+' кг' : '';
-}
-
-function drawTabs(){
-  $('#tabs').innerHTML = DATA.routes.map(r =>
-    `<button class="tab" role="tab" aria-selected="${r.id===tab}" data-t="${r.id}">${r.name}${r.sub?`<i>${r.sub}</i>`:''}</button>`
-  ).join('');
-}
-
-function drawProgress(){
-  const r = DATA.routes.find(x => x.id === tab);
-  const done = r.cl.filter(c => mark(c.n).s).length;
-  $('#prog').style.width = (r.cl.length ? done/r.cl.length*100 : 0)+'%';
-}
-
-function card(c){
-  const m = mark(c.n);
-  const cats = Object.keys(c.pos);
-  const total = Object.values(c.pos).reduce((a,v) => a+v.length, 0);
-  const shown = openPos === c.n;
-  const pos = !shown ? '' : (cats.length
-    ? cats.map(k => `<div class="cat"><h4>${esc(k)}</h4>` +
-        c.pos[k].map(v => {
-          const [name, org] = v.split('  · ');
-          const mul = multiple(name);
-          return `<span class="chip">${esc(name)}${org?` <s>${esc(org)}</s>`:''}${mul?` <u>${mul}</u>`:''}</span>`;
-        }).join('') + `</div>`).join('')
-    : `<p class="empty">Позиции не заполнены. Спроси у Жени, что берёт эта точка.</p>`);
-  const phones = c.p ? (c.p.includes('групп')
-      ? `<em>Заявку принимают в группе</em>`
-      : c.p.split('\n').map(p => `<a href="tel:${p.replace(/\D/g,'')}">${esc(p)}</a>`).join(''))
-    : `<em>Телефона нет</em>`;
-  const sib = siblings(c);
-  const sibBox = sib.length ? `<div class="link">
-      <b>Один номер на ${sib.length+1} точки — спроси сразу по всем:</b><br>
-      ${sib.map(s => `<button data-go="${esc(s.n)}">${mark(s.n).s?ICON[mark(s.n).s]:'◻'} ${esc(s.n)}</button>`).join('')}
-    </div>` : '';
-  return `<div class="body">
-    ${c.note ? `<p class="warn">${esc(c.note)}</p>` : ''}
-    ${sibBox}
-    <div class="calls">${phones}</div>
-    <button class="more" data-pos="${esc(c.n)}">Что берёт<span>${total?total+' поз.':'не заполнено'} ${shown?'▲':'▼'}</span></button>
-    ${pos}
-    <div class="acts">
-      ${Object.keys(ST).map(k => `<button class="b-${k}" data-s="${k}" data-n="${esc(c.n)}" aria-pressed="${m.s===k}">${ICON[k]} ${ST[k]}</button>`).join('')}
-    </div>
-    <textarea data-note="${esc(c.n)}" placeholder="Заметка по точке">${esc(m.t||'')}</textarea>
-  </div>`;
-}
-
-function draw(){
-  drawTabs(); drawProgress();
-  const list = clients();
-  $('#list').innerHTML = list.length ? list.map(c => {
-    const m = mark(c.n);
-    const sib = siblings(c).length;
-    const sub = [query ? c.r : '', sib ? 'один номер с ещё '+sib : ''].filter(Boolean).join(' · ');
-    return `<div class="rowwrap ${m.s?'s-'+m.s:''}" id="c-${cid(c.n)}">
-      <div class="rowline">
-        <button class="row" data-open="${esc(c.n)}">
-          <b>${esc(c.n)}</b>${sub?`<span class="cnt">${esc(sub)}</span>`:''}
-        </button>
-        <div class="quick">
-          <button class="q-ok" data-s="ok" data-n="${esc(c.n)}" aria-pressed="${m.s==='ok'}" aria-label="Взял">✓</button>
-          <button class="q-no" data-s="no" data-n="${esc(c.n)}" aria-pressed="${m.s==='no'}" aria-label="Не взял">✕</button>
-        </div>
+<a class="skip" href="#products">К товарам</a>
+<div id="shell" class="app-shell">
+  <aside class="rail">
+    <a class="brand" href="./"><img src="icons/icon-192.png" alt="" width="46" height="46"><span><strong>КМЗ №1</strong><small>Заявки на продукцию</small></span></a>
+    <div class="rail-heading">КАТАЛОГ <span id="catalog-size">95</span></div>
+    <nav id="categories" aria-label="Категории"></nav>
+    <div class="rail-contact"><span class="contact-dot"></span><strong>Ваш представитель</strong><p>Евгений</p><a href="tel:+79676505089">+7 967 650-50-89</a><small>КМЗ №1 · с. Коноково</small></div>
+  </aside>
+  <div class="app-content">
+    <header class="topbar">
+      <a class="mobile-brand" href="./"><img src="icons/icon-192.png" alt="" width="36" height="36"><strong>КМЗ №1</strong></a>
+      <button class="point-switch" data-action="points"><span data-icon="store"></span><span><small>ТОРГОВАЯ ТОЧКА</small><strong id="point-name">Укажите ваш магазин</strong></span><span data-icon="chevron"></span></button>
+      <nav class="top-actions" aria-label="Меню"><button data-action="history" class="nav-button" aria-label="Мои заявки"><span data-icon="history"></span><span>Мои заявки</span></button><button data-action="settings" class="icon-button" aria-label="Настройки"><span data-icon="settings"></span></button><a class="call-button" href="tel:+79676505089"><span data-icon="phone"></span><span>Позвонить</span></a></nav>
+    </header>
+    <div class="content-wrap">
+      <div id="startup-status" class="notice warning" role="status" hidden><strong id="startup-message">Запускаем каталог…</strong><br><small id="startup-code">Версия 3.0.7</small><br><a href="./compat.html?retry=3.0.7">Открыть резервную страницу</a> · <a href="tel:+79676505089">Позвонить представителю</a></div>
+      <div id="storage-warning" class="notice warning" role="status" hidden></div>
+      <div id="conflict-warning" class="notice warning" role="alert" hidden>Данные изменены в другой вкладке. <button data-action="reload-state">Загрузить изменения</button></div>
+      <div id="catalog-update" class="notice" role="status" hidden>Доступен обновлённый каталог. <button data-action="apply-update">Применить обновление</button></div>
+      <div class="page-intro"><div><div class="eyebrow">ЗАКАЗ И ОБМЕН</div><h1>Новая заявка<span>.</span></h1><p>Всё нужное для вашей торговой точки.</p></div><div class="delivery"><span class="dday" id="delivery-day"><span data-icon="truck"></span></span><div><small>Ближайшая доставка</small><strong id="delivery-date">Уточняем дату…</strong><span id="delivery-deadline"></span></div></div></div>
+      <div class="workspace">
+        <main class="catalog" id="catalog-panel">
+          <div class="catalog-tools"><div class="mode-tabs" role="group" aria-label="Тип заявки"><button data-action="mode" data-mode="order" class="active" aria-pressed="true"><span data-icon="box"></span>Заказ <span id="order-count" class="counter">0</span></button><button data-action="mode" data-mode="exch" class="return-tab" aria-pressed="false"><span data-icon="exchange"></span>Обмен <span id="exchange-count" class="counter">0</span></button></div><div class="search-row"><label class="search"><span data-icon="search"></span><input id="search" type="search" autocomplete="off" placeholder="Найти молоко, творог, сыр…" aria-label="Поиск товаров"><button id="search-clear" data-action="clear-search" type="button" aria-label="Очистить поиск" hidden><span data-icon="close"></span></button></label><button class="favorite-filter icon-button" data-action="favorites" aria-label="Показать избранное" aria-pressed="false"><span data-icon="heart"></span></button></div><nav id="mobile-categories" class="mobile-categories" aria-label="Категории товаров"></nav></div>
+          <div id="exchange-note" class="notice exchange-note" hidden><span data-icon="exchange"></span><span><strong>Отметьте товары для обмена.</strong> Причину укажете в корзине у каждой позиции.</span></div>
+          <div class="list-heading"><h2 id="category-name">Все товары</h2><span id="results-count" aria-live="polite"></span></div>
+          <div id="products" tabindex="-1"><div class="empty-state"><h3>Каталог загружается</h3><p>Если загрузка прервётся, сайт попробует восстановить её автоматически.</p><a href="./">Обновить страницу</a> · <a href="tel:+79676505089">Позвонить представителю</a></div></div>
+          <noscript><div class="notice warning">Для оформления заявки включите JavaScript в браузере.</div></noscript>
+          <footer class="catalog-footer"><span data-icon="shield"></span><span>Ваши магазины и черновики хранятся в этом браузере.<br>Заявку отправляете вы — через удобный мессенджер.</span></footer>
+        </main>
+        <aside class="basket" aria-label="Ваша заявка"><div class="basket-heading"><h2>Ваша заявка</h2><span id="basket-count" class="counter">0</span></div><div id="basket-body"></div><div id="basket-footer"></div></aside>
       </div>
-      ${openName===c.n ? card(c) : ''}
-    </div>`;
-  }).join('') : `<p class="empty">Ничего не нашлось. Попробуй часть названия — «кутк», «анап».</p>`;
-}
-
-function toast(t){
-  const el = $('#toast'); el.textContent = t; el.classList.add('on');
-  clearTimeout(el._h); el._h = setTimeout(() => el.classList.remove('on'), 2200);
-}
-
-document.addEventListener('click', e => {
-  const t = e.target.closest('.tab');
-  if(t){ tab = t.dataset.t; openName = null; openPos = null; query=''; $('#q').value=''; draw(); scrollTo(0,0); return; }
-  const o = e.target.closest('[data-open]');
-  if(o){ openName = openName === o.dataset.open ? null : o.dataset.open; openPos = null; draw(); return; }
-  const p = e.target.closest('[data-pos]');
-  if(p){ openPos = openPos === p.dataset.pos ? null : p.dataset.pos; draw(); return; }
-  const g = e.target.closest('[data-go]');
-  if(g){
-    const n = g.dataset.go, r = ALL.find(x => x.n === n);
-    if(r){ tab = r.rid; query = ''; $('#q').value = ''; openName = n; openPos = null; draw();
-      const el = document.getElementById('c-'+cid(n));
-      if(el) el.scrollIntoView({block:'center'}); }
-    return;
-  }
-  const b = e.target.closest('[data-s]');
-  if(b){
-    const n = b.dataset.n, cur = mark(n);
-    state.marks[n] = {...cur, s: cur.s === b.dataset.s ? null : b.dataset.s};
-    if(!state.marks[n].s && !state.marks[n].t) delete state.marks[n];
-    save(); draw(); return;
-  }
-});
-document.addEventListener('input', e => {
-  if(e.target.id === 'q'){ query = e.target.value; openName = null; draw(); return; }
-  if(e.target.dataset.note !== undefined){
-    const n = e.target.dataset.note;
-    state.marks[n] = {...mark(n), t: e.target.value};
-    save();
-  }
-});
-
-$('#rep').onclick = async () => {
-  const lines = ['Отчёт Миши · '+state.date];
-  let any = false;
-  for(const r of DATA.routes){
-    const marked = r.cl.filter(c => mark(c.n).s || mark(c.n).t);
-    if(!marked.length) continue;
-    any = true;
-    lines.push('', r.name);
-    for(const k of ['ok','no','wait']){
-      const g = marked.filter(c => mark(c.n).s === k);
-      if(g.length) lines.push(ICON[k]+' '+ST[k]+' ('+g.length+'): ' +
-        g.map(c => c.n + (mark(c.n).t ? ' — '+mark(c.n).t : '')).join('; '));
-    }
-    const notes = marked.filter(c => !mark(c.n).s && mark(c.n).t);
-    if(notes.length) lines.push('📝 ' + notes.map(c => c.n+' — '+mark(c.n).t).join('; '));
-    const left = r.cl.filter(c => !mark(c.n).s);
-    if(left.length) lines.push('без отметки ('+left.length+'): ' + left.map(c => c.n).join('; '));
-  }
-  if(!any){ toast('Пока нечего отправлять — отметь хотя бы одну точку'); return; }
-  const txt = lines.join('\n');
-  try{ await navigator.clipboard.writeText(txt); toast('Отчёт скопирован — вставь в MAX'); }
-  catch(e){
-    const ta = document.createElement('textarea');
-    ta.value = txt; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove(); toast('Отчёт скопирован — вставь в MAX');
-  }
-};
-
-$('#clr').onclick = () => {
-  if(!confirm('Стереть все отметки и начать новый день?')) return;
-  state = {date: todayStr(), marks:{}}; save(); openName = null; draw();
-  toast('Отметки очищены');
-};
-
-draw();
-if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
-
+    </div>
+    <div class="mobile-bottom"><button id="mobile-cart" data-action="cart" disabled><span data-icon="bag"></span><span><strong id="mobile-total">Корзина пуста</strong><small id="mobile-detail">Добавьте товары</small></span><span class="mobile-next">Далее <span data-icon="arrow"></span></span></button></div>
+  </div>
+</div>
+<div class="modal-overlay" id="modal-overlay" hidden><section id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" tabindex="-1"><div class="modal-head"><div><small id="modal-kicker"></small><h2 id="modal-title"></h2></div><button data-action="close" class="icon-button" aria-label="Закрыть окно"><span data-icon="close"></span></button></div><div class="modal-body" id="modal-body"></div><div class="modal-foot" id="modal-foot"></div></section></div>
+<div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+<script>(function(){'use strict';var version='3.0.7',done=false,state=window.KMZ_BOOT={version:version,code:'LOADING',error:'',fail:function(code,error){if(done)return;state.code=code;state.error=String(error&&error.message||error||'').slice(0,300);var box=document.getElementById('startup-status');if(box){box.hidden=false;var msg=document.getElementById('startup-message');if(msg)msg.textContent='Не удалось запустить каталог. Обновите страницу или откройте резервную страницу.';var codeEl=document.getElementById('startup-code');if(codeEl)codeEl.textContent='Версия '+version+' · '+code;}},done:function(){if(done)return;done=true;state.code='READY';var box=document.getElementById('startup-status');if(box)box.hidden=true;document.documentElement.setAttribute('data-kmz-version',version);try{if(navigator.serviceWorker&&navigator.serviceWorker.getRegistrations)navigator.serviceWorker.getRegistrations().then(function(regs){regs.forEach(function(reg){var worker=reg.active||reg.waiting||reg.installing;if(worker&&/\/sw\.js(?:\?|$)/.test(worker.scriptURL))reg.unregister().catch(function(){});});}).catch(function(){});}catch(ignore){}}};window.addEventListener('error',function(e){if(!window.KMZ_READY&&e&&e.message)state.fail('JS_ERROR',e.message);});setTimeout(function(){if(!window.KMZ_READY)state.fail('STARTUP_TIMEOUT');},15000);})();
 </script>
+<script>window.KMZ_APP_START=1;
+(function(){if(window.KMZ_READY||window.KMZ_LAUNCH_ATTEMPTED)return;window.KMZ_LAUNCH_ATTEMPTED=true;try{function _regenerator(){var e,t,r="function"==typeof Symbol?Symbol:{},n=r.iterator||"@@iterator",o=r.toStringTag||"@@toStringTag";function i(r,n,o,i){var c=n&&n.prototype instanceof Generator?n:Generator,u=Object.create(c.prototype);return _regeneratorDefine2(u,"_invoke",function(r,n,o){var i,c,u,f=0,p=o||[],y=!1,G={p:0,n:0,v:e,a:d,f:d.bind(e,4),d:function d(t,r){return i=t,c=0,u=e,G.n=r,a;}};function d(r,n){for(c=r,u=n,t=0;!y&&f&&!o&&t<p.length;t++){var o,i=p[t],d=G.p,l=i[2];r>3?(o=l===n)&&(u=i[(c=i[4])?5:(c=3,3)],i[4]=i[5]=e):i[0]<=d&&((o=r<2&&d<i[1])?(c=0,G.v=n,G.n=i[1]):d<l&&(o=r<3||i[0]>n||n>l)&&(i[4]=r,i[5]=n,G.n=l,c=0));}if(o||r>1)return a;throw y=!0,n;}return function(o,p,l){if(f>1)throw TypeError("Generator is already running");for(y&&1===p&&d(p,l),c=p,u=l;(t=c<2?e:u)||!y;){i||(c?c<3?(c>1&&(G.n=-1),d(c,u)):G.n=u:G.v=u);try{if(f=2,i){if(c||(o="next"),t=i[o]){if(!(t=t.call(i,u)))throw TypeError("iterator result is not an object");if(!t.done)return t;u=t.value,c<2&&(c=0);}else 1===c&&(t=i.return)&&t.call(i),c<2&&(u=TypeError("The iterator does not provide a '"+o+"' method"),c=1);i=e;}else if((t=(y=G.n<0)?u:r.call(n,G))!==a)break;}catch(t){i=e,c=1,u=t;}finally{f=1;}}return{value:t,done:y};};}(r,o,i),!0),u;}var a={};function Generator(){}function GeneratorFunction(){}function GeneratorFunctionPrototype(){}t=Object.getPrototypeOf;var c=[][n]?t(t([][n]())):(_regeneratorDefine2(t={},n,function(){return this;}),t),u=GeneratorFunctionPrototype.prototype=Generator.prototype=Object.create(c);function f(e){return Object.setPrototypeOf?Object.setPrototypeOf(e,GeneratorFunctionPrototype):(e.__proto__=GeneratorFunctionPrototype,_regeneratorDefine2(e,o,"GeneratorFunction")),e.prototype=Object.create(u),e;}return GeneratorFunction.prototype=GeneratorFunctionPrototype,_regeneratorDefine2(u,"constructor",GeneratorFunctionPrototype),_regeneratorDefine2(GeneratorFunctionPrototype,"constructor",GeneratorFunction),GeneratorFunction.displayName="GeneratorFunction",_regeneratorDefine2(GeneratorFunctionPrototype,o,"GeneratorFunction"),_regeneratorDefine2(u),_regeneratorDefine2(u,o,"Generator"),_regeneratorDefine2(u,n,function(){return this;}),_regeneratorDefine2(u,"toString",function(){return"[object Generator]";}),(_regenerator=function _regenerator(){return{w:i,m:f};})();}function _regeneratorDefine2(e,r,n,t){var i=Object.defineProperty;try{i({},"",{});}catch(e){i=0;}_regeneratorDefine2=function _regeneratorDefine(e,r,n,t){function o(r,n){_regeneratorDefine2(e,r,function(e){return this._invoke(r,n,e);});}r?i?i(e,r,{value:n,enumerable:!t,configurable:!t,writable:!t}):e[r]=n:(o("next",0),o("throw",1),o("return",2));},_regeneratorDefine2(e,r,n,t);}function asyncGeneratorStep(n,t,e,r,o,a,c){try{var i=n[a](c),u=i.value;}catch(n){return void e(n);}i.done?t(u):Promise.resolve(u).then(r,o);}function _asyncToGenerator(n){return function(){var t=this,e=arguments;return new Promise(function(r,o){var a=n.apply(t,e);function _next(n){asyncGeneratorStep(a,r,o,_next,_throw,"next",n);}function _throw(n){asyncGeneratorStep(a,r,o,_next,_throw,"throw",n);}_next(void 0);});};}function _slicedToArray(r,e){return _arrayWithHoles(r)||_iterableToArrayLimit(r,e)||_unsupportedIterableToArray(r,e)||_nonIterableRest();}function _nonIterableRest(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArrayLimit(r,l){var t=null==r?null:"undefined"!=typeof Symbol&&r[Symbol.iterator]||r["@@iterator"];if(null!=t){var e,n,i,u,a=[],f=!0,o=!1;try{if(i=(t=t.call(r)).next,0===l){if(Object(t)!==t)return;f=!1;}else for(;!(f=(e=i.call(t)).done)&&(a.push(e.value),a.length!==l);f=!0);}catch(r){o=!0,n=r;}finally{try{if(!f&&null!=t.return&&(u=t.return(),Object(u)!==u))return;}finally{if(o)throw n;}}return a;}}function _arrayWithHoles(r){if(Array.isArray(r))return r;}function _toConsumableArray(r){return _arrayWithoutHoles(r)||_iterableToArray(r)||_unsupportedIterableToArray(r)||_nonIterableSpread();}function _nonIterableSpread(){throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}function _iterableToArray(r){if("undefined"!=typeof Symbol&&null!=r[Symbol.iterator]||null!=r["@@iterator"])return Array.from(r);}function _arrayWithoutHoles(r){if(Array.isArray(r))return _arrayLikeToArray(r);}function ownKeys(e,r){var t=Object.keys(e);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(e);r&&(o=o.filter(function(r){return Object.getOwnPropertyDescriptor(e,r).enumerable;})),t.push.apply(t,o);}return t;}function _objectSpread(e){for(var r=1;r<arguments.length;r++){var t=null!=arguments[r]?arguments[r]:{};r%2?ownKeys(Object(t),!0).forEach(function(r){_defineProperty(e,r,t[r]);}):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(t)):ownKeys(Object(t)).forEach(function(r){Object.defineProperty(e,r,Object.getOwnPropertyDescriptor(t,r));});}return e;}function _defineProperty(e,r,t){return(r=_toPropertyKey(r))in e?Object.defineProperty(e,r,{value:t,enumerable:!0,configurable:!0,writable:!0}):e[r]=t,e;}function _toPropertyKey(t){var i=_toPrimitive(t,"string");return"symbol"==_typeof(i)?i:i+"";}function _toPrimitive(t,r){if("object"!=_typeof(t)||!t)return t;var e=t[Symbol.toPrimitive];if(void 0!==e){var i=e.call(t,r||"default");if("object"!=_typeof(i))return i;throw new TypeError("@@toPrimitive must return a primitive value.");}return("string"===r?String:Number)(t);}function _createForOfIteratorHelper(r,e){var t="undefined"!=typeof Symbol&&r[Symbol.iterator]||r["@@iterator"];if(!t){if(Array.isArray(r)||(t=_unsupportedIterableToArray(r))||e&&r&&"number"==typeof r.length){t&&(r=t);var _n=0,F=function F(){};return{s:F,n:function n(){return _n>=r.length?{done:!0}:{done:!1,value:r[_n++]};},e:function e(r){throw r;},f:F};}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");}var o,a=!0,u=!1;return{s:function s(){t=t.call(r);},n:function n(){var r=t.next();return a=r.done,r;},e:function e(r){u=!0,o=r;},f:function f(){try{a||null==t.return||t.return();}finally{if(u)throw o;}}};}function _unsupportedIterableToArray(r,a){if(r){if("string"==typeof r)return _arrayLikeToArray(r,a);var t={}.toString.call(r).slice(8,-1);return"Object"===t&&r.constructor&&(t=r.constructor.name),"Map"===t||"Set"===t?Array.from(r):"Arguments"===t||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(t)?_arrayLikeToArray(r,a):void 0;}}function _arrayLikeToArray(r,a){(null==a||a>r.length)&&(a=r.length);for(var e=0,n=Array(a);e<a;e++)n[e]=r[e];return n;}function _typeof(o){"@babel/helpers - typeof";return _typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(o){return typeof o;}:function(o){return o&&"function"==typeof Symbol&&o.constructor===Symbol&&o!==Symbol.prototype?"symbol":typeof o;},_typeof(o);}(function(){function add(object,name,value){if(!object[name])Object.defineProperty(object,name,{configurable:true,writable:true,value:value});}add(Number,'isFinite',function(value){return typeof value==='number'&&isFinite(value);});add(Number,'isInteger',function(value){return Number.isFinite(value)&&Math.floor(value)===value;});add(Object,'entries',function(object){return Object.keys(object).map(function(key){return[key,object[key]];});});add(Object,'assign',function(target){if(target==null)throw new TypeError('Object.assign target');var out=Object(target);for(var i=1;i<arguments.length;i++){var source=arguments[i];if(source!=null)Object.keys(Object(source)).forEach(function(key){out[key]=source[key];});}return out;});add(Array,'from',function(source){return Array.prototype.slice.call(source);});add(Array.prototype,'includes',function(value,from){var len=this.length>>>0,i=Number(from)||0;if(i<0)i=Math.max(0,len+i);for(;i<len;i++)if(this[i]===value||this[i]!==this[i]&&value!==value)return true;return false;});add(Array.prototype,'find',function(predicate,receiver){for(var i=0;i<this.length;i++)if(predicate.call(receiver,this[i],i,this))return this[i];});add(String.prototype,'includes',function(value,start){return String(this).indexOf(value,start||0)!==-1;});add(String.prototype,'startsWith',function(value,start){var i=start||0;return String(this).slice(i,i+String(value).length)===String(value);});add(String.prototype,'padStart',function(length,fill){var text=String(this),pad=fill===undefined?' ':String(fill);if(!pad)return text;while(pad.length<length-text.length)pad+=pad;return pad.slice(0,Math.max(0,length-text.length))+text;});if(typeof NodeList!=='undefined')add(NodeList.prototype,'forEach',Array.prototype.forEach);if(typeof Element!=='undefined'){add(Element.prototype,'matches',Element.prototype.msMatchesSelector||Element.prototype.webkitMatchesSelector);add(Element.prototype,'closest',function(selector){var element=this;while(element&&element.nodeType===1){if(element.matches(selector))return element;element=element.parentElement;}return null;});add(Element.prototype,'remove',function(){if(this.parentNode)this.parentNode.removeChild(this);});}})();window.KMZ_CATALOG={"version":1,"catalog":[{"id":"moloko","name":"Молоко","icon":"milk","items":[{"n":"Молоко 2,5% 900мл. п/п","u":"шт","life":"7 сут"},{"n":"Молоко 3,2 % 900мл. п/п","u":"шт","life":"7 сут"},{"n":"Молоко 2,5% 950мл п/бут.","u":"шт","life":"14 сут"},{"n":"Молоко 3,2% 950мл п/бут.","u":"шт","life":"14 сут"}]},{"id":"kefir","name":"Кефир","icon":"kefir","items":[{"n":"Кефир 2,5% 900г п/пакет","u":"шт","life":"7 сут"},{"n":"Кефир 1% 950г п/бут","u":"шт","life":"14 сут"},{"n":"Кефир 2,5% 950г п/бут","u":"шт","life":"14 сут"}]},{"id":"ryazhenka","name":"Ряженка · Снежок","icon":"ryazh","items":[{"n":"Ряженка 2,5% 450г п/пленка","u":"шт","life":"10 сут"},{"n":"Снежок 2,5% 500г п/пакет","u":"шт","life":"10 сут"}]},{"id":"smetana-f","name":"Сметана ГОСТ (фасовка)","icon":"smet","items":[{"n":"Сметана 20% 200 г ГОСТ","u":"шт","life":"14 сут"},{"n":"Сметана 15% 300 г ГОСТ","u":"шт","life":"14 сут"},{"n":"Сметана 20% 300 г ГОСТ","u":"шт","life":"14 сут"},{"n":"Сметана 20% п/пакет 400 г","u":"шт","life":"14 сут"}]},{"id":"smetana-v","name":"Сметана ГОСТ (весовая)","icon":"smet","items":[{"n":"Сметана 20% 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"14 сут"}]},{"id":"smetana-zmzh","name":"Сметана с ЗМЖ","note":"без Меркурия","icon":"smet","items":[{"n":"«Кубаночка», 20% ведро 750 г","u":"шт","life":"30 сут"},{"n":"«Кубаночка», 20% 5 кг ведро","u":"кг","step":5,"pack":"ведро","life":"30 сут"},{"n":"«Успенская Новая», 20% 5 кг ведро","u":"кг","step":5,"pack":"ведро","life":"30 сут"}]},{"id":"tvorog","name":"Творог","icon":"tvorog","items":[{"n":"Творог 9%, 180 г ГОСТ","u":"шт","life":"10 сут"},{"n":"Творог 5% 3 кг пакет","u":"кг","step":3,"pack":"пакет","life":"10 сут"},{"n":"Творог 5% 3 кг пакет ГОСТ","u":"кг","step":3,"pack":"пакет","life":"10 сут"},{"n":"Творог 9% 3 кг пакет","u":"кг","step":3,"pack":"пакет","life":"10 сут"},{"n":"Творог 9% 3 кг пакет ГОСТ","u":"кг","step":3,"pack":"пакет","life":"10 сут"},{"n":"Творог 5% 5 кг коробка","u":"кг","step":5,"pack":"коробка","life":"10 сут"},{"n":"Творог 5% 5 кг коробка ГОСТ","u":"кг","step":5,"pack":"коробка","life":"10 сут"},{"n":"Творог 9% 5 кг коробка","u":"кг","step":5,"pack":"коробка","life":"10 сут"},{"n":"Творог 9% 5 кг коробка ГОСТ","u":"кг","step":5,"pack":"коробка","life":"10 сут"}]},{"id":"tvorog-zmzh","name":"Творог с ЗМЖ","note":"без Меркурия","icon":"tvorog","items":[{"n":"«Фермерский» 26% 800г ведро","u":"шт","life":"21 сут"},{"n":"«Фермерский» 35% 3 кг пакет","u":"кг","step":3,"pack":"пакет","life":"21 сут"},{"n":"«Фермерский» 35% 4кг ведро","u":"кг","step":4,"pack":"ведро","life":"21 сут"},{"n":"«Фермерский» 35% 5 кг коробка","u":"кг","step":5,"pack":"коробка","life":"21 сут"},{"n":"Успенский №18 4 кг ведро","u":"кг","step":4,"pack":"ведро","life":"21 сут"},{"n":"Успенский №9 4 кг ведро","u":"кг","step":4,"pack":"ведро","life":"21 сут"},{"n":"Успенский №9 5 кг короб","u":"кг","step":5,"pack":"короб","life":"21 сут"}]},{"id":"yogurt","name":"Йогурт","icon":"yog","items":[{"n":"Йогурт вишня 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"14 сут"},{"n":"Йогурт клубника 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"14 сут"},{"n":"Йогурт персик 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"14 сут"},{"n":"Йогурт вишня 5 кг ведро","u":"кг","step":5,"pack":"ведро","life":"14 сут"},{"n":"Йогурт клубника 5 кг ведро","u":"кг","step":5,"pack":"ведро","life":"14 сут"},{"n":"Йогурт персик 5 кг ведро","u":"кг","step":5,"pack":"ведро","life":"14 сут"}]},{"id":"fantazia","name":"Десерт «Фантазия» с ЗМЖ","note":"без Меркурия","icon":"fant","items":[{"n":"«Вишня», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Киви», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Клубника», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Лесные Ягоды», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Малина», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Манго», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Персик», 15%, ведро 0,5 кг","u":"шт","life":"30 сут"},{"n":"«Вишня», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"},{"n":"«Киви», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"},{"n":"«Клубника», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"},{"n":"«Лесные Ягоды», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"},{"n":"«Малина», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"},{"n":"«Манго», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"},{"n":"«Персик», 15%, ведро 2,5 кг","u":"шт","life":"30 сут"}]},{"id":"massa","name":"Масса творожная с ЗМЖ","note":"без Меркурия","icon":"tvorog","items":[{"n":"«Вишня», 20%, 500 г","u":"шт","life":"21 сут"},{"n":"«Изюм», 20%, 500 г","u":"шт","life":"21 сут"},{"n":"«Курага», 20%, 500 г","u":"шт","life":"21 сут"},{"n":"«Вишня», 20%, 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"21 сут"},{"n":"«Вишня», 20%, 3 кг пакет","u":"кг","step":3,"pack":"пакет","life":"21 сут"},{"n":"«Изюм», 20%, 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"21 сут"},{"n":"«Изюм», 20%, 3 кг пакет","u":"кг","step":3,"pack":"пакет","life":"21 сут"},{"n":"«Курага», 20%, 3 кг ведро","u":"кг","step":3,"pack":"ведро","life":"21 сут"},{"n":"«Курага», 20%, 3 кг пакет","u":"кг","step":3,"pack":"пакет","life":"21 сут"},{"n":"«Вишня», 20%, 5 кг ведро","u":"кг","step":5,"pack":"ведро","life":"21 сут"}]},{"id":"krest","name":"Сыр Крестьянский (адыгейский)","icon":"cheese","items":[{"n":"Крестьянский в вакууме круг (≈2 кг)","u":"кг","step":0,"hint":"1 круг ≈ 2 кг","life":"35 сут","warn":"заказ до 12:00"},{"n":"Крестьянский вакуумные кусочки","u":"кг","step":0,"life":"35 сут"},{"n":"Крестьянский вес (фасовка пакет, ≈2 кг)","u":"кг","step":0,"hint":"1 голова ≈ 2 кг","life":"10 сут"},{"n":"Крестьянский 300 г вакуум","u":"шт","life":"35 сут"}]},{"id":"selsky","name":"Сельский (адыгейский с ЗМЖ)","note":"без Меркурия","icon":"cheese","items":[{"n":"Сельский в вакууме круг (≈2 кг)","u":"кг","step":0,"hint":"1 круг ≈ 2 кг","life":"10 сут"},{"n":"Сельский вес (фасовка пакет, ≈2 кг)","u":"кг","step":0,"hint":"1 голова ≈ 2 кг","life":"10 сут"}]},{"id":"brynza","name":"Сыр-брынза","icon":"cheese","items":[{"n":"«Брынза» в вакууме, кусочки","u":"кг","step":0,"life":"35 сут"},{"n":"«Брынза» вес (фасовка пакет, ≈2 кг)","u":"кг","step":0,"hint":"1 брус ≈ 2 кг","life":"7 сут"},{"n":"«Брынза» круг, ведро (в рассоле)","u":"кг","step":0,"life":"75 сут","warn":"заказ до 10:00"}]},{"id":"myagkie","name":"Мягкие сыры","icon":"cheese","items":[{"n":"Коса Особый копченый","u":"кг","step":0,"life":"90 сут"},{"n":"Нити Особый","u":"кг","step":0,"life":"25 сут"},{"n":"Сулугуни","u":"кг","step":0,"life":"25 сут"},{"n":"«Осетинский новый» конт. 1,7 кг (в рассоле)","u":"шт","life":"35 сут"}]},{"id":"tverdye","name":"Сыр твёрдый","icon":"cheese","items":[{"n":"Российский пир 50% Омск (≈3 кг)","u":"кг","step":0,"hint":"1 голова ≈ 3 кг","life":"150 сут"},{"n":"Сыр Голландский 45% брус Курск (≈2 кг)","u":"кг","step":0,"hint":"1 брус ≈ 2 кг","life":"150 сут"},{"n":"Сыр Мраморный 50% полубрус Курск (≈2 кг)","u":"кг","step":0,"hint":"1 полубрус ≈ 2 кг","life":"150 сут"},{"n":"Сыр Российский 50% полубрус Курск (≈2 кг)","u":"кг","step":0,"hint":"1 полубрус ≈ 2 кг","life":"150 сут"},{"n":"Сыр Сливочный 50% полубрус Курск (≈2 кг)","u":"кг","step":0,"hint":"1 полубрус ≈ 2 кг","life":"150 сут"},{"n":"Сыр Сметанковый 50% полубрус Курск (≈2 кг)","u":"кг","step":0,"hint":"1 полубрус ≈ 2 кг","life":"150 сут"},{"n":"Сыр Тильзитер 50% полубрус Курск (≈2 кг)","u":"кг","step":0,"hint":"1 полубрус ≈ 2 кг","life":"150 сут"}]},{"id":"maslo","name":"Масло ГОСТ","icon":"butter","items":[{"n":"Масло Крестьянское 72.5, 180 г фольга","u":"шт","life":"120 сут"},{"n":"Масло Крестьянское 72.5, высш.сорт 180 г ф.","u":"шт","life":"120 сут"},{"n":"Масло Крестьянское высш.сорт 72,5% 5 кг","u":"кг","step":5,"pack":"коробка","life":"548 сут"},{"n":"Масло Сладко-сливочное 82,5% 5 кг","u":"кг","step":5,"pack":"коробка","life":"548 сут"},{"n":"Масло Сладко-сливочное 82,5% 10 кг","u":"кг","step":10,"pack":"коробка","life":"548 сут"}]},{"id":"spred","name":"Спред","note":"без Меркурия","icon":"butter","items":[{"n":"Спред растительно-сливочный 72,5% 180г","u":"шт","life":"150 сут"},{"n":"Спред растительно-сливочный м.д.ж. 72,5% 5 кг","u":"кг","step":5,"pack":"коробка","life":"150 сут"}]},{"id":"um","name":"Успенская марка","gold":true,"icon":"um","items":[{"n":"Масло Крестьянское 72,5, 180 г ф. Успенская Марка","u":"шт"},{"n":"Масло Крестьянское 82,5, 180 г ф. Успенская Марка","u":"шт"},{"n":"Сметана 20% 180 г ГОСТ «Успенская Марка»","u":"шт"},{"n":"Сметана 15% 300 г ГОСТ «Успенская Марка»","u":"шт"},{"n":"Сметана 20% 300 г ГОСТ «Успенская Марка»","u":"шт"}]}]};window.KMZ_PRODUCT_ICONS={milk:'<svg viewBox="0 0 24 24"><rect x="6.5" y="8.5" width="11" height="13" rx="2" fill="#fff" stroke="#4A8FD4" stroke-width="1.4"/><path d="M8 8.5V4.6h8v3.9" fill="#fff" stroke="#4A8FD4" stroke-width="1.4"/><rect x="8" y="13" width="8" height="5.4" rx="1" fill="#BCDAF2"/></svg>',kefir:'<svg viewBox="0 0 24 24"><path d="M6.6 8h10.8l-1.1 13.4H7.7Z" fill="#fff" stroke="#6FA3DC" stroke-width="1.4"/><rect x="8" y="3.6" width="8" height="4" rx="1.2" fill="#9CC0E8"/></svg>',ryazh:'<svg viewBox="0 0 24 24"><path d="M6.6 8h10.8l-1.1 13.4H7.7Z" fill="#FFF7EE" stroke="#D2A96F" stroke-width="1.4"/><rect x="8" y="3.6" width="8" height="4" rx="1.2" fill="#E8C9A0"/></svg>',smet:'<svg viewBox="0 0 24 24"><path d="M4.4 9.4h15.2l-1.6 10.3a2.2 2.2 0 0 1-2.2 1.9H8.2A2.2 2.2 0 0 1 6 19.7Z" fill="#fff" stroke="#93A6B8" stroke-width="1.4"/><ellipse cx="12" cy="9.4" rx="7.6" ry="2.5" fill="#fff" stroke="#93A6B8" stroke-width="1.4"/><ellipse cx="12" cy="9.3" rx="5.2" ry="1.5" fill="#EEF3F8"/></svg>',tvorog:'<svg viewBox="0 0 24 24"><path d="M4.6 10.6h14.8v8.2a2.3 2.3 0 0 1-2.3 2.3H6.9a2.3 2.3 0 0 1-2.3-2.3Z" fill="#fff" stroke="#B9A77E" stroke-width="1.4"/><path d="M4.6 10.6 7 5.2h10l2.4 5.4Z" fill="#FFFBF0" stroke="#B9A77E" stroke-width="1.4"/><circle cx="10" cy="15" r="1.5" fill="#F0E7CE"/><circle cx="14.4" cy="17" r="1.2" fill="#F0E7CE"/></svg>',yog:'<svg viewBox="0 0 24 24"><path d="M5.6 8.8h12.8l-1.4 11a2.2 2.2 0 0 1-2.2 1.9H9.2A2.2 2.2 0 0 1 7 19.8Z" fill="#fff" stroke="#D98AA6" stroke-width="1.4"/><ellipse cx="12" cy="8.8" rx="6.4" ry="2.2" fill="#FBE3EA" stroke="#D98AA6" stroke-width="1.4"/><circle cx="10.2" cy="14.5" r="1.6" fill="#F2B9CA"/><circle cx="13.8" cy="17" r="1.3" fill="#F2B9CA"/></svg>',fant:'<svg viewBox="0 0 24 24"><path d="M5.6 8.8h12.8l-1.4 11a2.2 2.2 0 0 1-2.2 1.9H9.2A2.2 2.2 0 0 1 7 19.8Z" fill="#fff" stroke="#B383CE" stroke-width="1.4"/><ellipse cx="12" cy="8.8" rx="6.4" ry="2.2" fill="#EEDCF7" stroke="#B383CE" stroke-width="1.4"/><path d="M12 3.4c1.4 1.6 2.2 2.6 2.2 3.5a2.2 2.2 0 1 1-4.4 0c0-.9.8-1.9 2.2-3.5Z" fill="#CFA5E4"/></svg>',cheese:'<svg viewBox="0 0 24 24"><path d="M3 12.6 12.4 5.8c.4-.3.9-.3 1.3 0L21 11v7.6a1.8 1.8 0 0 1-1.8 1.8H4.8A1.8 1.8 0 0 1 3 18.6Z" fill="#FFF3CE" stroke="#D9AF4B" stroke-width="1.4"/><circle cx="8.4" cy="15.6" r="1.7" fill="#FFE49A"/><circle cx="14.6" cy="14.4" r="1.3" fill="#FFE49A"/><circle cx="17" cy="17.6" r="1" fill="#FFE49A"/></svg>',butter:'<svg viewBox="0 0 24 24"><path d="M3.4 10.4 8 6.6h12.6v7.2L16 17.6H3.4Z" fill="#FFF6D8" stroke="#D8B457" stroke-width="1.4"/><path d="M3.4 10.4H16v7.2M16 10.4l4.6-3.8" stroke="#D8B457" stroke-width="1.4" fill="none"/></svg>',um:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9" fill="#FBF0D2" stroke="#C99A2E" stroke-width="1.4"/><path d="m12 6.6 1.7 3.5 3.8.5-2.8 2.7.7 3.8-3.4-1.8-3.4 1.8.7-3.8-2.8-2.7 3.8-.5Z" fill="#E8C463"/></svg>'};(function(root){'use strict';var own=function own(o,k){return Object.prototype.hasOwnProperty.call(o,k);};var record=function record(o){return!!o&&_typeof(o)==='object'&&!Array.isArray(o);};var clean=function clean(s){var max=arguments.length>1&&arguments[1]!==undefined?arguments[1]:240;return typeof s==='string'?s.trim().slice(0,max):'';};var esc=function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});};var dict=function dict(){return Object.create(null);};var clone=function clone(o){return JSON.parse(JSON.stringify(o));};function validCatalog(pack){if(!record(pack)||!Number.isInteger(pack.version)||pack.version<1||!Array.isArray(pack.catalog)||!pack.catalog.length||pack.catalog.length>100)return false;var names=new Set(),ids=new Set();var total=0;var _iterator=_createForOfIteratorHelper(pack.catalog),_step;try{for(_iterator.s();!(_step=_iterator.n()).done;){var group=_step.value;if(!record(group)||typeof group.id!=='string'||!/^[-a-z0-9_]{1,60}$/i.test(group.id)||ids.has(group.id)||!clean(group.name)||!Array.isArray(group.items))return false;ids.add(group.id);var _iterator2=_createForOfIteratorHelper(group.items),_step2;try{for(_iterator2.s();!(_step2=_iterator2.n()).done;){var item=_step2.value;if(++total>2000||!record(item)||typeof item.n!=='string'||item.n!==clean(item.n)||!item.n||['__proto__','constructor','prototype'].includes(item.n)||names.has(item.n)||!['кг','шт'].includes(item.u))return false;if(item.step!==undefined&&(typeof item.step!=='number'||!Number.isFinite(item.step)||item.step<0||item.step>9999||Math.round(item.step*100)!==item.step*100))return false;for(var _i=0,_arr=['hint','life','warn','pack'];_i<_arr.length;_i++){var k=_arr[_i];if(item[k]!==undefined&&(typeof item[k]!=='string'||item[k].length>240))return false;}names.add(item.n);}}catch(err){_iterator2.e(err);}finally{_iterator2.f();}}}catch(err){_iterator.e(err);}finally{_iterator.f();}return total>0;}function indexed(pack){var items=[],byName=dict();pack.catalog.forEach(function(g){return g.items.forEach(function(raw){var i=_objectSpread(_objectSpread({},raw),{},{id:items.length,group:g});items.push(i);byName[i.n]=i;});});return{items:items,byName:byName};}function quantity(item,value){var raw=String(value).trim().replace(',','.');if(!/^\d+(?:\.\d+)?$/.test(raw))return{error:'Введите количество числом, например 2 или 2,5.'};var q=Number(raw);if(!Number.isFinite(q)||q>9999)return{error:'Максимальное количество одной позиции — 9 999.'};if(q===0)return{qty:0};var step=item.u==='шт'?1:item.step||0.01;var rounded=Math.round(Math.max(step,Math.round(q/step)*step)*100)/100;if(rounded>9999)return{error:'Количество превышает допустимый предел.'};return{qty:rounded,adjusted:Math.abs(rounded-q)>0.000001};}function normalizedCart(raw){var out=dict();if(!record(raw))return out;Object.keys(raw).slice(0,2000).forEach(function(n){var v=raw[n];if(!clean(n)||['__proto__','constructor','prototype'].includes(n)||!record(v))return;var qty=Number(v.qty);if(!Number.isFinite(qty)||qty<=0||qty>9999)return;out[n]={qty:qty,reason:['срок','брак'].includes(v.reason)?v.reason:'',u:['шт','кг'].includes(v.u)?v.u:''};});return out;}function draft(raw){return{order:normalizedCart(raw&&raw.order),exch:normalizedCart(raw&&raw.exch),note:clean(raw&&raw.note,2000),startedAt:Number.isFinite(raw&&raw.startedAt)?raw.startedAt:0,updatedAt:Number.isFinite(raw&&raw.updatedAt)?raw.updatedAt:0};}function points(raw){var ids=new Set();return(Array.isArray(raw)?raw:[]).filter(function(p){return record(p)&&clean(p.name)&&clean(p.addr)&&typeof p.id==='string'&&/^[a-zA-Z0-9_-]{1,80}$/.test(p.id)&&!ids.has(p.id)&&ids.add(p.id);}).slice(0,100).map(function(p){return{id:p.id,name:clean(p.name),addr:clean(p.addr),phone:clean(p.phone,40)};});}function history(raw){return(Array.isArray(raw)?raw:[]).filter(function(h){return record(h)&&Number.isFinite(h.ts)&&h.ts>0;}).slice(0,40).map(function(h){return _objectSpread(_objectSpread({},draft(h)),{},{id:clean(h.id,100)||String(h.ts),ts:h.ts,text:clean(h.text,100000),delivery:record(h.delivery)?h.delivery:null,point:record(h.point)?h.point:null});});}function normalizeState(raw){var s=record(raw)?raw:{};var ps=points(s.points);var ds=dict(),hs=dict();[].concat(_toConsumableArray(ps.map(function(p){return p.id;})),['guest']).forEach(function(id){ds[id]=draft(s.drafts&&s.drafts[id]);hs[id]=history(s.histories&&s.histories[id]);});return{schema:3,points:ps,activeId:ps.some(function(p){return p.id===s.activeId;})?s.activeId:ps[0]?ps[0].id:'guest',drafts:ds,histories:hs,favorites:(Array.isArray(s.favorites)?s.favorites:[]).filter(function(n){return typeof n==='string';}).slice(0,2000),font:s.font==='large'?'large':'normal',reminders:!!s.reminders,revision:typeof s.revision==='string'?s.revision:''};}var pad=function pad(n){return String(n).padStart(2,'0');};var days=['воскресенье','понедельник','вторник','среда','четверг','пятница','суббота'];var dayIn=['воскресенье','понедельник','вторник','среду','четверг','пятницу','субботу'];var months=['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря'];var moscow=function moscow(ts){return new Date(ts+10800000);};function dateKey(ts){var d=moscow(ts);return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate());}function dateLabel(ts){var d=moscow(ts);return pad(d.getUTCDate())+'.'+pad(d.getUTCMonth()+1)+'.'+d.getUTCFullYear();}function timeLabel(ts){var d=moscow(ts);return pad(d.getUTCHours())+':'+pad(d.getUTCMinutes());}function delivery(){var ts=arguments.length>0&&arguments[0]!==undefined?arguments[0]:Date.now();var now=moscow(ts);for(var add=0;add<8;add++){var d=new Date(Date.UTC(now.getUTCFullYear(),now.getUTCMonth(),now.getUTCDate()+add));if(![0,2,4].includes(d.getUTCDay()))continue;var cutoff=d.getTime()+11*3600000;if(cutoff<=ts)continue;var next=new Date(d.getTime()+86400000);var key=next.getUTCFullYear()+'-'+pad(next.getUTCMonth()+1)+'-'+pad(next.getUTCDate());return{key:key,label:days[next.getUTCDay()]+', '+next.getUTCDate()+' '+months[next.getUTCMonth()],short:pad(next.getUTCDate())+'.'+pad(next.getUTCMonth()+1)+'.'+next.getUTCFullYear(),deadline:cutoff,today:add===0,acceptDay:dayIn[d.getUTCDay()],left:cutoff-ts};}}var format=function format(q){return String(Math.round(q*100)/100).replace('.',',');};function unitLabel(item,q){return format(q)+' '+item.u;}function packLabel(item,q){var base=unitLabel(item,q);if(item.u!=='кг'||!item.step||Math.abs(q/item.step-Math.round(q/item.step))>0.00001)return base;return base+' · '+format(q/item.step)+' упак.';}var count=function count(d){return Object.keys(d.order).length+Object.keys(d.exch).length;};function problems(d,byName){var p=[];for(var _i2=0,_arr2=['order','exch'];_i2<_arr2.length;_i2++){var mode=_arr2[_i2];for(var _i3=0,_Object$entries=Object.entries(d[mode]);_i3<_Object$entries.length;_i3++){var _Object$entries$_i=_slicedToArray(_Object$entries[_i3],2),name=_Object$entries$_i[0],v=_Object$entries$_i[1];var it=byName[name];if(!it){p.push({name:name,mode:mode,text:'Товара больше нет в каталоге. Удалите его и выберите замену.'});continue;}var n=quantity(it,v.qty);if(n.error||n.adjusted)p.push({name:name,mode:mode,text:'Уточните количество с учётом фасовки.'});if(mode==='exch'&&!v.reason)p.push({name:name,mode:mode,text:'Укажите причину обмена.'});}}return p;}function totals(d,byName){var t={pieces:0,kg:0};for(var _i4=0,_Object$entries2=Object.entries(d.order);_i4<_Object$entries2.length;_i4++){var _Object$entries2$_i=_slicedToArray(_Object$entries2[_i4],2),n=_Object$entries2$_i[0],v=_Object$entries2$_i[1];var u=(byName[n]||v).u;if(u==='шт')t.pieces+=v.qty;if(u==='кг')t.kg+=v.qty;}t.kg=Math.round(t.kg*100)/100;return t;}function text(s){var l=['ЗАЯВКА · КМЗ №1',s.point.name,s.point.addr];if(s.point.phone)l.push('Телефон: '+s.point.phone);l.push('Доставка: '+s.delivery.label+' ('+s.delivery.short+')','');var _loop=function _loop(){var mode=_arr3[_i5];var rows=Object.entries(s[mode]);if(!rows.length)return 1;l.push(mode==='order'?'--- ЗАКАЗ ---':'--- ОБМЕН ---');rows.forEach(function(_ref,i){var _ref2=_slicedToArray(_ref,2),n=_ref2[0],v=_ref2[1];return l.push(i+1+'. '+n+' — '+format(v.qty)+' '+v.u+(mode==='exch'?' ('+(v.reason==='брак'?'БРАК':'срок вышел')+')':''));});l.push('');};for(var _i5=0,_arr3=['order','exch'];_i5<_arr3.length;_i5++){if(_loop())continue;}if(s.note)l.push('Примечание: '+s.note,'');l.push('Сформировано '+dateLabel(s.ts)+' в '+timeLabel(s.ts)+' (МСК)');return l.join('\n');}var fold=function fold(s){return String(s).toLowerCase().replace(/ё/g,'е').replace(/(\d),(\d)/g,'$1.$2').replace(/[^a-zа-я0-9.]+/g,' ').trim();};var synonyms={'адыгей':'крестьян','тварог':'творог','малако':'молоко','смитан':'сметана','кифир':'кефир','косич':'коса','касич':'коса','сливочное':'масло','десерт':'фантазия'};function matches(it,query){var hay=fold(it.n+' '+it.group.name+' '+(it.hint||''));return fold(query).split(/\s+/).filter(Boolean).every(function(t){var syn=Object.keys(synonyms).find(function(k){return t.startsWith(k);});return hay.includes(t)||syn&&hay.includes(synonyms[syn]);});}root.KMZ={own:own,record:record,clean:clean,esc:esc,dict:dict,clone:clone,validCatalog:validCatalog,indexed:indexed,quantity:quantity,normalizedCart:normalizedCart,draft:draft,points:points,history:history,normalizeState:normalizeState,delivery:delivery,dateKey:dateKey,dateLabel:dateLabel,timeLabel:timeLabel,format:format,unitLabel:unitLabel,packLabel:packLabel,count:count,problems:problems,totals:totals,text:text,matches:matches};if(typeof module!=='undefined')module.exports=root.KMZ;})(typeof window!=='undefined'?window:globalThis);(function(){'use strict';var K=window.KMZ,VERSION='3.0.7',STATE_KEY='kmz_orders_v3';if(!K||!K.validCatalog(window.KMZ_CATALOG))throw new Error('CATALOG_INVALID');var $=function $(s){return document.querySelector(s);},$$=function $$(s){return Array.from(document.querySelectorAll(s));};var paths={box:'<path d="m3 7 9-4 9 4-9 4-9-4Z"/><path d="M3 7v10l9 4 9-4V7M12 11v10M7.5 5l9 4"/>',bag:'<path d="M5 7h14l1 14H4L5 7Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',store:'<path d="M3 9h18l-2-6H5L3 9Z"/><path d="M4 9v11h16V9M9 20v-7h6v7M3 9c0 4 5 4 5 0 0 4 8 4 8 0 0 4 5 4 5 0"/>',history:'<path d="M3 11a9 9 0 1 1 2 7M3 4v7h7M12 7v5l3 2"/>',settings:'<path d="M12 3v3m0 12v3M3 12h3m12 0h3M5.6 5.6l2.1 2.1m8.6 8.6 2.1 2.1M5.6 18.4l2.1-2.1m8.6-8.6 2.1-2.1"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/>',phone:'<path d="m5 3 4 4-2 3c2 3 4 5 7 7l3-2 4 4c-2 4-5 3-9 1S4 13 3 9s-1-4 2-6Z"/>',search:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/>',heart:'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8Z"/>',exchange:'<path d="M4 8h15l-4-4m5 12H5l4 4M19 8v4M5 16v-4"/>',truck:'<path d="M2 5h12v12H2V5Zm12 5h4l4 4v3h-8"/><circle cx="6" cy="18" r="2"/><circle cx="18" cy="18" r="2"/>',shield:'<path d="m12 3 8 3v6c0 5-8 9-8 9S4 17 4 12V6l8-3Z"/><path d="m8 12 3 3 5-6"/>',arrow:'<path d="M4 12h16m-6-6 6 6-6 6"/>',chevron:'<path d="m8 10 4 4 4-4"/>',plus:'<path d="M5 12h14M12 5v14"/>',minus:'<path d="M5 12h14"/>',close:'<path d="m6 6 12 12M18 6 6 18"/>',edit:'<path d="m16 3 5 5-12 12H4v-5L16 3Z"/><path d="m13 6 5 5"/>',check:'<path d="m5 12 4 4L19 6"/>',copy:'<rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V3H3v13h5"/>',download:'<path d="M12 3v12m-5-5 5 5 5-5M4 17v4h16v-4"/>',share:'<path d="M12 15V3m-4 4 4-4 4 4M7 10H4v11h16V10h-3"/>',image:'<rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-7 5 8"/>'};var icon=function icon(n){return'<svg viewBox="0 0 24 24" aria-hidden="true">'+(paths[n]||paths.box)+'</svg>';};function icons(){var root=arguments.length>0&&arguments[0]!==undefined?arguments[0]:document;root.querySelectorAll('[data-icon]').forEach(function(e){e.innerHTML=icon(e.dataset.icon);});}function productIcon(it){return(window.KMZ_PRODUCT_ICONS||{})[it.group.icon]||icon('box');}var btn=function btn(label,action){var cls=arguments.length>2&&arguments[2]!==undefined?arguments[2]:'secondary';var attrs=arguments.length>3&&arguments[3]!==undefined?arguments[3]:'';return'<button class="'+cls+'" data-action="'+action+'" '+attrs+'>'+label+'</button>';};var memoryOnly=false,corrupt=false,conflict=false,toastTimer,focusBefore=null,modalView='',confirmTask=null,editingId='',checkoutAfterPoint=false,preview=null,sending=false,pendingCatalog=null;function rawRead(key){try{return localStorage.getItem(key);}catch(e){memoryOnly=true;return null;}}function read(key,fallback){var raw=rawRead(key);if(!raw)return fallback;try{return JSON.parse(raw);}catch(e){corrupt=true;return fallback;}}var pack=window.KMZ_CATALOG;var savedPack=read('kmz_catalogPack',null);if(K.validCatalog(savedPack)&&savedPack.version>pack.version)pack=savedPack;var _K$indexed=K.indexed(pack),items=_K$indexed.items,byName=_K$indexed.byName;function migrate(){var ps=read('kmz_points',null),old=read('kmz_profile',null);if(!Array.isArray(ps)&&old&&K.clean(old.name)&&K.clean(old.addr))ps=[{id:'p1',name:old.name,addr:old.addr,phone:old.phone||''}];ps=Array.isArray(ps)?ps:[];var active=read('kmz_active',0);var activeId=ps[active]&&ps[active].id;var good=K.points(ps),drafts=K.dict(),histories=K.dict();if(good.length!==ps.length)corrupt=true;good.forEach(function(p){var d=read('kmz_draft_'+p.id,null);if(!d&&old&&p.id==='p1')d=read('kmz_draft',null);drafts[p.id]=K.draft(d);drafts[p.id].startedAt=Number(read('kmz_dts_'+p.id,0))||0;if(p.id===(activeId||good[0].id)&&!drafts[p.id].note)drafts[p.id].note=K.clean(read('kmz_note',''),2000);histories[p.id]=K.history(read('kmz_hist_'+p.id,p.id==='p1'?read('kmz_history',[]):[]));});return K.normalizeState({points:good,activeId:activeId,drafts:drafts,histories:histories,font:Number(read('kmz_fs',1))>1?'large':'normal'});}var stored=read(STATE_KEY,null);var state=stored&&stored.schema===3?K.normalizeState(stored):migrate();var lastRevision=stored&&typeof stored.revision==='string'?stored.revision:'';if(stored&&stored.schema!==3)corrupt=true;var mode='order',category='all',query='';var point=function point(){return state.points.find(function(p){return p.id===state.activeId;})||null;};var currentDraft=function currentDraft(){return state.drafts[state.activeId]||(state.drafts[state.activeId]=K.draft(null));};var currentHistory=function currentHistory(){return state.histories[state.activeId]||[];};var uid=function uid(){return Date.now().toString(36)+'_'+Math.random().toString(36).slice(2,10);};function notices(){var el=$('#storage-warning');el.hidden=!memoryOnly&&!corrupt;el.textContent=memoryOnly?'Браузер не сохраняет данные. Заявка доступна в этой вкладке; перед закрытием скопируйте или скачайте её.':corrupt?'Часть сохранённых данных повреждена. Проверьте магазин и заявку перед отправкой.':'';$('#conflict-warning').hidden=!conflict;}function hasConflict(){if(conflict)return true;var latest=read(STATE_KEY,null);if(latest&&typeof latest.revision==='string'&&latest.revision!==lastRevision){conflict=true;notices();return true;}return false;}function commit(change){var requirePersistent=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;if(hasConflict()){toast('Сначала загрузите изменения из другой вкладки.');return false;}var before=K.clone(state);change(state);state.revision=uid();try{localStorage.setItem(STATE_KEY,JSON.stringify(state));lastRevision=state.revision;memoryOnly=false;notices();return true;}catch(e){memoryOnly=true;if(requirePersistent)state=before;notices();return!requirePersistent;}}function touchDraft(d){if(!d.startedAt&&K.count(d))d.startedAt=Date.now();d.updatedAt=Date.now();if(!K.count(d)&&!d.note)d.startedAt=0;}function toast(text){clearTimeout(toastTimer);$('#toast').textContent=text;$('#toast').hidden=false;toastTimer=setTimeout(function(){$('#toast').hidden=true;},4300);}function categoryButton(g,mobile){var active=category===g.id;return'<button class="'+(mobile?'mobile-category':'category')+(active?' active':'')+(mobile&&!groupOf(g.id)?' plain':'')+'" data-action="category" data-category="'+K.esc(g.id)+'" aria-pressed="'+active+'">'+catIcon(g,mobile)+'<span>'+K.esc(g.name)+'</span>'+(mobile?'':'<span class="cat-count">'+g.total+'</span>')+'</button>';}function renderCategories(){var groups=[{id:'all',name:'Все товары',total:items.length},{id:'favorites',name:'Избранное',total:state.favorites.filter(function(n){return byName[n];}).length}].concat(_toConsumableArray(pack.catalog.map(function(g){return{id:g.id,name:g.name,total:g.items.length};})));$('#categories').innerHTML=groups.map(function(g,i){return categoryButton(g,false)+(i===1?'<div class="rail-divider"></div>':'');}).join('');$('#mobile-categories').innerHTML=groups.map(function(g){return categoryButton(g,true);}).join('');$('#catalog-size').textContent=items.length;var fav=$('.favorite-filter');fav.classList.toggle('active',category==='favorites');fav.setAttribute('aria-pressed',category==='favorites');}var TONES={milk:'milk',kefir:'kef',ryazh:'ryaz',smet:'smet',tvorog:'tvor',yog:'yog',fant:'fant',cheese:'cheese',butter:'butter',um:'um'};function toneOf(g){return g&&TONES[g.icon]||'milk';}function groupOf(id){return pack.catalog.find(function(x){return x.id===id;});}function catIcon(g,mobile){var grp=groupOf(g.id);if(grp)return'<span class="sw" data-tone="'+toneOf(grp)+'"></span>';return mobile?'':icon(g.id==='favorites'?'heart':g.id==='all'?'box':'history');}function tileHTML(it){var n=String(it.n),g=it.group||{},big='',word=false;var pct=/(\d+(?:[.,]\d+)?)\s?%/.exec(n);if(!pct&&(g.icon==='butter'||g.icon==='um'))pct=/(\d{2}[.,]\d)/.exec(n);var p=pct?pct[1].replace('.',','):'';var vm=/(≈\s?)?(\d+(?:[.,]\d+)?)\s?(мл|кг|г)(?![а-яё])/i.exec(n);var vol=vm?(vm[1]?'≈':'')+vm[2].replace('.',',')+' '+vm[3]:'';var q=/«([^»]+)»/.exec(n);var flav=g.icon==='fant'||g.id==='massa'?(q&&q[1]):g.icon==='yog'?n.split(/\s+/)[1]:'';if(flav){word=true;big=flav.charAt(0).toUpperCase()+flav.slice(1);}else if(p){big=p+'<sup>%</sup>';}else{word=true;var w=n.replace(/[«»"]/g,'').replace(/^Сыр\s+/,'').split(/[\s,(]+/);big=w[0]+(w[1]&&/^№/.test(w[1])?' '+w[1]:'');}var sub=[];if(flav&&p)sub.push(p+'%');if(vol)sub.push(vol);else if(it.u==='кг')sub.push('на вес');if(it.pack)sub.push('<i>'+K.esc(it.pack)+'</i>');return'<span class="ps-big'+(word?' w':'')+'">'+(word?K.esc(big):big)+'</span><span class="ps-sub">'+sub.join(' · ')+'</span>';}function inputLabel(it){return'Количество: '+it.n+' ('+it.u+')';}function productHTML(it){var q=(currentDraft()[mode][it.n]||{}).qty||0,fav=state.favorites.includes(it.n);var unit=it.u==='шт'?'В штуках':it.step?'Кратно '+K.format(it.step)+' кг':'В килограммах';return'<article class="product'+(q?' selected':'')+(it.group.gold?' gold':'')+'" data-product="'+it.id+'" data-tone="'+toneOf(it.group)+'"><div class="product-symbol">'+tileHTML(it)+'<button class="favorite'+(fav?' active':'')+'" data-action="favorite" data-id="'+it.id+'" aria-label="Избранное: '+K.esc(it.n)+'" aria-pressed="'+fav+'">'+icon('heart')+'</button></div><div class="product-info"><div class="product-name">'+K.esc(it.n)+'</div><div class="product-meta"><span class="unit">'+unit+'</span>'+(it.life?'<span>'+K.esc(it.life)+'</span>':'')+'</div>'+(it.hint?'<div class="product-hint">'+K.esc(it.hint)+'</div>':'')+(it.warn?'<div class="product-warn">'+K.esc(it.warn)+'</div>':'')+'</div><div class="product-controls"><div class="qty"><button data-action="minus" data-id="'+it.id+'" aria-label="Уменьшить: '+K.esc(it.n)+'" '+(!q?'disabled':'')+'>'+icon('minus')+'</button><input type="text" inputmode="'+(it.u==='кг'?'decimal':'numeric')+'" data-qty="'+it.id+'" value="'+K.format(q)+'" aria-label="'+K.esc(inputLabel(it))+'" autocomplete="off" maxlength="10"><button data-action="plus" data-id="'+it.id+'" aria-label="Добавить: '+K.esc(it.n)+'">'+icon('plus')+'</button></div></div><div class="quantity-note">Выбрано: '+K.packLabel(it,q)+'</div></article>';}function renderProducts(){var found=items.filter(function(it){return(category==='all'||category==='favorites'&&state.favorites.includes(it.n)||category===it.group.id)&&K.matches(it,query);});var h='';var _iterator3=_createForOfIteratorHelper(pack.catalog),_step3;try{var _loop2=function _loop2(){var g=_step3.value;var list=found.filter(function(i){return i.group.id===g.id;});if(!list.length)return 1;h+='<section class="product-group"><h3 class="group-label">'+K.esc(g.name)+(g.note?'<small>'+K.esc(g.note)+'</small>':'')+'</h3><div class="product-list">'+list.map(productHTML).join('')+'</div></section>';};for(_iterator3.s();!(_step3=_iterator3.n()).done;){if(_loop2())continue;}}catch(err){_iterator3.e(err);}finally{_iterator3.f();}if(!found.length)h='<div class="empty-state"><span class="empty-symbol">'+icon(category==='favorites'?'heart':'search')+'</span><h3>'+(category==='favorites'&&!query?'Здесь будет избранное':'Ничего не найдено')+'</h3><p>'+(category==='favorites'&&!query?'Нажмите на сердечко у товаров, которые заказываете чаще всего.':'Попробуйте другое название или откройте весь каталог.')+'</p>'+btn('Все товары','reset-filter')+'</div>';$('#products').innerHTML=h;$('#results-count').textContent=found.length+' из '+items.length;$('#category-name').textContent=query?'Результаты поиска':category==='all'?'Все товары':category==='favorites'?'Избранное':(pack.catalog.find(function(g){return g.id===category;})||{}).name||'Все товары';$('#search-clear').hidden=!query;}function qtyButtons(it,v,m){return'<div class="mini-qty"><button data-action="minus" data-id="'+it.id+'" data-mode="'+m+'" aria-label="Уменьшить: '+K.esc(it.n)+'">'+icon('minus')+'</button><span>'+K.format(v.qty)+'</span><button data-action="plus" data-id="'+it.id+'" data-mode="'+m+'" aria-label="Добавить: '+K.esc(it.n)+'">'+icon('plus')+'</button></div>';}function totalHTML(d){var t=K.totals(d,byName);return'<div class="totals">'+(t.pieces?'<span>'+K.format(t.pieces)+' шт</span>':'')+(t.kg?'<span>'+K.format(t.kg)+' кг</span>':'')+(Object.keys(d.exch).length?'<span>Обмен: '+Object.keys(d.exch).length+' поз.</span>':'')+'</div>';}function renderBasket(){var d=currentDraft(),n=K.count(d);$('#basket-count').textContent=n;if(!n){$('#basket-body').innerHTML='<div class="basket-empty"><span class="empty-symbol">'+icon('bag')+'</span><h3>Всё начинается с выбора</h3><p>Добавляйте товары кнопкой «+».<br>Здесь появится ваша заявка.</p></div>';$('#basket-footer').innerHTML='<div class="basket-footer">'+btn('Проверить заявку','cart','primary full','disabled')+'<div class="basket-caption">'+icon('shield')+'Черновик сохраняется автоматически</div></div>';}else{var h='<div class="basket-items">';for(var _i6=0,_arr4=['order','exch'];_i6<_arr4.length;_i6++){var m=_arr4[_i6];var rows=Object.entries(d[m]);if(!rows.length)continue;h+='<div class="basket-section '+(m==='exch'?'orange':'')+'">'+(m==='order'?'ЗАКАЗ':'ОБМЕН')+' · '+rows.length+'</div>';for(var _i7=0,_rows=rows;_i7<_rows.length;_i7++){var _rows$_i=_slicedToArray(_rows[_i7],2),name=_rows$_i[0],v=_rows$_i[1];var it=byName[name];h+='<div class="basket-item"><div class="basket-item-name"><span>'+K.esc(name)+'</span>'+btn(icon('close'),'remove','remove','data-name="'+K.esc(name)+'" data-mode="'+m+'" aria-label="Удалить: '+K.esc(name)+'"')+'</div><div class="basket-item-bottom"><strong>'+K.format(v.qty)+' '+K.esc((it||v).u||'ед.')+'</strong>'+(it?qtyButtons(it,v,m):'')+'</div></div>';}}h+='</div>';$('#basket-body').innerHTML=h;$('#basket-footer').innerHTML='<div class="basket-footer">'+totalHTML(d)+btn('Проверить заявку '+icon('arrow'),'cart','primary full')+'<div class="basket-caption">'+icon('shield')+(memoryOnly?'Черновик только в этой вкладке':'Черновик сохранён в браузере')+'</div>'+btn('Очистить корзину','clear','clear-basket')+'</div>';}$('#mobile-cart').disabled=!n;$('#mobile-total').textContent=n?'В заявке: '+n+' поз.':'Корзина пуста';$('#mobile-detail').textContent=n?Object.keys(d.order).length+' заказ · '+Object.keys(d.exch).length+' обмен':'Добавьте товары';}function renderChrome(){var d=currentDraft();$('#point-name').textContent=point()?point().name+' · '+point().addr:'Укажите ваш магазин';$('#order-count').textContent=Object.keys(d.order).length;$('#exchange-count').textContent=Object.keys(d.exch).length;$$('.mode-tabs>button').forEach(function(b){var a=b.dataset.mode===mode;b.classList.toggle('active',a);b.setAttribute('aria-pressed',a);});$('#exchange-note').hidden=mode!=='exch';document.body.classList.toggle('exchange-mode',mode==='exch');document.documentElement.dataset.font=state.font;renderDelivery();notices();}function renderDelivery(){var d=K.delivery();$('#delivery-date').textContent=d.label;var dm=/(\d{1,2})\s+([^\s,]+)/.exec(d.label);if(dm&&$('#delivery-day'))$('#delivery-day').innerHTML='<b>'+dm[1]+'</b><small>'+dm[2].slice(0,3)+'</small>';$('#delivery-deadline').textContent=d.today?'Приём сегодня до 14:00 · МСК':'Приём в '+d.acceptDay+' до 14:00 · МСК';}function renderAll(){renderChrome();renderCategories();renderProducts();renderBasket();}function updateQuantities(){$$('#products [data-product]').forEach(function(row){var it=items[Number(row.dataset.product)],q=(currentDraft()[mode][it.n]||{}).qty||0;row.classList.toggle('selected',q>0);row.querySelector('input').value=K.format(q);row.querySelector('[data-action="minus"]').disabled=!q;row.querySelector('.quantity-note').textContent='Выбрано: '+K.packLabel(it,q);});renderChrome();renderBasket();}function setQty(id,value){var m=arguments.length>2&&arguments[2]!==undefined?arguments[2]:mode;var it=items[id];if(!it||!['order','exch'].includes(m))return;var parsed=K.quantity(it,value);if(parsed.error){toast(parsed.error);updateQuantities();return;}if(!commit(function(){var d=currentDraft(),old=d[m][it.n];if(parsed.qty)d[m][it.n]={qty:parsed.qty,reason:old?old.reason:'',u:it.u};else delete d[m][it.n];touchDraft(d);})){updateQuantities();return;}if(parsed.adjusted)toast('Количество по фасовке: '+K.unitLabel(it,parsed.qty)+'.');updateQuantities();if(modalView==='cart')openCart();}function closeModal(){var fromHistory=arguments.length>0&&arguments[0]!==undefined?arguments[0]:false;$('#modal-overlay').hidden=true;$('#shell').inert=false;$('#shell').removeAttribute('aria-hidden');document.body.style.overflow='';modalView='';if(focusBefore&&focusBefore.isConnected)focusBefore.focus({preventScroll:true});if(!fromHistory&&history.state&&history.state.kmzModal)history.back();}function openModal(view,title,body){var footer=arguments.length>3&&arguments[3]!==undefined?arguments[3]:'';var kicker=arguments.length>4&&arguments[4]!==undefined?arguments[4]:'КМЗ №1';var wasOpen=!$('#modal-overlay').hidden;if(!wasOpen){focusBefore=document.activeElement;try{history.pushState({kmzModal:true},'');}catch(e){}}modalView=view;$('#modal-title').textContent=title;$('#modal-kicker').textContent=kicker;$('#modal-body').innerHTML=body;$('#modal-foot').innerHTML=footer;icons($('#modal'));$('#modal-overlay').hidden=false;$('#shell').inert=true;$('#shell').setAttribute('aria-hidden','true');document.body.style.overflow='hidden';$('#modal').focus({preventScroll:true});}function confirm(title,copy,action){var label=arguments.length>3&&arguments[3]!==undefined?arguments[3]:'Подтвердить';var danger=arguments.length>4&&arguments[4]!==undefined?arguments[4]:false;confirmTask=action;openModal('confirm',title,'<p>'+K.esc(copy)+'</p>',btn('Отмена','cancel-confirm')+btn(label,'confirm-task',danger?'danger':'primary'));}function openPoints(){var h=state.points.map(function(p){return'<div class="point-card'+(p.id===state.activeId?' active':'')+'"><button class="point-pick" data-action="pick-point" data-point="'+p.id+'"><strong>'+K.esc(p.name)+'</strong><small>'+K.esc(p.addr)+'</small>'+(p.id===state.activeId?'<small class="active-label">Выбрана для текущей заявки</small>':'')+'</button>'+btn(icon('edit'),'edit-point','icon-button','data-point="'+p.id+'" aria-label="Изменить: '+K.esc(p.name)+'"')+'</div>';}).join('');if(!state.points.length)h='<p class="intro-copy">Укажите магазин и адрес. Они будут подставляться в заявку автоматически.</p>';else h+='<p class="muted spaced">У каждого магазина своя корзина, примечание и история.</p>';openModal('points','Мои торговые точки',h,btn('Добавить магазин '+icon('plus'),'new-point','primary'));}function editPoint(){var id=arguments.length>0&&arguments[0]!==undefined?arguments[0]:'';var p=state.points.find(function(p){return p.id===id;});editingId=p?p.id:'';var input=function input(label,name,value,max){var extra=arguments.length>4&&arguments[4]!==undefined?arguments[4]:'';return'<label class="field"><span>'+label+'</span><input name="'+name+'" value="'+K.esc(value||'')+'" maxlength="'+max+'" '+extra+'></label>';};var h='<form id="point-form"><p id="point-error" class="error-text" role="alert" hidden></p>'+input('Название магазина или ИП','pointName',p&&p.name,240,'required autocomplete="organization"')+input('Адрес торговой точки','pointAddress',p&&p.addr,240,'required autocomplete="street-address"')+input('Телефон — необязательно','pointPhone',p&&p.phone,40,'type="tel" autocomplete="tel"')+'</form><p class="muted">Данные сохраняются в этом браузере и попадают в текст вашей заявки.</p>';openModal('edit-point',p?'Изменить магазин':'Добавить магазин',h,(p?btn('Удалить','delete-point','link-button'):'')+btn('Сохранить магазин','save-point','primary','type="submit" form="point-form"'));$('#point-form input').focus();}function savePoint(){var form=$('#point-form');if(!form)return;var name=K.clean(form.elements.pointName.value),addr=K.clean(form.elements.pointAddress.value),phone=K.clean(form.elements.pointPhone.value,40);if(!name||!addr){$('#point-error').hidden=false;$('#point-error').textContent='Заполните название магазина и адрес.';form.elements[!name?'pointName':'pointAddress'].focus();return;}if(phone&&!/^[+\d()\s-]{7,40}$/.test(phone)){toast('Проверьте телефон: используйте цифры, пробелы, + и скобки.');return;}if(!editingId&&state.points.length>=100){toast('Можно сохранить до 100 магазинов.');return;}if(!commit(function(s){var existing=s.points.find(function(p){return p.id===editingId;});if(existing){Object.assign(existing,{name:name,addr:addr,phone:phone});}else{var id='p_'+uid(),guest=!s.points.length;s.points.push({id:id,name:name,addr:addr,phone:phone});s.drafts[id]=guest?K.clone(currentDraft()):K.draft(null);s.histories[id]=[];if(guest)s.drafts.guest=K.draft(null);s.activeId=id;}}))return;renderAll();if(checkoutAfterPoint){checkoutAfterPoint=false;openCart();}else{closeModal();toast('Магазин сохранён.');}}function issueHTML(d){var p=K.problems(d,byName);return p.length?'<div class="notice warning" role="alert">'+K.esc(p[0].text)+(p.length>1?' Проверьте все отмеченные позиции.':'')+'</div>':'';}function rowsHTML(d){var editable=arguments.length>1&&arguments[1]!==undefined?arguments[1]:true;var h='';for(var _i8=0,_arr5=['order','exch'];_i8<_arr5.length;_i8++){var m=_arr5[_i8];var rows=Object.entries(d[m]);if(!rows.length)continue;h+='<section class="card"><h3>'+(m==='order'?'Заказ':'Обмен')+' · '+rows.length+' поз.</h3>';var _loop3=function _loop3(){var _rows2$_i=_slicedToArray(_rows2[_i9],2),name=_rows2$_i[0],v=_rows2$_i[1];var it=byName[name];h+='<div class="review-row"><div><strong>'+K.esc(name)+'</strong><div class="qty-label">'+K.format(v.qty)+' '+K.esc((it||v).u||'ед.')+'</div>';if(!it)h+='<div class="reason-hint">Товар отсутствует в текущем каталоге.</div>';if(editable&&it)h+=qtyButtons(it,v,m);if(m==='exch'){if(editable)h+='<div class="reason-options">'+['срок','брак'].map(function(r){return btn(r==='срок'?'Срок вышел':'Брак','reason','reason'+(r===v.reason?' active':'')+(r==='брак'?' defect':''),'data-name="'+K.esc(name)+'" data-reason="'+r+'" aria-pressed="'+(r===v.reason)+'"');}).join('')+'</div>'+(!v.reason?'<div class="reason-hint">Выберите причину обмена.</div>':'');else h+='<p class="muted">'+(v.reason==='брак'?'Брак':'Срок вышел')+'</p>';}h+='</div>'+(editable?btn(icon('close'),'remove','remove','data-name="'+K.esc(name)+'" data-mode="'+m+'" aria-label="Удалить: '+K.esc(name)+'"'):'')+'</div>';};for(var _i9=0,_rows2=rows;_i9<_rows2.length;_i9++){_loop3();}h+='</section>';}return h;}function openCart(){var d=currentDraft();if(!K.count(d)){closeModal();toast('Добавьте товары в заявку.');return;}var p=point(),dv=K.delivery();var h=p?'<section class="card review-point"><div class="card-title"><h3>Торговая точка</h3>'+btn('Изменить','cart-point','link-button')+'</div><strong>'+K.esc(p.name)+'</strong><p>'+K.esc(p.addr)+'</p>'+(p.phone?'<p>'+K.esc(p.phone)+'</p>':'')+'<div class="delivery-note">Доставка: '+K.esc(dv.label)+'</div></section>':'<div class="notice">Укажите магазин перед отправкой. Товары уже в корзине.</div>';var duplicate=currentHistory().some(function(o){return K.dateKey(o.ts)===K.dateKey(Date.now());});if(duplicate)h+='<div class="notice warning">Сегодня вы уже отмечали заявку как отправленную. Если это дополнение, укажите это в примечании.</div>';if(d.startedAt&&K.dateKey(d.startedAt)!==K.dateKey(Date.now()))h+='<div class="notice warning">Черновик начат '+K.dateLabel(d.startedAt)+'. Проверьте товары и дату доставки.</div>';h+=issueHTML(d)+rowsHTML(d)+'<section class="card"><label class="field"><span>Примечание к этой заявке</span><textarea id="order-note" maxlength="2000" placeholder="Например: дополнение к утреннему заказу">'+K.esc(d.note)+'</textarea><small>Можно надиктовать через микрофон на клавиатуре.</small></label></section>'+totalHTML(d);openModal('cart','Проверка заявки',h,btn('К каталогу','close')+btn(p?'Далее: отправка '+icon('arrow'):'Указать магазин '+icon('arrow'),'review','primary'),'ШАГ 1 ИЗ 2');}function makePreview(){var d=currentDraft();if(!K.count(d)){closeModal();toast('Корзина пуста.');return;}if(!point()){checkoutAfterPoint=true;editPoint();return;}var problems=K.problems(d,byName);if(problems.length){openCart();toast(problems[0].text);return;}if(hasConflict()){toast('Загрузите изменения из другой вкладки.');return;}preview=_objectSpread(_objectSpread({},K.clone(d)),{},{id:uid(),point:K.clone(point()),delivery:K.delivery(),ts:Date.now(),draftSignature:JSON.stringify(d)});for(var _i0=0,_arr6=['order','exch'];_i0<_arr6.length;_i0++){var m=_arr6[_i0];for(var _i1=0,_Object$entries3=Object.entries(preview[m]);_i1<_Object$entries3.length;_i1++){var _Object$entries3$_i=_slicedToArray(_Object$entries3[_i1],2),n=_Object$entries3$_i[0],v=_Object$entries3$_i[1];v.u=byName[n].u;}}preview.text=K.text(preview);openSend();}function openSend(){if(!preview)return;var h='<div class="send-recipient"><span class="avatar">Е</span><div><strong>Передайте заявку Евгению</strong><small>+7 967 650-50-89 · ваш представитель</small></div></div><label class="field"><span>Текст заявки</span><textarea id="preview-text" class="preview" readonly>'+K.esc(preview.text)+'</textarea></label><p class="send-note">Выберите мессенджер, найдите переписку с представителем и нажмите «Отправить». WhatsApp откроет чат по номеру.</p>'+btn(icon('share')+' '+(navigator.share?'Выбрать мессенджер':'Скопировать заявку'),'share','primary full')+'<div class="send-grid">'+btn('WhatsApp','whatsapp')+btn('Telegram','telegram')+btn(icon('copy')+' Копировать','copy')+btn(icon('image')+' Картинкой','image')+'</div>'+btn(icon('download')+' Скачать текст','download-text','link-button full')+'<div id="send-feedback" class="feedback" role="status" hidden></div><p class="muted spaced">Сайт не видит доставку сообщения. Отмечайте заявку отправленной после проверки в мессенджере.</p>';openModal('send','Отправка заявки',h,btn('Назад к проверке','cart')+btn('Я отправил заявку '+icon('check'),'sent','primary'),'ШАГ 2 ИЗ 2');}function freshPreview(){if(!preview)return false;if(hasConflict()){toast('Данные изменены в другой вкладке. Загрузите их перед отправкой.');return false;}if(preview.delivery.key!==K.delivery().key){openCart();preview=null;toast('Срок приёма изменился. Проверьте новую дату доставки.');return false;}return true;}function feedback(text){var error=arguments.length>1&&arguments[1]!==undefined?arguments[1]:false;var e=$('#send-feedback');if(!e)return;e.hidden=false;e.classList.toggle('error',error);e.textContent=text;}function copyText(_x){return _copyText.apply(this,arguments);}function _copyText(){_copyText=_asyncToGenerator(_regenerator().m(function _callee(text){var area,focused,_t,_t2;return _regenerator().w(function(_context){while(1)switch(_context.p=_context.n){case 0:_context.p=0;if(!(navigator.clipboard&&navigator.clipboard.writeText)){_context.n=2;break;}_context.n=1;return navigator.clipboard.writeText(text);case 1:return _context.a(2,true);case 2:_context.n=4;break;case 3:_context.p=3;_t=_context.v;case 4:focused=document.activeElement;_context.p=5;area=document.createElement('textarea');area.value=text;area.style.position='fixed';area.style.left='-9999px';$('#modal-body').appendChild(area);area.focus();area.select();return _context.a(2,document.execCommand('copy')===true);case 6:_context.p=6;_t2=_context.v;return _context.a(2,false);case 7:_context.p=7;if(area)area.remove();if(focused&&focused.isConnected)focused.focus({preventScroll:true});return _context.f(7);case 8:return _context.a(2);}},_callee,null,[[5,6,7,8],[0,3]]);}));return _copyText.apply(this,arguments);}function copyOrder(){return _copyOrder.apply(this,arguments);}function _copyOrder(){_copyOrder=_asyncToGenerator(_regenerator().m(function _callee2(){var ok;return _regenerator().w(function(_context2){while(1)switch(_context2.p=_context2.n){case 0:if(!(!freshPreview()||sending)){_context2.n=1;break;}return _context2.a(2);case 1:sending=true;_context2.p=2;_context2.n=3;return copyText(preview.text);case 3:ok=_context2.v;feedback(ok?'Текст скопирован. Вставьте его в переписку и отправьте.':'Браузер не разрешил копирование. Выделите текст заявки вручную или скачайте его.',!ok);if(!ok&&$('#preview-text')){$('#preview-text').focus();$('#preview-text').select();}case 4:_context2.p=4;sending=false;return _context2.f(4);case 5:return _context2.a(2);}},_callee2,null,[[2,,4,5]]);}));return _copyOrder.apply(this,arguments);}function shareOrder(){return _shareOrder.apply(this,arguments);}function _shareOrder(){_shareOrder=_asyncToGenerator(_regenerator().m(function _callee3(){var _t3;return _regenerator().w(function(_context3){while(1)switch(_context3.p=_context3.n){case 0:if(!(!freshPreview()||sending)){_context3.n=1;break;}return _context3.a(2);case 1:if(navigator.share){_context3.n=3;break;}_context3.n=2;return copyOrder();case 2:return _context3.a(2);case 3:sending=true;_context3.p=4;_context3.n=5;return navigator.share({text:preview.text});case 5:feedback('Проверьте отправку в выбранном мессенджере.');_context3.n=7;break;case 6:_context3.p=6;_t3=_context3.v;if(_t3.name!=='AbortError'){feedback('Не удалось открыть выбор мессенджера. Используйте копирование.',true);}case 7:_context3.p=7;sending=false;return _context3.f(7);case 8:return _context3.a(2);}},_callee3,null,[[4,6,7,8]]);}));return _shareOrder.apply(this,arguments);}function external(channel){if(!freshPreview())return;var url=channel==='whatsapp'?'https://wa.me/79676505089?text='+encodeURIComponent(preview.text):'https://t.me/share/url?url='+encodeURIComponent('https://kmz-zakaz.netlify.app/')+'&text='+encodeURIComponent(preview.text);var a=document.createElement('a');a.href=url;a.target='_blank';a.rel='noopener noreferrer';document.body.appendChild(a);a.click();a.remove();feedback(channel==='whatsapp'?'Откройте чат с Евгением и отправьте подготовленный текст.':'В Telegram выберите переписку с Евгением и отправьте текст.');}function download(blob,name){var url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(function(){return URL.revokeObjectURL(url);},30000);}function downloadText(){if(!freshPreview())return;download(new Blob(["﻿"+preview.text],{type:'text/plain;charset=utf-8'}),'Заявка_КМЗ_'+K.dateKey(preview.ts)+'.txt');feedback('Текст подготовлен для скачивания. Прикрепите файл в переписке.');}function imageOrder(){return _imageOrder.apply(this,arguments);}function _imageOrder(){_imageOrder=_asyncToGenerator(_regenerator().m(function _callee4(){var canvas,ctx,lines,_iterator4,_step4,line,part,_i10,_Array$from,char,blob,_t4;return _regenerator().w(function(_context4){while(1)switch(_context4.p=_context4.n){case 0:if(!(!freshPreview()||sending)){_context4.n=1;break;}return _context4.a(2);case 1:sending=true;_context4.p=2;canvas=document.createElement('canvas');ctx=canvas.getContext('2d');if(ctx){_context4.n=3;break;}throw new Error('canvas');case 3:ctx.font='28px Arial';lines=[];_iterator4=_createForOfIteratorHelper(preview.text.split('\n'));try{for(_iterator4.s();!(_step4=_iterator4.n()).done;){line=_step4.value;part='';for(_i10=0,_Array$from=Array.from(line);_i10<_Array$from.length;_i10++){char=_Array$from[_i10];if(ctx.measureText(part+char).width>890){lines.push(part);part=char;}else part+=char;}lines.push(part);}}catch(err){_iterator4.e(err);}finally{_iterator4.f();}if(!(lines.length>190)){_context4.n=4;break;}feedback('Для такой длинной заявки используйте «Скачать текст»: изображение получилось бы слишком большим.',true);return _context4.a(2);case 4:canvas.width=970;canvas.height=145+lines.length*39;ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.fillStyle='#112d52';ctx.fillRect(0,0,970,95);ctx.fillStyle='#fff';ctx.font='bold 31px Arial';ctx.fillText('КМЗ №1 · Заявка на продукцию',40,59);ctx.font='28px Arial';ctx.fillStyle='#18334f';lines.forEach(function(line,i){return ctx.fillText(line,40,139+i*39);});_context4.n=5;return new Promise(function(resolve){return canvas.toBlob(resolve,'image/png');});case 5:blob=_context4.v;if(blob){_context4.n=6;break;}throw new Error('image');case 6:download(blob,'Заявка_КМЗ_'+K.dateKey(preview.ts)+'.png');feedback('Изображение подготовлено для скачивания. Прикрепите его в переписке.');_context4.n=8;break;case 7:_context4.p=7;_t4=_context4.v;feedback('Не удалось подготовить картинку. Скопируйте или скачайте текст заявки.',true);case 8:_context4.p=8;sending=false;return _context4.f(8);case 9:return _context4.a(2);}},_callee4,null,[[2,7,8,9]]);}));return _imageOrder.apply(this,arguments);}function confirmSent(){if(!freshPreview())return;openModal('sent','Заявка действительно отправлена?','<div class="confirm-icon">'+icon('check')+'</div><div class="confirm-copy"><strong>Проверьте сообщение в мессенджере</strong><p>После подтверждения заявка попадёт в историю, а корзина этого магазина очистится.</p></div><label class="confirm-check"><input id="sent-check" type="checkbox">Я проверил: сообщение отправлено Евгению.</label>',btn('Вернуться к отправке','back-send')+btn('Сохранить в историю','confirm-sent','primary','disabled'));}function finishSent(){if(!$('#sent-check')||!$('#sent-check').checked||!freshPreview())return;var p=preview;if(state.histories[p.point.id]&&state.histories[p.point.id].some(function(h){return h.id===p.id;})){closeModal();toast('Эта заявка уже есть в истории.');return;}var cleared=JSON.stringify(currentDraft())===p.draftSignature;var ok=commit(function(s){var list=s.histories[p.point.id]||[];list.unshift(_objectSpread(_objectSpread({},K.clone(p)),{},{ts:Date.now()}));s.histories[p.point.id]=list.slice(0,40);if(cleared)s.drafts[p.point.id]=K.draft(null);},true);if(!ok){toast('Не удалось сохранить историю. Корзина оставлена — не закрывайте вкладку.');return;}preview=null;mode='order';closeModal();renderAll();toast(cleared?'Заявка сохранена в историю.':'Заявка в истории. Новые изменения в корзине сохранены.');}function openHistory(){if(!point()){checkoutAfterPoint=false;openPoints();return;}var hs=currentHistory();var h='<p class="intro-copy">'+K.esc(point().name)+' · '+K.esc(point().addr)+'</p>';if(!hs.length)h+='<div class="empty-state"><span class="empty-symbol">'+icon('history')+'</span><h3>Заявок пока нет</h3><p>Здесь появятся заявки, которые вы отметите отправленными.</p></div>';else h+=hs.map(function(o,i){return'<article class="history-card"><div class="history-top"><strong>'+K.dateLabel(o.ts)+' · '+K.timeLabel(o.ts)+'</strong><small>Отмечена отправленной</small></div><p>Заказ: '+Object.keys(o.order).length+' поз.'+(Object.keys(o.exch).length?' · Обмен: '+Object.keys(o.exch).length+' поз.':'')+'<br>'+K.esc(Object.keys(o.order).slice(0,3).join(', '))+'</p><div class="history-actions">'+btn('Посмотреть','history-view','secondary','data-index="'+i+'"')+(Object.keys(o.order).length?btn('Повторить товары','repeat','primary','data-index="'+i+'"'):'')+'</div></article>';}).join('');openModal('history','Мои заявки',h,'','ИСТОРИЯ ЭТОГО МАГАЗИНА');}function repeatOrder(index){var o=currentHistory()[index];if(!o)return;var action=function action(){if(!commit(function(){var d=K.draft(null);d.order=K.normalizedCart(o.order);touchDraft(d);state.drafts[state.activeId]=d;}))return;mode='order';category='all';query='';$('#search').value='';closeModal();renderAll();toast('Товары добавлены. Обмены и примечание не повторяются — проверьте заявку.');};if(K.count(currentDraft())||currentDraft().note)confirm('Заменить текущую корзину?','В корзину попадут товары из выбранной заявки. Текущие товары, обмены и примечание будут заменены.',action,'Заменить');else action();}function openSettings(){openModal('settings','Настройки','<section class="card"><h3>Размер текста</h3><div class="font-options">'+['normal','large'].map(function(f){return btn(f==='normal'?'Обычный':'Крупный','font',f===state.font?'active':'','data-font="'+f+'" aria-pressed="'+(f===state.font)+'"');}).join('')+'</div></section><section class="card"><h3>Напоминание о заявке</h3><p>В день приёма после 9:00 по Москве. Сайт должен оставаться открытым: при закрытой странице напоминание не придёт.</p>'+btn(state.reminders?'Выключить напоминания':'Включить напоминания','reminders','secondary full setting-action')+'</section><section class="card"><h3>Данные на этом устройстве</h3><p>Магазины, черновики и история хранятся в этом браузере. Сохраните копию перед его очисткой или сменой устройства.</p>'+btn(icon('download')+' Скачать копию данных','export-data','secondary full setting-action')+'</section><p class="settings-foot">КМЗ №1 · версия '+VERSION+'<br>Каталог '+pack.version+' · '+items.length+' товаров</p>');var exportButton=$('#modal [data-action="export-data"]');exportButton.insertAdjacentHTML('afterend',btn('Восстановить из копии','import-data','link-button full'));}var reminderBusy=false,lastReminder='';function reminderTick(){return _reminderTick.apply(this,arguments);}function _reminderTick(){_reminderTick=_asyncToGenerator(_regenerator().m(function _callee5(){var now,dv,hour,day,opts,reg,_t5,_t6;return _regenerator().w(function(_context5){while(1)switch(_context5.p=_context5.n){case 0:if(!(!state.reminders||reminderBusy||document.visibilityState==='hidden'||typeof Notification==='undefined'||Notification.permission!=='granted')){_context5.n=1;break;}return _context5.a(2);case 1:now=Date.now(),dv=K.delivery(now),hour=new Date(now+10800000).getUTCHours(),day=K.dateKey(now);if(!(!dv.today||hour<9||lastReminder===day||read('kmz_reminder_day','')===day)){_context5.n=2;break;}return _context5.a(2);case 2:reminderBusy=true;_context5.p=3;opts={body:'КМЗ №1: заявку принимаем до 14:00. Доставка — '+dv.label,icon:'icons/icon-192.png',tag:'kmz-order-'+day};if(!navigator.serviceWorker){_context5.n=5;break;}_context5.n=4;return navigator.serviceWorker.getRegistration();case 4:_t5=_context5.v;_context5.n=6;break;case 5:_t5=null;case 6:reg=_t5;if(!(reg&&reg.showNotification)){_context5.n=8;break;}_context5.n=7;return reg.showNotification('Сегодня день заказа',opts);case 7:_context5.n=9;break;case 8:new Notification('Сегодня день заказа',opts);case 9:lastReminder=day;try{localStorage.setItem('kmz_reminder_day',JSON.stringify(day));}catch(e){}_context5.n=11;break;case 10:_context5.p=10;_t6=_context5.v;case 11:_context5.p=11;reminderBusy=false;return _context5.f(11);case 12:return _context5.a(2);}},_callee5,null,[[3,10,11,12]]);}));return _reminderTick.apply(this,arguments);}function toggleReminder(){return _toggleReminder.apply(this,arguments);}function _toggleReminder(){_toggleReminder=_asyncToGenerator(_regenerator().m(function _callee6(){var permission,_t7;return _regenerator().w(function(_context6){while(1)switch(_context6.p=_context6.n){case 0:if(!state.reminders){_context6.n=1;break;}commit(function(s){return s.reminders=false;});openSettings();return _context6.a(2);case 1:if(!(typeof Notification==='undefined')){_context6.n=2;break;}toast('Этот браузер не поддерживает уведомления.');return _context6.a(2);case 2:_context6.p=2;_context6.n=3;return Notification.requestPermission();case 3:permission=_context6.v;if(!(permission!=='granted')){_context6.n=4;break;}toast('Разрешение на уведомления не выдано.');return _context6.a(2);case 4:if(commit(function(s){return s.reminders=true;})){openSettings();toast('Напоминания включены, пока сайт открыт.');reminderTick();}_context6.n=6;break;case 5:_context6.p=5;_t7=_context6.v;toast('Не удалось включить уведомления в этом браузере.');case 6:return _context6.a(2);}},_callee6,null,[[2,5]]);}));return _toggleReminder.apply(this,arguments);}function removeRow(name,m){if(!['order','exch'].includes(m))return;if(commit(function(){delete currentDraft()[m][name];touchDraft(currentDraft());})){updateQuantities();if(modalView==='cart')openCart();}}function importData(_x2){return _importData.apply(this,arguments);}function _importData(){_importData=_asyncToGenerator(_regenerator().m(function _callee7(file){var text,data,restored,_i11,_Object$entries4,_Object$entries4$_i,id,raw,_t8;return _regenerator().w(function(_context7){while(1)switch(_context7.p=_context7.n){case 0:if(file){_context7.n=1;break;}return _context7.a(2);case 1:if(!(file.size>3*1024*1024)){_context7.n=2;break;}toast('Файл слишком большой. Выберите копию данных размером до 3 МБ.');return _context7.a(2);case 2:_context7.p=2;_context7.n=3;return new Promise(function(resolve,reject){var reader=new FileReader();reader.onload=function(){return resolve(reader.result);};reader.onerror=function(){return reject(reader.error);};reader.readAsText(file);});case 3:text=_context7.v;data=JSON.parse(text);if(!(!data||data.format!=='kmz-orders'||!data.state||data.state.schema!==3||!Array.isArray(data.state.points)||!K.record(data.state.drafts)||!K.record(data.state.histories))){_context7.n=4;break;}throw new Error('format');case 4:restored=K.normalizeState(data.state);if(!(restored.points.length!==data.state.points.length)){_context7.n=5;break;}throw new Error('points');case 5:_i11=0,_Object$entries4=Object.entries(data.state.drafts);case 6:if(!(_i11<_Object$entries4.length)){_context7.n=8;break;}_Object$entries4$_i=_slicedToArray(_Object$entries4[_i11],2),id=_Object$entries4$_i[0],raw=_Object$entries4$_i[1];if(!(!restored.drafts[id]||!K.record(raw.order)||!K.record(raw.exch)||Object.keys(K.normalizedCart(raw.order)).length!==Object.keys(raw.order).length||Object.keys(K.normalizedCart(raw.exch)).length!==Object.keys(raw.exch).length)){_context7.n=7;break;}throw new Error('draft');case 7:_i11++;_context7.n=6;break;case 8:confirm('Восстановить данные из копии?','Будут загружены магазины ('+restored.points.length+'), их корзины, история и избранное. Текущие данные в этом браузере будут заменены.',function(){if(commit(function(s){return Object.assign(s,restored);},true)){preview=null;closeModal();renderAll();toast('Магазины, корзины и история восстановлены.');}else toast('Не удалось сохранить данные. Текущая версия оставлена.');},'Восстановить');_context7.n=10;break;case 9:_context7.p=9;_t8=_context7.v;toast('Файл повреждён или не является копией данных этого сайта.');case 10:return _context7.a(2);}},_callee7,null,[[2,9]]);}));return _importData.apply(this,arguments);}document.addEventListener('click',function(e){var el=e.target.closest('[data-action]');if(!el||el.disabled)return;var a=el.dataset.action,id=Number(el.dataset.id),m=el.dataset.mode||mode;if(a==='plus'||a==='minus'){var it=items[id];if(it){var q=(currentDraft()[m][it.n]||{}).qty||0;setQty(id,Math.max(0,Math.round((q+(a==='plus'?1:-1)*(it.u==='шт'?1:it.step||1))*100)/100),m);}return;}if(a==='category'||a==='favorites'||a==='reset-filter'){var _$;category=a==='category'?el.dataset.category:a==='favorites'?category==='favorites'?'all':'favorites':'all';query='';$('#search').value='';renderCategories();renderProducts();(_$=$('#catalog-panel'))===null||_$===void 0||_$.scrollIntoView({block:'start'});return;}if(a==='clear-search'){query='';$('#search').value='';renderProducts();$('#search').focus();return;}if(a==='favorite'){var _it=items[id];if(_it&&commit(function(s){var n=s.favorites.indexOf(_it.n);if(n<0)s.favorites.push(_it.n);else s.favorites.splice(n,1);})){renderCategories();renderProducts();}return;}if(a==='mode'){mode=el.dataset.mode;renderChrome();renderProducts();return;}if(a==='points'){checkoutAfterPoint=false;openPoints();return;}if(a==='new-point'){editPoint();return;}if(a==='edit-point'){editPoint(el.dataset.point);return;}if(a==='pick-point'){if(commit(function(s){return s.activeId=el.dataset.point;})){mode='order';renderAll();if(checkoutAfterPoint){checkoutAfterPoint=false;openCart();}else closeModal();}return;}if(a==='save-point'){e.preventDefault();savePoint();return;}if(a==='delete-point'){var p=state.points.find(function(p){return p.id===editingId;});if(p)confirm('Удалить магазин?','Магазин «'+p.name+'», его черновик и история будут удалены из этого браузера.',function(){if(commit(function(s){s.points=s.points.filter(function(x){return x.id!==p.id;});delete s.drafts[p.id];delete s.histories[p.id];if(s.activeId===p.id)s.activeId=s.points[0]?s.points[0].id:'guest';})){renderAll();openPoints();}},'Удалить',true);return;}if(a==='close'){checkoutAfterPoint=false;closeModal();return;}if(a==='cart'){openCart();return;}if(a==='cart-point'){checkoutAfterPoint=true;editPoint(state.activeId);return;}if(a==='remove'){removeRow(el.dataset.name,m);return;}if(a==='reason'){if(commit(function(){var v=currentDraft().exch[el.dataset.name];if(v)v.reason=el.dataset.reason;touchDraft(currentDraft());})){openCart();}return;}if(a==='clear'){confirm('Очистить корзину?','Товары, обмены и примечание текущего магазина будут удалены. История останется.',function(){if(commit(function(){return state.drafts[state.activeId]=K.draft(null);})){closeModal();renderAll();toast('Корзина очищена.');}},'Очистить',true);return;}if(a==='confirm-task'){var task=confirmTask;confirmTask=null;if(task)task();return;}if(a==='cancel-confirm'){closeModal();return;}if(a==='review'){makePreview();return;}if(a==='share'){shareOrder();return;}if(a==='copy'){copyOrder();return;}if(a==='whatsapp'||a==='telegram'){external(a);return;}if(a==='download-text'){downloadText();return;}if(a==='image'){imageOrder();return;}if(a==='sent'){confirmSent();return;}if(a==='confirm-sent'){finishSent();return;}if(a==='back-send'){openSend();return;}if(a==='history'){openHistory();return;}if(a==='repeat'){repeatOrder(Number(el.dataset.index));return;}if(a==='history-view'){var o=currentHistory()[Number(el.dataset.index)];if(o)openModal('history-view','Заявка от '+K.dateLabel(o.ts),rowsHTML(o,false)+(o.note?'<div class="card"><h3>Примечание</h3><p>'+K.esc(o.note)+'</p></div>':''),btn('К истории','history'));return;}if(a==='settings'){openSettings();return;}if(a==='font'){if(commit(function(s){return s.font=el.dataset.font;})){renderAll();openSettings();}return;}if(a==='reminders'){toggleReminder();return;}if(a==='import-data'){var input=document.createElement('input');input.type='file';input.accept='.json,application/json';input.addEventListener('change',function(){return importData(input.files[0]);});input.click();return;}if(a==='export-data'){download(new Blob([JSON.stringify({format:'kmz-orders',exportedAt:new Date().toISOString(),state:state},null,2)],{type:'application/json'}),'КМЗ_данные_'+K.dateKey(Date.now())+'.json');toast('Копия данных подготовлена для скачивания.');return;}if(a==='reload-state'){var next=read(STATE_KEY,null);if(next&&next.schema===3){state=K.normalizeState(next);lastRevision=state.revision;conflict=false;preview=null;closeModal();renderAll();toast('Изменения загружены.');}return;}if(a==='apply-update'){if(pendingCatalog){try{localStorage.setItem('kmz_catalogPack',JSON.stringify(pendingCatalog));location.reload();}catch(e){toast('Не удалось сохранить обновление: проверьте свободное место в браузере.');}}return;}});document.addEventListener('submit',function(e){if(e.target.id==='point-form'){e.preventDefault();savePoint();}});document.addEventListener('change',function(e){if(e.target.matches('[data-qty]'))setQty(Number(e.target.dataset.qty),e.target.value);if(e.target.id==='sent-check')$('[data-action="confirm-sent"]').disabled=!e.target.checked;});document.addEventListener('input',function(e){if(e.target.id==='order-note'){var value=e.target.value;commit(function(){currentDraft().note=value.slice(0,2000);touchDraft(currentDraft());});}});var searchTimer;$('#search').addEventListener('input',function(e){query=e.target.value;if(query)category='all';clearTimeout(searchTimer);searchTimer=setTimeout(function(){renderCategories();renderProducts();},100);});document.addEventListener('keydown',function(e){if(e.target.matches('[data-qty]')&&e.key==='Enter'){e.preventDefault();e.target.blur();return;}if($('#modal-overlay').hidden)return;if(e.key==='Escape'){e.preventDefault();closeModal();return;}if(e.key==='Tab'){var f=Array.from($('#modal').querySelectorAll('button:not(:disabled),input:not(:disabled),textarea,a[href],[tabindex="0"]')).filter(function(x){return x.getClientRects().length;});if(!f.length){e.preventDefault();return;}if(e.shiftKey&&(document.activeElement===f[0]||document.activeElement===$('#modal'))){e.preventDefault();f[f.length-1].focus();}else if(!e.shiftKey&&document.activeElement===f[f.length-1]){e.preventDefault();f[0].focus();}}});$('#modal-overlay').addEventListener('click',function(e){if(e.target===$('#modal-overlay'))closeModal();});window.addEventListener('popstate',function(){return closeModal(true);});window.addEventListener('storage',function(e){if(e.key===STATE_KEY&&e.newValue){var latest=read(STATE_KEY,null);if(latest&&latest.revision!==lastRevision){conflict=true;notices();}}});window.addEventListener('online',function(){return toast('Соединение восстановлено.');});window.addEventListener('offline',function(){return toast('Нет сети. Можно продолжить набор; для отправки понадобится интернет.');});icons();renderAll();window.KMZ_READY=true;try{history.replaceState({kmzModal:false},'');}catch(e){}setInterval(function(){renderDelivery();reminderTick();},60000);reminderTick();document.addEventListener('visibilitychange',function(){if(document.visibilityState==='visible'){renderDelivery();reminderTick();}});if(location.protocol!=='file:'&&window.fetch){fetch('./catalog-update.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(p){if(K.validCatalog(p)&&p.version>pack.version){pendingCatalog=p;$('#catalog-update').hidden=false;}}).catch(function(){});}})();;if(!window.KMZ_READY)throw new Error("STARTUP_INCOMPLETE");if(window.KMZ_BOOT)window.KMZ_BOOT.done();}catch(error){if(window.KMZ_BOOT)window.KMZ_BOOT.fail("APP_ERROR",error);if(window.console)console.error(error);}})();
+</script>
+<script>window.KMZ_TAIL=1;</script>
 </body>
 </html>
