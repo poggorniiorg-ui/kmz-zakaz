@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#0A0F17" media="(prefers-color-scheme: dark)">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&family=Unbounded:wght@700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700;800&display=swap">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="format-detection" content="telephone=no">
   <link rel="icon" href="icons/icon-192.png" media="(prefers-color-scheme: light)">
@@ -871,6 +871,33 @@ body{letter-spacing:-.005em;text-rendering:optimizeLegibility;font-feature-setti
 .sg-q button svg{width:17px;height:17px;stroke-width:2.4}
 .sugg-all{display:block;width:100%;padding:11px;margin-top:4px;border-radius:12px;text-align:center;font:600 14px var(--f);color:var(--acc);background:var(--acc-soft)}
 .inb em{font-style:normal}
+
+/* ---------- один шрифт на весь сайт ---------- */
+:root{--d:"Onest",-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Roboto,sans-serif!important;--dn:var(--d)}
+body,button,input,textarea,select,h1,h2,h3,h4,b,strong,small,span,a,p,.dday b,.ps-big,.ps-big.w,.big,.sg-img,.qbig b{font-family:"Onest",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif!important}
+.dday b{font-weight:800!important;letter-spacing:-.05em!important;color:var(--head)!important;font-size:25px!important}
+.ps-big{font-weight:800!important;letter-spacing:-.05em!important}
+.list-heading h2,.group-label,.product-name,.delivery strong,.psh-b h3,.basket-heading h2,.modal-head h2,.repeat-t b,.snd-top b,.drawer-head b,.brand strong,.mobile-brand strong,.rail-contact p,.cutbar b,.done-card b,.confirm-copy strong,.sg-t b{color:var(--head)!important;letter-spacing:-.03em!important}
+.cutbar b,.done-card b{color:inherit!important}
+.list-heading h2{font-weight:800!important}
+.group-label,.psh-b h3,.basket-heading h2,.modal-head h2{font-weight:750!important}
+.product-name,.sg-t b{font-weight:650!important}
+.mobile-category,.category,.mode-tabs>button,.tabbar button,.btn,.primary,.secondary,.sugg-all,#hide{font-weight:600!important;letter-spacing:-.015em!important}
+.mobile-category:not(.active),.category:not(.active){color:var(--head)!important}
+.eyebrow,.delivery small,.point-switch small,.dlbl,.rail-heading,.snd-h,.modal-head small,.repeat-t small,.group-label small{font-weight:700!important;letter-spacing:.1em!important}
+.group-label small{letter-spacing:0!important;font-weight:600!important;text-transform:none}
+.point-switch strong{color:var(--head);font-weight:700;letter-spacing:-.02em}
+
+/* ---------- глубокий синий на всём тексте ---------- */
+:root{--head:#12307E;--ink:#15296A;--ink2:#4A5C8C;--mute:#8C98B8}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]){--head:#C9D6FF;--ink:#DCE4FF;--ink2:#A5B3D9;--mute:#7482A8}}
+:root[data-theme=dark]{--head:#C9D6FF;--ink:#DCE4FF;--ink2:#A5B3D9;--mute:#7482A8}
+.list-heading h2,.delivery strong,.psh-b h3,.basket-heading h2,.modal-head h2,.drawer-head b,.brand strong,.mobile-brand strong{background:linear-gradient(100deg,var(--head) 0%,color-mix(in srgb,var(--head) 55%,var(--acc)) 100%)!important;-webkit-background-clip:text!important;background-clip:text!important;color:transparent!important;-webkit-text-fill-color:transparent}
+.product-name,.group-label,.point-switch strong,.repeat-t b,.snd-top b,.sg-t b,.rail-contact p,.mobile-category:not(.active),.category:not(.active),.mode-tabs>button:not(.active),.review-row strong,.basket-item-name,.history-top strong,.point-pick strong,.field>span,.card h3{color:var(--head)!important}
+.product-meta>span,.tg,.totals span,.snd-chips span:not(.o):not(.x){color:var(--ink2)}
+.qty input{color:var(--head)}
+.product.selected .qty input{color:var(--acc-ink)}
+.tabbar button:not(.on){color:var(--mute)}
 
 </style>
 </head>
