@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Проверка сайта</title>
+<style>body{font:16px/1.45 system-ui,sans-serif;margin:16px;background:#fff;color:#111}b{display:inline-block;min-width:9em}div{padding:6px 0;border-bottom:1px solid #ddd;word-break:break-word}.ok{color:#080}.bad{color:#c00}</style>
+</head><body><h3>Проверка сайта заявок</h3><div id="out">Проверяю…</div>
+<script>
+(async function(){
+ var o=[];function row(k,v,ok){o.push('<div><b>'+k+'</b> <span class="'+(ok===true?'ok':ok===false?'bad':'')+'">'+v+'</span></div>');document.getElementById('out').innerHTML=o.join('');}
+ row('Время телефона',new Date().toString());
+ row('Браузер',navigator.userAgent);
+ try{var regs=navigator.serviceWorker?await navigator.serviceWorker.getRegistrations():[];row('Service worker',regs.length?regs.map(function(r){var w=r.active||r.waiting||r.installing;return (w&&w.scriptURL)+' (scope '+r.scope+')';}).join('<br>'):'нет',regs.length?false:true);}catch(e){row('Service worker','ошибка '+e,false)}
+ try{var ctl=navigator.serviceWorker&&navigator.serviceWorker.controller;row('Страницей управляет SW',ctl?ctl.scriptURL:'нет',!ctl);}catch(e){}
+ try{var r=await fetch('./?diag='+Date.now(),{cache:'no-store'});var t=await r.text();row('Главная страница',(r.status)+', '+t.length+' байт, стоп-лист в коде: '+(t.indexOf('kmzStopSync')>=0?'ДА':'НЕТ'),t.indexOf('kmzStopSync')>=0);}catch(e){row('Главная страница','ошибка '+e,false)}
+ try{var r2=await fetch('./stop.json?t='+Date.now(),{cache:'no-store'});var j=await r2.json();row('stop.json',r2.status+': '+JSON.stringify(j),true);}catch(e){row('stop.json','ошибка '+e,false)}
+ try{var ks=[];for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);ks.push(k+' ('+(localStorage.getItem(k)||'').length+')');}row('Память сайта',ks.join(', ')||'пусто');}catch(e){row('Память сайта','ошибка '+e)}
+ try{if('caches' in window){var cn=await caches.keys();row('Кэш приложения',cn.length?cn.join(', '):'нет',!cn.length);}}catch(e){}
+ var f=document.createElement('iframe');f.style.cssText='width:360px;height:300px;border:1px solid #ccc';f.src='./?diagframe='+Date.now();document.body.appendChild(f);
+ var n=0,t0=setInterval(function(){n++;try{var w=f.contentWindow,d=f.contentDocument;if(w&&w.KMZ_READY&&(w.KMZ_STOP_DATA||n>20)){clearInterval(t0);var k=w.KMZ.delivery();row('Сайт в окне',' дата доставки '+k.key+', стоп-лист загружен: '+(w.KMZ_STOP_DATA?'да':'НЕТ')+', позиций '+((w.KMZ_STOP_NOW||[]).length)+', замков ⛔ на странице: '+d.querySelectorAll('.kmz-out-lock').length,d.querySelectorAll('.kmz-out-lock').length>0);}else if(n>30){clearInterval(t0);row('Сайт в окне','не запустился за 15 с: '+(d&&d.getElementById('startup-message')?d.getElementById('startup-message').textContent:'?'),false);}}catch(e){clearInterval(t0);row('Сайт в окне','ошибка '+e,false);}},500);
+})();
+</script></body></html>
