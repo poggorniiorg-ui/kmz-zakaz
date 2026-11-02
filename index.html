@@ -1339,5 +1339,6 @@ document.addEventListener('click',function(e){var t=e.target;
 document.addEventListener('keydown',function(e){if(e.key==='Escape'){if(!lb.hidden)lbClose();else if(!dr.hidden)close();}});
 })();</script>
 
+<script>/* Ярлык приложения «Повторить прошлую заявку»: ?go=repeat */(function(){try{if(new URLSearchParams(location.search).get('go')!=='repeat')return;var n=0,t=setInterval(function(){var b=document.querySelector('.rp-btn[data-action="repeat"]');if(b){clearInterval(t);history.replaceState(null,'',location.pathname);b.click();}else if(++n>40){clearInterval(t);}},250);}catch(e){}})();</script>
 </body>
 </html>
