@@ -1,0 +1,49 @@
+/* Компактная доставка и повтор заявки. Только мобильный экран. */
+@media (max-width:760px) {
+  .page-intro{margin-bottom:10px}
+  .delivery{
+    display:grid;grid-template-columns:40px minmax(0,1fr);align-items:center;
+    gap:7px 9px!important;padding:9px 11px!important;margin-top:4px;
+    border-radius:16px!important;
+  }
+  .delivery .dday{width:40px!important;height:45px!important;border-radius:11px!important}
+  .delivery .dday small{font-size:8px!important;letter-spacing:.06em!important;padding:4px 0 3px}
+  .delivery .dday b{font-size:20px!important}
+  .delivery .dday::before,.delivery .dday::after{width:3px;height:3px;top:5px}
+  .delivery>div:not(.dweek)>small{font-size:9px;line-height:1.2;letter-spacing:.06em!important}
+  .delivery #delivery-date{font-size:15px!important;line-height:1.3;margin:1px 0}
+  .delivery #delivery-deadline{font-size:12px!important;line-height:1.3;gap:5px;margin-top:2px;align-items:baseline}
+  .delivery #delivery-deadline::before{width:5px;height:5px;box-shadow:none}
+  .delivery .dweek{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,1fr);gap:6px;padding-top:7px}
+  .delivery .dw-days{display:flex;width:100%;gap:5px}
+  .delivery .dw-d{flex:1;flex-direction:row;gap:5px;min-width:0;height:27px;padding:3px 5px;border-radius:8px}
+  .delivery .dw-d b{font-size:11px;letter-spacing:.02em}
+  .delivery .dw-d i{font-size:10px;margin:0;white-space:nowrap}
+  .delivery .dw-t{display:none}
+  .delivery .dw-compact{display:flex!important;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:2px 8px;font-size:11.5px;line-height:1.35;color:var(--ink2)}
+  .delivery .dw-compact b{font-size:11.5px;line-height:1.35;font-weight:650;letter-spacing:0!important;color:var(--ok)}
+  .delivery .dw-compact.no b{color:var(--ex)}
+  .repeat.past{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:5px 10px;padding:9px 11px;margin:0 0 10px;border-radius:16px}
+  .repeat.past .rp-hd{grid-column:1/-1;gap:5px;flex-wrap:wrap;font-size:10px;line-height:1.35;letter-spacing:.035em}
+  .repeat.past .rp-hd em{font-size:9.5px;padding:2px 7px}
+  .repeat.past .repeat-t{margin:0;min-width:0}
+  .repeat.past .repeat-t b{font-size:13px!important;line-height:1.3;margin:0 0 2px}
+  .repeat.past .repeat-t span{font-size:12px;line-height:1.35;white-space:normal;overflow:visible;text-overflow:clip;overflow-wrap:anywhere}
+  .repeat.past .rp-btn{width:auto;min-width:104px;min-height:44px;margin:0;padding:7px 10px;border-radius:11px;font-size:13px;line-height:1.3;font-weight:700}
+  .repeat.past .rp-label-full,.repeat.past .rp-hint-full{display:none}
+  .repeat.past .rp-label-compact,.repeat.past .rp-hint-compact{display:inline!important}
+  .repeat.past .rp-hint{grid-column:1/-1;margin:0;text-align:left;font-size:11.5px;line-height:1.35;color:var(--ink2)}
+  html[data-font=large] .delivery #delivery-date{font-size:17px!important}
+  html[data-font=large] .delivery #delivery-deadline{font-size:14px!important}
+  html[data-font=large] .delivery .dw-compact,html[data-font=large] .delivery .dw-compact b{font-size:13px}
+  html[data-font=large] .repeat.past .repeat-t b{font-size:15px!important}
+  html[data-font=large] .repeat.past .repeat-t span{font-size:14px}
+  html[data-font=large] .repeat.past .rp-hint{font-size:13px}
+  html[data-font=large] .repeat.past .rp-btn{font-size:14px}
+}
+@media(max-width:359px){
+  .repeat.past{column-gap:7px}
+  .repeat.past .rp-btn{min-width:95px;padding-left:7px;padding-right:7px}
+  .delivery .dw-d{gap:3px;padding-left:3px;padding-right:3px}
+  .delivery .dw-d i{font-size:9.5px}
+}
