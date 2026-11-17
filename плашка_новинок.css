@@ -1,0 +1,26 @@
+/* Плашка перед доставкой: исходное фото целиком, вся карточка ведет к сырам. */
+.cheese-promo{
+  display:grid;grid-template-columns:minmax(0,2.6fr) minmax(190px,1fr);
+  align-items:stretch;width:100%;padding:0;margin:0 0 18px;overflow:hidden;
+  text-align:left;border:1px solid var(--line);border-radius:20px;
+  background:var(--card);color:var(--ink);box-shadow:var(--shadow);
+  transition:border-color .18s,box-shadow .18s;
+}
+.cheese-promo__image{display:block;width:100%;height:auto;align-self:center}
+.cheese-promo__copy{display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:17px;padding:22px}
+.cheese-promo__title{font-size:clamp(18px,1.8vw,25px);font-weight:650;line-height:1.25;letter-spacing:-.025em;max-width:240px}
+.cheese-promo__link{display:inline-flex;align-items:center;gap:8px;color:var(--acc);font-size:14px;line-height:1.35;font-weight:650}
+.cheese-promo__link svg{width:18px;height:18px;flex:none}
+.cheese-promo:focus-visible{outline:3px solid var(--acc);outline-offset:4px}
+@media(hover:hover){.cheese-promo:hover{border-color:var(--acc);box-shadow:0 7px 26px -16px var(--acc)}}
+@media(max-width:760px){
+  .cheese-promo{display:block;margin-bottom:12px;border-radius:16px}
+  .cheese-promo__copy{flex-direction:row;align-items:center;justify-content:space-between;gap:8px;padding:11px 13px;min-height:44px}
+  .cheese-promo__title{max-width:none;font-size:12px;line-height:1.3;letter-spacing:-.01em;color:var(--ink2)}
+  .cheese-promo__link{font-size:12px;white-space:nowrap;gap:5px}
+  .cheese-promo__link svg{width:16px;height:16px}
+}
+@media(max-width:359px){.cheese-promo__title{max-width:122px}.cheese-promo__copy{padding:9px 11px}}
+html[data-font=large] .cheese-promo__link{font-size:16px}
+@media(max-width:760px){html[data-font=large] .cheese-promo__copy{flex-wrap:wrap}html[data-font=large] .cheese-promo__title{font-size:14px}html[data-font=large] .cheese-promo__link{font-size:14px}}
+@media(prefers-reduced-motion:reduce){.cheese-promo{transition:none}}

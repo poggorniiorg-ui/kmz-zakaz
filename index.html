@@ -1172,6 +1172,7 @@ body,button,input,textarea,select,h1,h2,h3,h4,b,strong,small,span,a,p,.dday b,.p
 .product-min,.nx-lock,.late-note,.cutbar.late{border-radius:var(--r-sm)}
 </style>
 <link rel="stylesheet" href="./мобильный_вид.css">
+<link rel="stylesheet" href="плашка_новинок.css">
 </head>
 <body>
 <div class="splash" id="splash" hidden><img src="img/a682cd8208.png" alt=""><b>КМЗ №1</b><small>Заявки на продукцию</small><i></i></div><script>(function(){try{if((window.matchMedia&&matchMedia("(display-mode: standalone)").matches)||navigator.standalone){var s=document.getElementById("splash");s.hidden=false;window.__splashT=Date.now();}}catch(e){}})();</script>
@@ -1195,7 +1196,11 @@ body,button,input,textarea,select,h1,h2,h3,h4,b,strong,small,span,a,p,.dday b,.p
       <div id="storage-warning" class="notice warning" role="status" hidden></div>
       <div id="conflict-warning" class="notice warning" role="alert" hidden>Данные изменены в другой вкладке. <button data-action="reload-state">Загрузить изменения</button></div>
       <div id="catalog-update" class="notice" role="status" hidden>Доступен обновлённый каталог. <button data-action="apply-update">Применить обновление</button></div>
-      <div class="cutbar" id="cutbar" hidden></div><div class="page-intro"><div><div class="eyebrow">ЗАКАЗ И ОБМЕН</div><h1>Новая заявка<span>.</span></h1><p>Всё нужное для вашей торговой точки.</p></div><div class="delivery"><span class="dday" id="delivery-day"><span data-icon="truck"></span></span><div><small>Ближайшая доставка</small><strong id="delivery-date">Уточняем дату…</strong><span id="delivery-deadline"></span></div></div></div>
+      <div class="cutbar" id="cutbar" hidden></div><button class="cheese-promo" type="button" data-action="category" data-category="tverdye" aria-label="Новинки — перейти в категорию Сыр твёрдый">
+        <img class="cheese-promo__image" src="img/Новинки_сыров.png" width="1983" height="793" alt="Новинки: Фрибург, Сырный Вельможа, Тильзитер, Кабаре, Дамский каприз, Российский, Мистер Гринн, Герц, Сметанковый и Сливочный" fetchpriority="high">
+        <span class="cheese-promo__copy"><span class="cheese-promo__title">Сыры для вашей витрины</span><span class="cheese-promo__link">Смотреть сыры <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span></span>
+      </button>
+      <div class="page-intro"><div><div class="eyebrow">ЗАКАЗ И ОБМЕН</div><h1>Новая заявка<span>.</span></h1><p>Всё нужное для вашей торговой точки.</p></div><div class="delivery"><span class="dday" id="delivery-day"><span data-icon="truck"></span></span><div><small>Ближайшая доставка</small><strong id="delivery-date">Уточняем дату…</strong><span id="delivery-deadline"></span></div></div></div>
       <div id="repeat-box" hidden></div><div class="workspace">
         <main class="catalog" id="catalog-panel">
           <div class="catalog-tools"><div class="mode-tabs" role="group" aria-label="Тип заявки"><button data-action="mode" data-mode="order" class="active" aria-pressed="true"><span data-icon="box"></span>Заказ <span id="order-count" class="counter">0</span></button><button data-action="mode" data-mode="exch" class="return-tab" aria-pressed="false"><span data-icon="exchange"></span>Обмен <span id="exchange-count" class="counter">0</span></button></div><div class="search-row"><label class="search"><span data-icon="search"></span><input id="search" type="search" autocomplete="off" placeholder="Найти молоко, творог, сыр…" aria-label="Поиск товаров"><button id="search-clear" data-action="clear-search" type="button" aria-label="Очистить поиск" hidden><span data-icon="close"></span></button></label><button class="favorite-filter icon-button" data-action="favorites" aria-label="Показать избранное" aria-pressed="false"><span data-icon="heart"></span></button></div><nav id="mobile-categories" class="mobile-categories" aria-label="Категории товаров"></nav></div>
