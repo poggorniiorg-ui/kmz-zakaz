@@ -24,3 +24,11 @@
 html[data-font=large] .cheese-promo__link{font-size:16px}
 @media(max-width:760px){html[data-font=large] .cheese-promo__copy{flex-wrap:wrap}html[data-font=large] .cheese-promo__title{font-size:14px}html[data-font=large] .cheese-promo__link{font-size:14px}}
 @media(prefers-reduced-motion:reduce){.cheese-promo{transition:none}}
+
+.promo-carousel{position:relative;margin:0 0 18px;touch-action:pan-y}
+.promo-carousel .cheese-promo{margin:0}
+.promo-carousel .cheese-promo[hidden]{display:none!important}
+.promo-carousel .cheese-promo__image{width:100%;aspect-ratio:1983/793;object-fit:contain}
+@media(max-width:760px){.promo-carousel{margin-bottom:12px}}
+@media(prefers-reduced-motion:no-preference){.promo-carousel .cheese-promo:not([hidden]){animation:promo-appear .28s ease-out}
+  @keyframes promo-appear{from{opacity:.68}to{opacity:1}}}

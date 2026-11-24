@@ -1,0 +1,297 @@
+{
+  "groups": [
+    {
+      "id": "milk",
+      "title": "Молоко",
+      "description": "Питьевое пастеризованное",
+      "category": "moloko",
+      "documents": [
+        {
+          "title": "Молоко питьевое пастеризованное",
+          "products": "Жирность 2,5%, 2,7%, 3,2% и 3,5%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА11.В.81789/24",
+          "validFrom": "25.12.2024",
+          "validUntil": "24.12.2027",
+          "file": "docs/milk.pdf"
+        }
+      ]
+    },
+    {
+      "id": "kefir",
+      "title": "Кефир",
+      "description": "Кефир КМЗ №1",
+      "category": "kefir",
+      "documents": [
+        {
+          "title": "Кефир",
+          "products": "Жирность 1%, 2,5% и 3,2%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА06.В.57758/24",
+          "validFrom": "30.07.2024",
+          "validUntil": "30.07.2027",
+          "file": "docs/kefir.pdf"
+        }
+      ]
+    },
+    {
+      "id": "drinks",
+      "title": "Ряженка и снежок",
+      "description": "Кисломолочные напитки",
+      "category": "ryazhenka",
+      "documents": [
+        {
+          "title": "Ряженка",
+          "products": "Жирность 1%, 2,5%, 3,2% и 4%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА01.В.73081/25",
+          "validFrom": "06.02.2025",
+          "validUntil": "05.02.2028",
+          "file": "docs/ryazhenka.pdf"
+        },
+        {
+          "title": "Снежок",
+          "products": "Кисломолочный йогуртный напиток с сахаром.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА05.В.66482/24",
+          "validFrom": "03.07.2024",
+          "validUntil": "02.07.2027",
+          "file": "docs/snezhok.pdf"
+        }
+      ]
+    },
+    {
+      "id": "sour-cream",
+      "title": "Сметана ГОСТ",
+      "description": "Фасованная и весовая",
+      "category": "smetana-f",
+      "documents": [
+        {
+          "title": "Сметана ГОСТ",
+          "products": "Жирность 15%, 20%, 25% и 30%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА10.В.23153/24",
+          "validFrom": "06.11.2024",
+          "validUntil": "05.11.2027",
+          "file": "docs/sour-cream.pdf"
+        }
+      ]
+    },
+    {
+      "id": "sour-cream-products",
+      "title": "Сметанные продукты",
+      "description": "Кремы на растительных маслах со сметаной",
+      "category": "smetana-zmzh",
+      "documents": [
+        {
+          "title": "Кремы на растительных маслах со сметаной",
+          "products": "Жирность 10%, 15%, 20%, 25% и 30%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА04.В.48901/25",
+          "validFrom": "20.05.2025",
+          "validUntil": "19.05.2030",
+          "file": "docs/sour-cream-products.pdf"
+        }
+      ]
+    },
+    {
+      "id": "curd",
+      "title": "Творог",
+      "description": "Творог ГОСТ и творог в барьерных пакетах",
+      "category": "tvorog",
+      "documents": [
+        {
+          "title": "Творог ГОСТ",
+          "products": "Обезжиренный, 2%, 5%, 7%, 9%, 15%, 18% и 23%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА01.В.10170/25",
+          "validFrom": "14.01.2025",
+          "validUntil": "13.01.2028",
+          "file": "docs/curd.pdf"
+        },
+        {
+          "title": "Творог в барьерных пакетах",
+          "products": "Обезжиренный, 2%, 5%, 9% и 18%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА03.В.33560/24",
+          "validFrom": "03.04.2024",
+          "validUntil": "02.04.2027",
+          "file": "docs/curd-barrier.pdf"
+        }
+      ]
+    },
+    {
+      "id": "curd-products",
+      "title": "Творожные продукты и массы",
+      "description": "«Фермерский», «Успенский» и массы с сухофруктами",
+      "category": "tvorog-zmzh",
+      "documents": [
+        {
+          "title": "Кремы на растительных маслах с творогом",
+          "products": "«Фермерский рассыпчатый», «Успенский рассыпчатый», с ванилином, с изюмом, курагой или вишней.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА01.В.44690/23",
+          "validFrom": "30.01.2023",
+          "validUntil": "29.01.2028",
+          "file": "docs/curd-products.pdf"
+        }
+      ]
+    },
+    {
+      "id": "soft-cheese",
+      "title": "Крестьянский и брынза",
+      "description": "Мягкий и рассольный сыры КМЗ №1",
+      "category": "krest",
+      "documents": [
+        {
+          "title": "Сыр мягкий «Крестьянский»",
+          "products": "Массовая доля жира в сухом веществе 45% и 50%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА10.В.23216/24",
+          "validFrom": "06.11.2024",
+          "validUntil": "05.11.2027",
+          "file": "docs/krestyanskiy.pdf"
+        },
+        {
+          "title": "Сыр рассольный «Брынза»",
+          "products": "Массовая доля жира в сухом веществе 40% и 45%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА10.В.23190/24",
+          "validFrom": "06.11.2024",
+          "validUntil": "05.11.2027",
+          "file": "docs/brynza.pdf"
+        }
+      ]
+    },
+    {
+      "id": "selskiy",
+      "title": "Сельский",
+      "description": "По технологии мягкого сыра, с ЗМЖ",
+      "category": "selsky",
+      "documents": [
+        {
+          "title": "Продукт с заменителем молочного жира",
+          "products": "По технологии мягкого сыра. ТУ 10.89.19-130-57710951-2021.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА03.В.61972/24",
+          "validFrom": "16.04.2024",
+          "validUntil": "15.04.2027",
+          "file": "docs/selskiy.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cheese",
+      "title": "Полутвёрдые сыры",
+      "description": "Мирослава, Сырградъ, Бабушкина крынка",
+      "category": "tverdye",
+      "documents": [
+        {
+          "title": "Мирослава · «Герц» и «Мистер Гринн»",
+          "products": "Сыры 50%. Полный ассортимент приведён в приложении.",
+          "manufacturer": "ООО «Брянский сыродельный завод»",
+          "number": "ЕАЭС N RU Д-RU.РА04.В.02115/25",
+          "validFrom": "29.04.2025",
+          "validUntil": "22.04.2028",
+          "file": "docs/miroslava-assortment.pdf"
+        },
+        {
+          "title": "«Герц» с грецким орехом и «Мистер Гринн» с пажитником",
+          "products": "Полутвёрдые сыры с добавками, включая жирность 50%.",
+          "manufacturer": "ООО «Брянский сыродельный завод»",
+          "number": "ЕАЭС N RU Д-RU.РА03.В.72611/25",
+          "validFrom": "17.04.2025",
+          "validUntil": "16.04.2028",
+          "file": "docs/miroslava-nuts.pdf"
+        },
+        {
+          "title": "Мирослава · «Дамский каприз»",
+          "products": "Сыр 50% со вкусом топлёного молока. Наименование приведено в приложении.",
+          "manufacturer": "ООО «Брянский сыродельный завод»",
+          "number": "ЕАЭС N RU Д-RU.РА03.В.72352/25",
+          "validFrom": "17.04.2025",
+          "validUntil": "14.04.2028",
+          "file": "docs/miroslava-damskiy.pdf"
+        },
+        {
+          "title": "Сырградъ · «Фрибург»",
+          "products": "Сыр «Фрибург» 45%.",
+          "manufacturer": "ОАО «Молочный Мир», Дятловский филиал",
+          "number": "ЕАЭС № BY/112 11.01. ТР033 007.02 08744",
+          "validFrom": "26.05.2026",
+          "validUntil": "25.05.2029",
+          "file": "docs/friburg.pdf"
+        },
+        {
+          "title": "Бабушкина крынка · «Тильзитер»",
+          "products": "Сыр Tilsiter 45%.",
+          "manufacturer": "ОАО «Бабушкина крынка», Славгородский филиал",
+          "number": "ЕАЭС № BY/112 11.01. ТР033 008.01 00690",
+          "validFrom": "20.12.2021",
+          "validUntil": "19.12.2026",
+          "file": "docs/tilsiter.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cheese-products",
+      "title": "Сырные продукты",
+      "description": "Ладушка Милк, Милана, «Российский пир»",
+      "category": "tverdye",
+      "documents": [
+        {
+          "title": "«Сливочный», «Сметанковый» и «Кабаре»",
+          "products": "Белково-жировые ферментированные продукты. «Сливочный» и «Сметанковый» 50% — Ладушка Милк. «Кабаре» 50% — Милана.",
+          "manufacturer": "ООО «Брянский сыродельный завод»",
+          "number": "ЕАЭС N RU Д-RU.РА03.В.62894/25",
+          "validFrom": "15.04.2025",
+          "validUntil": "13.04.2028",
+          "file": "docs/bryansk-fermented.pdf"
+        },
+        {
+          "title": "«Российский пир»",
+          "products": "Продукт полутвёрдый, 50%. Точное наименование приведено в приложении.",
+          "manufacturer": "ООО «Ястро-Переработка», Омск",
+          "number": "ЕАЭС N RU Д-RU.РА03.В.20569/24",
+          "validFrom": "29.03.2024",
+          "validUntil": "28.03.2027",
+          "file": "docs/rossiyskiy-pir.pdf"
+        }
+      ]
+    },
+    {
+      "id": "butter",
+      "title": "Масло сливочное",
+      "description": "Крестьянское, любительское и традиционное",
+      "category": "maslo",
+      "documents": [
+        {
+          "title": "Сладко-сливочное масло",
+          "products": "Крестьянское 72,5%, любительское 80% и традиционное 82,5%.",
+          "manufacturer": "ООО «Коноковский молочный завод №1»",
+          "number": "ЕАЭС N RU Д-RU.РА10.В.23110/24",
+          "validFrom": "06.11.2024",
+          "validUntil": "05.11.2027",
+          "file": "docs/butter.pdf"
+        }
+      ]
+    },
+    {
+      "id": "meat",
+      "title": "Намазки мясные",
+      "description": "С орехами и с салями",
+      "category": "namazki",
+      "documents": [
+        {
+          "title": "Намазки «С орехами» и «С салями»",
+          "products": "Брестские традиции. Декларация на изделия из термически обработанных ингредиентов.",
+          "manufacturer": "ПУП «Брестские традиции»",
+          "number": "ЕАЭС № BY/112 11.01. ТР034 000.00 14374",
+          "validFrom": "10.01.2023",
+          "validUntil": "09.01.2028",
+          "file": "docs/brest-spreads.pdf"
+        }
+      ]
+    }
+  ]
+}
